@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>wattpeak.de – Photovoltaik, Wp-Ertragsrechner &amp; Speichertechnik</title>
+    <meta name="description" content="Unabhängiges Fachportal für Photovoltaik-Dimensionierung, WattPeak (Wp) Berechnung nach DIN EN IEC 60904-3, 800W Balkonkraftwerke, Batteriespeicher und Solarpaket I." />
+    <meta name="keywords" content="WattPeak, Wp, Photovoltaik Ertragsrechner, Balkonkraftwerk 800W, Solarpaket 1, Batteriespeicher, TOPCon, Heterojunction, DIN EN IEC 60904-3" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://wattpeak.de/" />
+    <link rel="alternate" type="application/rss+xml" title="wattpeak.de RSS Feed" href="/feed.xml" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://wattpeak.de/" />
+    <meta property="og:title" content="wattpeak.de – Photovoltaik, Wp-Ertragsrechner &amp; Speichertechnik" />
+    <meta property="og:description" content="Physikalisch basierter PV-Ertragsrechner, unabhängiger Komponenten-Vergleich, 800W Stecker-Solar und Speichertechnik." />
+    <meta property="og:image" content="https://wattpeak.de/og-image.svg" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="wattpeak.de – Photovoltaik, Wp-Ertragsrechner &amp; Speichertechnik" />
+    <meta name="twitter:description" content="Physikalisch basierter PV-Ertragsrechner, unabhängiger Komponenten-Vergleich, 800W Stecker-Solar und Speichertechnik." />
+    <meta name="twitter:image" content="https://wattpeak.de/og-image.svg" />
+
+    <!-- Google Site Verification -->
+    <meta name="google-site-verification" content="rfUUH-OJgn7TmLu-wc9zH3qFBlSwh8HzekghZ6QNUIE" />
+
+    <!-- Vercel Web Analytics (DSGVO-konform, cookielos) -->
+    <script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+
+    <!-- Instant URL Sanitizer: Clean legacy query params and hashes -->
+    <script>
+      (function() {
+        if ((window.location.search || window.location.hash) && !window.location.pathname.startsWith('/rechner-embed')) {
+          try {
+            window.history.replaceState(null, '', window.location.pathname);
+          } catch (e) {}
+        }
+      })();
+    </script>
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://wattpeak.de/#website",
+          "url": "https://wattpeak.de/",
+          "name": "wattpeak.de",
+          "description": "Technisches Referenzportal für Photovoltaik-Dimensionierung, WattPeak-Berechnung und Speichertechnik",
+          "inLanguage": "de-DE"
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://wattpeak.de/#organization",
+          "name": "wattpeak.de Fachredaktion",
+          "url": "https://wattpeak.de/",
+          "logo": "https://wattpeak.de/favicon.svg"
+        },
+        {
+          "@type": "WebApplication",
+          "@id": "https://wattpeak.de/#calculator",
+          "name": "WattPeak Ertrags- & Leistungsrechner",
+          "applicationCategory": "UtilityApplication",
+          "operatingSystem": "All",
+          "offers": {
+            "@type": "Offer",
+            "price": "0.00",
+            "priceCurrency": "EUR"
+          },
+          "featureList": [
+            "STC-Leistungsdimensionierung nach DIN EN IEC 60904-3",
+            "Standortbezogene DWD-Globalstrahlungsanalyse",
+            "Zelltechnologie-Temperaturkoeffizienten (TOPCon, HJT, IBC)",
+            "800W Solarpaket I Balkonkraftwerk Amortisations-Simulator"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://wattpeak.de/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Was bedeutet die Einheit WattPeak (Wp)?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "WattPeak (Wp) bezeichnet die elektrische Höchstleistung eines Photovoltaikmoduls unter standardisierten Laborbedingungen (STC: 1.000 W/m² Einstrahlung, 25 °C Zelltemperatur, Spektrum AM 1,5 nach DIN EN IEC 60904-3)."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Was ist der Unterschied zwischen WattPeak (Wp) und Kilowattstunde (kWh)?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "WattPeak ist die Nennleistung (Momentanleistung) des Moduls, während Kilowattstunden (kWh) die tatsächliche Arbeitsmenge an erzeugtem Strom über die Zeit messen. 1.000 Wp (1 kWp) erzeugen in Deutschland jährlich etwa 900 bis 1.150 kWh Strom."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Welche Regeln gelten für 800-Watt-Balkonkraftwerke laut Solarpaket I?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Seit dem Solarpaket I dürfen Wechselrichter mit maximal 800 Watt AC-Einspeiseleistung betrieben werden. Die installierte Modul-Gleichstromleistung (DC) darf bis zu 2.000 Wp betragen. Zudem reicht eine vereinfachte Anmeldung im Marktstammdatenregister (MaStR) ohne gesonderte Netzanfrage beim Netzbetreiber."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Gilt für Photovoltaik-Komponenten 0 % Mehrwertsteuer?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Ja, gemäß § 12 Abs. 3 UStG gilt in Deutschland der Nullsteuersatz (0 % MwSt.) für die Lieferung und Installation von Solarmodulen, Speichern und wesentlichen Komponenten für begünstigte Wohngebäude."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

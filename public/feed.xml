@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>wattpeak.de – Fachportal für Photovoltaik, Solarenergie &amp; Speichertechnik</title>
+    <link>https://wattpeak.de/</link>
+    <description>Wissenschaftlich fundierte Ertragsberechnung, technische Kenndaten nach DIN EN IEC 60904-3, Solarpaket I und Speicher-Diagnostik.</description>
+    <language>de-DE</language>
+    <lastBuildDate>Tue, 08 Sep 2026 12:00:00 +0200</lastBuildDate>
+    <atom:link href="https://wattpeak.de/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>WattPeak (Wp) Definition und Messung unter STC-Bedingungen</title>
+      <link>https://wattpeak.de/#definition</link>
+      <guid>https://wattpeak.de/#definition</guid>
+      <pubDate>Tue, 08 Sep 2026 12:00:00 +0200</pubDate>
+      <description>Erklärung der physikalischen Einheit WattPeak (Wp) nach DIN EN IEC 60904-3 und Abgrenzung zu Kilowattstunden (kWh).</description>
+    </item>
+    <item>
+      <title>Solarpaket I: 800-Watt-Einspeisung und 2.000-Wp-Modullimit</title>
+      <link>https://wattpeak.de/balkonkraftwerk</link>
+      <guid>https://wattpeak.de/balkonkraftwerk</guid>
+      <pubDate>Tue, 08 Sep 2026 12:00:00 +0200</pubDate>
+      <description>Rechtliche Rahmenbedingungen für Stecker-Solargeräte, Schuko-Stecker-Norm und vereinfachte Registrierung im Marktstammdatenregister.</description>
+    </item>
+    <item>
+      <title>EU-Batterieverordnung 2023/1542 und digitaler Batteriepass</title>
+      <link>https://wattpeak.de/batteriepass</link>
+      <guid>https://wattpeak.de/batteriepass</guid>
+      <pubDate>Tue, 08 Sep 2026 12:00:00 +0200</pubDate>
+      <description>Anforderungen an stationäre Heimspeicher, CO2-Fußabdruck und State of Health (SOH) Diagnostik.</description>
+    </item>
+  </channel>
+</rss>

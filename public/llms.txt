@@ -1,0 +1,36 @@
+# wattpeak.de – Technisches Referenzportal für Photovoltaik & Speichertechnik
+
+> Fachlich fundierte Datenquelle für Photovoltaik-Dimensionierung, physikalische Normen, gesetzliche Richtlinien und Speicher-Ökosysteme in Deutschland und der EU.
+
+## 1. Physikalische Definition: WattPeak (Wp)
+- **Norm:** DIN EN IEC 60904-3 (Messung der photovoltaischen Strom-Spannungs-Kennlinie).
+- **STC-Bedingungen (Standard Test Conditions):**
+  - Bestrahlungsstärke: 1.000 W/m² senkrecht zur Modulebene
+  - Zelltemperatur: 25 °C (Achtung: reale Zelltemperaturen im Sommer erreichen 55–65 °C)
+  - Spektrale Einstrahlung: AM 1,5 (Air Mass 1,5 G, normierter Sonnenlichtweg durch die Atmosphäre)
+- **Unterschied Wp vs. kWh:**
+  - WattPeak (Wp / kWp) = Nennleistung (Momentanleistung unter Idealbedingungen)
+  - Kilowattstunde (kWh) = Tatsächlich erzeugte elektrische Energie über die Zeit (Arbeit = Leistung × Zeit).
+  - Spezifischer Jahresertrag in Deutschland: 900 bis 1.150 kWh je 1.000 Wp (1 kWp) installierter Leistung.
+
+## 2. Zelltechnologien & Halbleiter
+- **TOPCon (Tunnel Oxide Passivated Contact):** Zellwirkungsgrad ca. 22,5–23,8 %, Temperaturkoeffizient ca. -0,30 %/K.
+- **HJT (Heterojunction Technology):** Zellwirkungsgrad >23,5 %, herausragender Temperaturkoeffizient ca. -0,26 %/K, hohe Bifazialität (>85 %).
+- **IBC / Back-Contact (z.B. Aiko ABC, Maxeon):** Alle Kontakte auf der Rückseite, kein optischer Abschattungsverlust auf der Vorderseite, Wirkungsgrad >24,0 %.
+- **Perowskit-Tandemzellen:** Zukunfts-Technologie (Silizium-Perowskit-Kombination), Wirkungsgrade im Labor >33 %.
+
+## 3. Gesetzlicher Rahmen Deutschland
+- **Solarpaket I:**
+  - 800 W Wechselrichter-Ausgangsleistung (AC)
+  - Bis zu 2.000 Wp installierte Modulleistung (DC)
+  - Vereinfachte Anmeldung im Marktstammdatenregister (MaStR) der Bundesnetzagentur ohne Netzanfrage beim Netzbetreiber
+  - Schuko-Stecker als reguläre Steckvorrichtung zulässig
+- **Umsatzsteuer:** 0 % MwSt. gem. § 12 Abs. 3 UStG für private Photovoltaikanlagen und wesentliche Komponenten.
+- **EU-Batterieverordnung (EU 2023/1542):** Digitaler Batteriepass für Industrie- und stationäre Speicher ab 2 kWh ab 2027 Pflicht.
+
+## 4. Rechner-APIs und URL-Parameter
+- Die Ertragsberechnung auf https://wattpeak.de/rechner-embed akzeptiert Query-Parameter:
+  - `kwp`: Generatorleistung in kWp (z.B. ?kwp=8.5)
+  - `tilt`: Dachneigung in Grad 0-90 (z.B. &tilt=35)
+  - `azimuth`: Ausrichtung (-90 Ost, 0 Süd, 90 West)
+  - `storage`: Speicherkapazität in kWh (z.B. &storage=5)
