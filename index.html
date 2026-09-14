@@ -126,6 +126,23 @@
   
     <!-- Microsoft Bing Verification -->
     <meta name="msvalidate.01" content="BING_VERIFICATION_PLACEHOLDER" />
+      <script type="speculationrules">
+    {
+      "prefetch": [
+        {
+          "source": "document",
+          "where": {
+            "and": [
+              { "href_matches": "/*" },
+              { "not": { "href_matches": ["/api/*", "/*\\?(.+)"] } },
+              { "not": { "selector_matches": "a[rel~=\"nofollow\"]" } }
+            ]
+          },
+          "eagerness": "conservative"
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
