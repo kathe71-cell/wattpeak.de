@@ -7,8 +7,20 @@ import AmazonProductShowcase from '../components/AmazonProductShowcase';
 import TrustBox from '../components/TrustBox';
 import LegalFaq from '../components/LegalFaq';
 import { Layers } from 'lucide-react';
+import { useDocumentMeta } from '../utils/seo';
 
 export default function SystemDecoderPage() {
+  useDocumentMeta({
+    title: 'Solaranlagen & Größen im Vergleich · Wattpeak',
+    description: 'Vergleich von Balkonkraftwerken (800W), 5–15 kWp Dachanlagen, Speichersystemen und Gewerbelösungen: Ertrag, Kosten und Autarkie im Überblick.',
+    canonicalPath: '/anlagen-vergleich',
+    structuredData: {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: 'Wattpeak Anlagen-Vergleich & System-Decoder',
+      url: 'https://wattpeak.de/anlagen-vergleich',
+    },
+  });
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col justify-between">
       <Header />

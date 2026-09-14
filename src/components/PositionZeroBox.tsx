@@ -14,7 +14,7 @@ export default function PositionZeroBox() {
           </span>
           <div>
             <span className="text-[11px] font-mono font-bold tracking-widest text-amber-900 uppercase">
-              Position-0 Fachdefinition
+              Grundlagen &amp; physikalische Definition
             </span>
             <h3 className="text-xl font-black text-slate-950 tracking-tight">
               Was bedeutet WattPeak (Wp)?

@@ -3,8 +3,20 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import TrustBox from '../components/TrustBox';
 import { Scale, Battery } from 'lucide-react';
+import { useDocumentMeta } from '../utils/seo';
 
 export default function BatteriepassPage() {
+  useDocumentMeta({
+    title: 'EU-Batteriepass & Speicher-Diagnostik · Wattpeak',
+    description: 'EU-Batteriepass (Verordnung 2023/1542), SOH-Alterungsdiagnostik und Zyklenfestigkeit von LiFePO4-Heim- und Balkonspeichern.',
+    canonicalPath: '/batteriepass',
+    structuredData: {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: 'EU-Batteriepass & Speicher-Diagnostik',
+      url: 'https://wattpeak.de/batteriepass',
+    },
+  });
   // SOH Calculator inputs
   const [cycles, setCycles] = useState<number>(1200);
   const [chemistry, setChemistry] = useState<'lfp' | 'nmc'>('lfp');

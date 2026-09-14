@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ShoppingCart, CheckCircle2 } from 'lucide-react';
-import { getAmazonLink } from '../data/solarCatalog';
+import { getAmazonSearchUrl } from '../data/products';
 
 export default function SolarSystemDecoder() {
   const [selectedSystem, setSelectedSystem] = useState<'balkon-basic' | 'balkon-speicher' | 'dach-klein' | 'dach-gross'>('balkon-speicher');
@@ -163,10 +163,10 @@ export default function SolarSystemDecoder() {
             </div>
 
             <a
-              href={getAmazonLink(current.amazonQuery)}
+              href={getAmazonSearchUrl(current.amazonQuery)}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full bg-amber-400 hover:bg-amber-300 active:scale-95 text-slate-950 font-black text-xs sm:text-sm py-3 px-4 rounded-xl transition flex items-center justify-center gap-2 shadow-lg"
+              className="w-full bg-amber-400 hover:bg-amber-300 active:scale-95 text-slate-950 font-black text-xs sm:text-sm py-3 px-4 rounded-xl transition flex items-center justify-center gap-2 shadow-lg cursor-pointer"
             >
               <ShoppingCart className="w-4 h-4 text-slate-950" />
               <span>Passende Hardware bei Amazon.de ansehen *</span>

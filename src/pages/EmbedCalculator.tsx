@@ -1,8 +1,14 @@
 import React from 'react';
 import SolarCalculator from '../components/Calculator';
 import { Zap, ExternalLink } from 'lucide-react';
+import { useDocumentMeta } from '../utils/seo';
 
 export default function EmbedCalculator() {
+  useDocumentMeta({
+    title: 'Wattpeak PV-Ertragsrechner Embed Widget',
+    description: 'Kostenloses interaktives PV-Ertragsrechner Widget für Webmaster und Fachportale.',
+    canonicalPath: '/rechner-embed',
+  });
   return (
     <div className="min-h-screen bg-slate-50 p-2 sm:p-4 flex flex-col justify-between">
       <div>

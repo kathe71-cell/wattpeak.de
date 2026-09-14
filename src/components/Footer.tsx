@@ -61,8 +61,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/system-decoder" className="hover:text-amber-400 transition-colors">
-                  Solar-System-Decoder
+                <Link to="/anlagen-vergleich" className="hover:text-amber-400 transition-colors">
+                  Anlagen vergleichen (System-Decoder)
                 </Link>
               </li>
               <li>

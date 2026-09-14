@@ -33,16 +33,7 @@
     </script>
     <script defer src="/_vercel/insights/script.js"></script>
 
-    <!-- Instant URL Sanitizer: Clean legacy query params and hashes -->
-    <script>
-      (function() {
-        if ((window.location.search || window.location.hash) && !window.location.pathname.startsWith('/rechner-embed')) {
-          try {
-            window.history.replaceState(null, '', window.location.pathname);
-          } catch (e) {}
-        }
-      })();
-    </script>
+
 
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">

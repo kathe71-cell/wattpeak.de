@@ -6,8 +6,20 @@ import TechComparisonTable from '../components/TechComparisonTable';
 import TrustBox from '../components/TrustBox';
 import LegalFaq from '../components/LegalFaq';
 import { ShoppingBag } from 'lucide-react';
+import { useDocumentMeta } from '../utils/seo';
 
 export default function HardwareKatalogPage() {
+  useDocumentMeta({
+    title: 'Solar-Hardware & Speicherkatalog · Wattpeak',
+    description: 'Unabhängiger Katalog für Mikrowechselrichter, 800W Komplettsets, LiFePO4-Speichersysteme und Montagesets mit geprüften Herstellerdaten.',
+    canonicalPath: '/hardware-katalog',
+    structuredData: {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: 'Wattpeak Hardware- & Speicherkatalog',
+      url: 'https://wattpeak.de/hardware-katalog',
+    },
+  });
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col justify-between">
       <Header />

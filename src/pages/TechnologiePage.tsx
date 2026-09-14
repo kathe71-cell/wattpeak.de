@@ -5,8 +5,20 @@ import TechComparisonTable from '../components/TechComparisonTable';
 import AmazonProductShowcase from '../components/AmazonProductShowcase';
 import TrustBox from '../components/TrustBox';
 import { Cpu, Layers, Thermometer, ShieldCheck } from 'lucide-react';
+import { useDocumentMeta } from '../utils/seo';
 
 export default function TechnologiePage() {
+  useDocumentMeta({
+    title: 'Zelltechnologie: TOPCon, HJT & Perowskit im Vergleich · Wattpeak',
+    description: 'Physikalischer Vergleich moderner Solarzellen: N-Type TOPCon, Heterojunction (HJT), IBC und Perowskit-Tandem mit Wirkungsgraden und Temperaturkoeffizienten.',
+    canonicalPath: '/technologie',
+    structuredData: {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: 'Solarzell-Technologie: TOPCon, HJT & Back-Contact',
+      url: 'https://wattpeak.de/technologie',
+    },
+  });
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col justify-between">
       <Header />

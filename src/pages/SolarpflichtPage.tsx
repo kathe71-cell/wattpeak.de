@@ -5,8 +5,20 @@ import Footer from '../components/Footer';
 import AmazonProductShowcase from '../components/AmazonProductShowcase';
 import TrustBox from '../components/TrustBox';
 import { Scale, AlertTriangle, ArrowRight, ShieldCheck, FileText } from 'lucide-react';
+import { useDocumentMeta } from '../utils/seo';
 
 export default function SolarpflichtPage() {
+  useDocumentMeta({
+    title: 'Solarpflicht & gesetzliche Bauvorgaben nach Bundesländern · Wattpeak',
+    description: 'Übersicht der Solarpflichten bei Neubau und Dachsanierung in den 16 Bundesländern sowie EEG-Vorgaben für private Eigentümer.',
+    canonicalPath: '/solarpflicht',
+    structuredData: {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: 'Solarpflicht & gesetzliche Bauvorgaben nach Bundesländern',
+      url: 'https://wattpeak.de/solarpflicht',
+    },
+  });
 
   const statesData = [
     {

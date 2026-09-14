@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { 
   X, Send, Sparkles, ShoppingBag, ExternalLink 
 } from 'lucide-react';
-import { getAmazonLink } from '../data/solarCatalog';
+import { getAmazonSearchUrl } from '../data/products';
 
 interface ChatMessage {
   id: string;
@@ -73,7 +73,7 @@ export default function SolarChat() {
 
     if (q.includes('wp') || q.includes('wattpeak') || q.includes('kwh') || q.includes('unterschied') || q.includes('bedeut')) {
       return {
-        text: 'WattPeak (Wp) ist die genormte Spitzenleistung eines Moduls unter Standard-Testbedingungen (STC: 1.000 W/m², 25 °C, AM 1,5 nach DIN EN IEC 60904-3). Kilowattstunden (kWh) messen hingegen die tatsächlich gelieferte Energiemenge: In Deutschland liefert 1.000 Wp (1 kWp) im Schnitt 900 bis 1.150 kWh Strom pro Jahr.'
+        text: 'WattPeak (Wp) ist die genormte Spitzenleistung eines Moduls unter Standard-Testbedingungen (STC: 1.000 W/m², 25 °C, AM 1,5 nach DIN EN IEC 60904-3). Kilowattstunden (kWh) messen hingegen die tatsächlich gelieferte Energiemenge: In Deutschland liefert 1.000 Wp (1 kWp) im Schnitt 900 bis 1.150 kWh Strom per Jahr.'
       };
     }
 
@@ -115,24 +115,23 @@ export default function SolarChat() {
       };
     }
 
-    // Default intelligent fallback
     return {
-      text: 'Ich habe Ihre Anfrage als automatisierter Assistent erfasst. Auf wattpeak.de können Sie 800W-Balkonkraftwerke, LiFePO4-Speicher, Mikrowechselrichter und Solarmodule führender Hersteller (wie Hoymiles, Anker, EcoFlow, BLUETTI, Trina, Huawei) transparent vergleichen.',
+      text: 'Vielen Dank für Ihre Frage! Bei Stecker-Solargeräten gilt eine Obergrenze von 800W Einspeisung bei max. 2.000Wp Modulleistung. Gerne können Sie auch unseren Ertragsrechner oder den 800W-Balkonsimulator auf dieser Seite nutzen.',
       recommendation: {
-        label: 'Hardware-Vergleichskatalog öffnen',
-        query: 'Balkonkraftwerk 800W Komplettset'
+        label: 'Solar-Hardware bei Amazon ansehen *',
+        query: 'Balkonkraftwerk 800W Speicher'
       }
     };
   };
 
   const handleSend = (textToSend?: string) => {
-    const q = (textToSend || inputValue).trim();
-    if (!q) return;
+    const text = textToSend || inputValue;
+    if (!text.trim()) return;
 
     const userMsg: ChatMessage = {
       id: `usr-${++msgIdCounter}`,
       sender: 'user',
-      text: q
+      text: text.trim(),
     };
 
     setMessages((prev) => [...prev, userMsg]);
@@ -140,12 +139,12 @@ export default function SolarChat() {
     setIsTyping(true);
 
     setTimeout(() => {
-      const resp = generateAnswer(q);
+      const response = generateAnswer(text);
       const botMsg: ChatMessage = {
-        id: (Date.now() + 1).toString(),
+        id: `bot-${++msgIdCounter}`,
         sender: 'bot',
-        text: resp.text,
-        recommendation: resp.recommendation
+        text: response.text,
+        recommendation: response.recommendation,
       };
       setMessages((prev) => [...prev, botMsg]);
       setIsTyping(false);
@@ -154,21 +153,21 @@ export default function SolarChat() {
 
   return (
     <>
-      {/* HIGH-END FLOATING TRIGGER BUTTON (CLEAR AI BADGE) */}
+      {/* HIGH-END FLOATING TRIGGER BUTTON (COMPACT ON MOBILE, PILL ON DESKTOP) */}
       {!isOpen && (
         <button
           type="button"
           onClick={() => setIsOpen(true)}
           aria-label="Solar-KI Assistent öffnen"
-          className="fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-40 bg-slate-900/95 hover:bg-slate-950 text-white pl-3 pr-4 py-2.5 rounded-full shadow-2xl border border-slate-700/80 hover:border-amber-400/80 backdrop-blur-md flex items-center gap-3 transition-all duration-200 hover:scale-[1.03] active:scale-95 group cursor-pointer"
+          className="fixed bottom-18 sm:bottom-6 right-3 sm:right-6 z-40 bg-slate-950/95 hover:bg-slate-900 text-white rounded-full shadow-2xl border border-slate-700/80 hover:border-amber-400/80 backdrop-blur-md flex items-center transition-all duration-200 hover:scale-[1.03] active:scale-95 group cursor-pointer p-2.5 sm:pl-3 sm:pr-4 sm:py-2.5"
         >
           {/* Glowing Icon Pill */}
           <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-500 to-amber-300 text-slate-950 flex items-center justify-center font-bold shadow-sm group-hover:rotate-12 transition-transform duration-300 shrink-0">
             <Sparkles className="w-4 h-4 fill-slate-950 stroke-slate-950" />
           </div>
 
-          {/* Text Labels Stack */}
-          <div className="text-left flex flex-col justify-center">
+          {/* Text Labels Stack (Hidden on very narrow screens, visible from sm up) */}
+          <div className="text-left hidden sm:flex flex-col justify-center ml-3">
             <div className="flex items-center gap-1 text-[10px] font-mono font-extrabold uppercase tracking-wider text-amber-400">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
               <span>Solar-KI Bot</span>
@@ -182,7 +181,7 @@ export default function SolarChat() {
 
       {/* CHAT WINDOW / MODAL */}
       {isOpen && (
-        <div className="fixed bottom-20 sm:bottom-6 right-3 sm:right-6 z-50 w-[94vw] sm:w-[410px] h-[540px] max-h-[82vh] bg-white rounded-3xl border border-slate-200 shadow-2xl flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-6 duration-200">
+        <div className="fixed bottom-18 sm:bottom-6 right-3 sm:right-6 z-50 w-[92vw] sm:w-[410px] h-[540px] max-h-[80vh] bg-white rounded-3xl border border-slate-200 shadow-2xl flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-6 duration-200">
           {/* Header with explicit AI disclosure */}
           <div className="bg-slate-950 text-white p-4 flex items-center justify-between border-b border-slate-800">
             <div className="flex items-center gap-3">
@@ -240,10 +239,10 @@ export default function SolarChat() {
                   {m.recommendation && (
                     <div className="mt-2.5 pt-2.5 border-t border-slate-100">
                       <a
-                        href={getAmazonLink(m.recommendation.query)}
+                        href={getAmazonSearchUrl(m.recommendation.query)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-[11px] px-3 py-1.5 rounded-lg transition shadow-xs"
+                        className="inline-flex items-center gap-1.5 bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-[11px] px-3 py-1.5 rounded-lg transition shadow-xs cursor-pointer"
                       >
                         <ShoppingBag className="w-3.5 h-3.5" />
                         <span>{m.recommendation.label}</span>

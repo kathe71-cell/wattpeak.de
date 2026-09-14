@@ -4,7 +4,8 @@ import {
   ExternalLink, Sun, Compass, 
   CloudRain, HelpCircle, Scale 
 } from 'lucide-react';
-import { getAmazonLink } from '../data/solarCatalog';
+import { calculateSolarYield, RegionZone } from '../utils/solarMath';
+import { getAmazonSearchUrl } from '../data/products';
 
 export default function BalkonSimulator() {
   // Simulator inputs
@@ -12,8 +13,8 @@ export default function BalkonSimulator() {
   const [inverterAcWatts, setInverterAcWatts] = useState<number>(800); // 800W Solarpaket I vs 600W
   const [baseLoadWatts, setBaseLoadWatts] = useState<number>(180); // 180W Grundlast
   const [orientation, setOrientation] = useState<'south_angle' | 'south_vertical' | 'east_west' | 'general'>('south_angle');
-  const [region, setRegion] = useState<'nord' | 'mitte' | 'sued'>('mitte');
-  const [shading, setShading] = useState<'none' | 'slight' | 'medium'>('none');
+  const [region, setRegion] = useState<RegionZone>('mitte');
+  const [shading, setShading] = useState<'none' | 'light' | 'medium'>('none');
   const [hasStorage, setHasStorage] = useState<boolean>(true);
   const [storageCapacityKwh, setStorageCapacityKwh] = useState<number>(1.6); // 1.6 kWh (Standard Anker/EcoFlow)
   const electricityPriceEur = 0.34; // 34 Cent/kWh
@@ -33,73 +34,50 @@ export default function BalkonSimulator() {
     return baseSetCost + storageCost;
   }, [moduleWp, hasStorage, storageCapacityKwh]);
 
-  // Yield calculations with physical considerations
+  // Yield calculations with physical considerations via unified solarMath engine
   const simResults = useMemo(() => {
-    // 1. Regional horizontal radiation
-    const baseRad = region === 'nord' ? 1000 : region === 'sued' ? 1200 : 1080;
+    let azimuth = 0; // 0 Sued
+    let tilt = 30;
 
-    // 2. Orientation & tilt factor
-    let orientFactor = 1.05; // 30° Süd angewinkelt
     if (orientation === 'south_vertical') {
-      orientFactor = 0.72; // 90° senkrecht am Balkongeländer
+      azimuth = 0;
+      tilt = 90;
     } else if (orientation === 'east_west') {
-      orientFactor = 0.88; // Ost-West Aufteilung
+      azimuth = -90; // Ost-West Aufteilung
+      tilt = 30;
     } else if (orientation === 'general') {
-      orientFactor = 0.95; // Gemischte Ausrichtung
+      azimuth = 45; // Süd-West
+      tilt = 45;
     }
 
-    // 3. Shading factor
-    const shadeFactor = shading === 'none' ? 1.0 : shading === 'slight' ? 0.88 : 0.74;
+    const annualConsumption = Math.round(baseLoadWatts * 8.76 * 1.4);
 
-    // 4. Inverter clipping & Oversizing effect
-    // 800W Inverter caps peak output at 0.8 kW.
-    // However, higher Wp means more hours at or near full 800W load.
-    const oversizingRatio = moduleWp / inverterAcWatts;
-    // Standard specific yield around 920-1050 kWh/kWp, but clipped slightly at very high DC/AC
-    let clippingEfficiency = 1.0;
-    if (oversizingRatio > 2.0) {
-      clippingEfficiency = 0.88;
-    } else if (oversizingRatio > 1.5) {
-      clippingEfficiency = 0.94;
-    }
-
-    // Total raw generation
-    const specificYield = Math.round(baseRad * orientFactor * shadeFactor * 0.84 * clippingEfficiency);
-    const annualGenerationKwh = Math.round((moduleWp / 1000) * specificYield);
-
-    // 5. Self-consumption modeling
-    // Base load consumption during daylight hours (~10h daylight average over year)
-    // Simultaneous daytime load:
-    const annualDaytimeLoadKwh = Math.round((baseLoadWatts * 10 * 365) / 1000);
-    let directSelfConsumptionKwh = Math.min(annualGenerationKwh, Math.round(annualDaytimeLoadKwh * 0.80));
-
-    let storedAndUsedKwh = 0;
-    if (hasStorage) {
-      // Germany: ~210 to 230 equivalent full storage cycles per year for balcony systems
-      const potentialCycles = 220;
-      const roundTripEfficiency = 0.88; // 88% LFP + BMS efficiency
-      const maxPossibleStorageKwh = Math.round(storageCapacityKwh * potentialCycles * roundTripEfficiency);
-      const excessAvailableKwh = Math.max(0, annualGenerationKwh - directSelfConsumptionKwh);
-      
-      storedAndUsedKwh = Math.min(excessAvailableKwh, maxPossibleStorageKwh);
-    }
-
-    const totalUsedKwh = directSelfConsumptionKwh + storedAndUsedKwh;
-    const givenAwayKwh = Math.max(0, annualGenerationKwh - totalUsedKwh);
-    const selfConsumptionRate = annualGenerationKwh > 0 ? Math.round((totalUsedKwh / annualGenerationKwh) * 100) : 0;
-
-    const annualSavingsEur = Math.round(totalUsedKwh * electricityPriceEur);
-    const paybackYears = annualSavingsEur > 0 ? (systemCost / annualSavingsEur).toFixed(1) : '0';
+    const calc = calculateSolarYield({
+      systemType: 'balcony',
+      kwp: moduleWp / 1000,
+      inverterAcWatts,
+      region,
+      tilt,
+      azimuth,
+      cellType: 'topcon',
+      shading,
+      annualConsumption,
+      storageKwh: hasStorage ? storageCapacityKwh : 0,
+      electricityPrice: electricityPriceEur,
+      feedInRemunerationType: 'uncompensated',
+      feedInTariff: 0,
+      customInvestmentEur: systemCost,
+    });
 
     return {
-      annualGenerationKwh,
-      directSelfConsumptionKwh,
-      storedAndUsedKwh,
-      totalUsedKwh,
-      givenAwayKwh,
-      selfConsumptionRate,
-      annualSavingsEur,
-      paybackYears
+      annualGenerationKwh: calc.balance.totalAnnualYieldKwh,
+      directSelfConsumptionKwh: calc.balance.directConsumptionKwh,
+      storedAndUsedKwh: calc.balance.storageDischargeKwh,
+      totalUsedKwh: calc.balance.totalSelfUsedKwh,
+      givenAwayKwh: calc.balance.feedInKwh,
+      selfConsumptionRate: calc.balance.selfConsumptionRatePercent,
+      annualSavingsEur: calc.economy.annualNetBenefitEur,
+      paybackYears: calc.economy.estimatedPaybackYears !== null ? calc.economy.estimatedPaybackYears.toFixed(1) : '–',
     };
   }, [moduleWp, inverterAcWatts, baseLoadWatts, orientation, region, shading, hasStorage, storageCapacityKwh, electricityPriceEur, systemCost]);
 
@@ -258,7 +236,7 @@ export default function BalkonSimulator() {
                 className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none"
               >
                 <option value="none">Keine Verschattung (freie Sicht)</option>
-                <option value="slight">Geringe Teilverschattung (Bäume / Gauben)</option>
+                <option value="light">Geringe Teilverschattung (Bäume / Gauben)</option>
                 <option value="medium">Mäßige Verschattung (Nachbarbalkon / Häuserwand)</option>
               </select>
             </div>
@@ -416,10 +394,10 @@ export default function BalkonSimulator() {
 
             {/* Hardware Recommendation CTA */}
             <a
-              href={getAmazonLink(hasStorage ? 'Anker Solix Solarbank 2 E1600 Pro Balkonkraftwerk Speicher' : 'Balkonkraftwerk 800W Komplettset Hoymiles')}
+              href={getAmazonSearchUrl(hasStorage ? 'Anker Solix Solarbank 2 E1600 Pro Balkonkraftwerk Speicher' : 'Balkonkraftwerk 800W Komplettset Hoymiles')}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full flex items-center justify-center gap-2 bg-amber-400 hover:bg-amber-300 active:scale-95 text-slate-950 font-extrabold py-3 px-4 rounded-xl text-sm shadow transition-all"
+              className="w-full flex items-center justify-center gap-2 bg-amber-400 hover:bg-amber-300 active:scale-95 text-slate-950 font-extrabold py-3 px-4 rounded-xl text-sm shadow transition-all cursor-pointer"
             >
               Passende Hardware bei Amazon ansehen *
               <ExternalLink className="w-4 h-4 text-slate-950" />

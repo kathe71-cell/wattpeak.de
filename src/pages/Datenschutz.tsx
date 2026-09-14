@@ -3,8 +3,14 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Lock } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useDocumentMeta } from '../utils/seo';
 
 export default function Datenschutz() {
+  useDocumentMeta({
+    title: 'Datenschutzerklärung · Wattpeak',
+    description: 'Datenschutzerklärung und Informationen zur DSGVO-konformen und datensparsamen Nutzung der Plattform Wattpeak.de.',
+    canonicalPath: '/datenschutz',
+  });
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col justify-between">
       <Header />

@@ -5,8 +5,20 @@ import BalkonSimulator from '../components/BalkonSimulator';
 import AmazonProductShowcase from '../components/AmazonProductShowcase';
 import TrustBox from '../components/TrustBox';
 import { Scale } from 'lucide-react';
+import { useDocumentMeta } from '../utils/seo';
 
 export default function BalkonkraftwerkPage() {
+  useDocumentMeta({
+    title: '800W Balkonkraftwerk Ratgeber (Solarpaket I) · Wattpeak',
+    description: 'Alles zu 800W Stecker-Solargeräten nach Solarpaket I: 2.000 Wp Modullimit, Schuko-Steckdose, MaStR-Registrierung und Speicher-Nachrüstung.',
+    canonicalPath: '/balkonkraftwerk',
+    structuredData: {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: '800W Balkonkraftwerk Ratgeber (Solarpaket I)',
+      url: 'https://wattpeak.de/balkonkraftwerk',
+    },
+  });
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col justify-between">
       <Header />

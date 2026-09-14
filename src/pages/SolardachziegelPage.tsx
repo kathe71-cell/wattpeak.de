@@ -5,8 +5,20 @@ import Footer from '../components/Footer';
 import AmazonProductShowcase from '../components/AmazonProductShowcase';
 import TrustBox from '../components/TrustBox';
 import { Home as HomeIcon, CheckCircle2, AlertTriangle, ArrowRight, Layers, Sparkles, Wrench } from 'lucide-react';
+import { useDocumentMeta } from '../utils/seo';
 
 export default function SolardachziegelPage() {
+  useDocumentMeta({
+    title: 'Solardachziegel & Gebäudeintegrierte PV (BIPV) · Wattpeak',
+    description: 'Solardachziegel im technischen Vergleich: Wirkungsgrad, Kosten im Neubau vs. Sanierung, Denkmalschutz und Brandschutz.',
+    canonicalPath: '/solardachziegel',
+    structuredData: {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: 'Solardachziegel & Gebäudeintegrierte Photovoltaik',
+      url: 'https://wattpeak.de/solardachziegel',
+    },
+  });
   const manufacturers = [
     {
       name: 'Autiq Solar / Meyer Burger',

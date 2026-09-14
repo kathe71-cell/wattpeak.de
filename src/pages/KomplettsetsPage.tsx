@@ -5,8 +5,20 @@ import Footer from '../components/Footer';
 import AmazonProductShowcase from '../components/AmazonProductShowcase';
 import TrustBox from '../components/TrustBox';
 import { PackageCheck, ShieldCheck, CheckCircle2, ArrowRight, Zap, AlertCircle } from 'lucide-react';
+import { useDocumentMeta } from '../utils/seo';
 
 export default function KomplettsetsPage() {
+  useDocumentMeta({
+    title: 'PV & Balkonkraftwerk Komplettsets im Vergleich · Wattpeak',
+    description: 'Steckerfertige 800W-Balkonsolarsets und PV-Komplettpakete: Lieferumfang, Wechselrichter, Halterung und Schukokabel im Check.',
+    canonicalPath: '/komplettsets',
+    structuredData: {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: 'Photovoltaik & Balkonkraftwerk Komplettsets im Vergleich',
+      url: 'https://wattpeak.de/komplettsets',
+    },
+  });
   const setCategories = [
     {
       title: '800W Stecker-Solar Sets (Balkon & Terrasse)',

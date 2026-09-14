@@ -2,8 +2,14 @@ import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Scale, Mail, Phone, MapPin } from 'lucide-react';
+import { useDocumentMeta } from '../utils/seo';
 
 export default function Impressum() {
+  useDocumentMeta({
+    title: 'Impressum (§ 5 DDG) · Wattpeak',
+    description: 'Gesetzliche Pflichtangaben und Kontaktdaten des Diensteanbieters von Wattpeak.de gemäß § 5 Digitale-Dienste-Gesetz (DDG).',
+    canonicalPath: '/impressum',
+  });
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col justify-between">
       <Header />

@@ -6,8 +6,22 @@ import AmazonProductShowcase from '../components/AmazonProductShowcase';
 import TrustBox from '../components/TrustBox';
 import LegalFaq from '../components/LegalFaq';
 import { Calculator as CalcIcon } from 'lucide-react';
+import { useDocumentMeta } from '../utils/seo';
 
 export default function ErtragsrechnerPage() {
+  useDocumentMeta({
+    title: 'PV-Ertragsrechner & Wirtschaftlichkeit · Wattpeak',
+    description: 'Berechnen Sie Solarertrag, Eigenverbrauchsquote, Speicher-Mehrwert und Amortisationsdauer physikalisch fundiert für Ihr Dach oder Balkonkraftwerk.',
+    canonicalPath: '/ertragsrechner',
+    structuredData: {
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: 'Wattpeak PV-Ertragsrechner',
+      applicationCategory: 'UtilityApplication',
+      operatingSystem: 'All',
+      url: 'https://wattpeak.de/ertragsrechner',
+    },
+  });
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col justify-between">
       <Header />

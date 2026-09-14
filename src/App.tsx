@@ -46,10 +46,12 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/ertragsrechner" element={<ErtragsrechnerPage />} />
-        <Route path="/system-decoder" element={<SystemDecoderPage />} />
+        <Route path="/anlagen-vergleich" element={<SystemDecoderPage />} />
+        <Route path="/anlagenvergleich" element={<Navigate to="/anlagen-vergleich" replace />} />
+        <Route path="/system-decoder" element={<Navigate to="/anlagen-vergleich" replace />} />
         <Route path="/hardware-katalog" element={<HardwareKatalogPage />} />
         <Route path="/rechner" element={<Navigate to="/ertragsrechner" replace />} />
-        <Route path="/decoder" element={<Navigate to="/system-decoder" replace />} />
+        <Route path="/decoder" element={<Navigate to="/anlagen-vergleich" replace />} />
         <Route path="/katalog" element={<Navigate to="/hardware-katalog" replace />} />
         <Route path="/hardware" element={<Navigate to="/hardware-katalog" replace />} />
         <Route path="/rechner-embed" element={<EmbedCalculator />} />

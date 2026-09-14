@@ -46,7 +46,7 @@ export default function Header() {
               wattpeak<span className="text-amber-500">.de</span>
             </div>
             <span className="text-xs font-semibold text-slate-500 block -mt-1">
-              Photovoltaik &amp; Solaranlagen Vergleichsportal
+              Solar verstehen. Besser entscheiden.
             </span>
           </div>
         </Link>
@@ -54,22 +54,22 @@ export default function Header() {
         {/* Desktop Navigation - Clean, Balanced & Elegant */}
         <nav className="hidden lg:flex items-center space-x-7 text-sm font-semibold text-slate-600">
           <Link
-            to="/hardware-katalog"
+            to="/anlagen-vergleich"
             className="hover:text-amber-600 transition text-slate-900 font-bold hover:bg-slate-50 px-2 py-1 rounded-lg"
           >
-            Hardware-Katalog
-          </Link>
-          <Link
-            to="/system-decoder"
-            className="hover:text-amber-600 transition hover:bg-slate-50 px-2 py-1 rounded-lg"
-          >
-            System-Decoder
+            Anlagen vergleichen
           </Link>
           <Link
             to="/ertragsrechner"
             className="hover:text-amber-600 transition hover:bg-slate-50 px-2 py-1 rounded-lg"
           >
             Ertragsrechner
+          </Link>
+          <Link
+            to="/hardware-katalog"
+            className="hover:text-amber-600 transition hover:bg-slate-50 px-2 py-1 rounded-lg"
+          >
+            Hardware &amp; Speicher
           </Link>
           <Link 
             to="/balkonkraftwerk" 
@@ -107,18 +107,11 @@ export default function Header() {
       {mobileMenuOpen && (
         <div className="lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-2 shadow-xl">
           <Link
-            to="/hardware-katalog"
+            to="/anlagen-vergleich"
             onClick={() => setMobileMenuOpen(false)}
             className="block px-3 py-2 rounded-lg font-bold text-amber-700 hover:bg-slate-50"
           >
-            Hardware-Katalog
-          </Link>
-          <Link
-            to="/system-decoder"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-lg font-semibold text-slate-800 hover:bg-slate-50"
-          >
-            System-Decoder
+            Anlagen vergleichen
           </Link>
           <Link
             to="/ertragsrechner"
@@ -126,6 +119,13 @@ export default function Header() {
             className="block px-3 py-2 rounded-lg font-semibold text-slate-800 hover:bg-slate-50"
           >
             WattPeak Ertragsrechner
+          </Link>
+          <Link
+            to="/hardware-katalog"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block px-3 py-2 rounded-lg font-semibold text-slate-800 hover:bg-slate-50"
+          >
+            Hardware- &amp; Speicherkatalog
           </Link>
           <Link
             to="/balkonkraftwerk"
