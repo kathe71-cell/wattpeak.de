@@ -12,6 +12,9 @@ import EmbedCalculator from './pages/EmbedCalculator';
 import BalkonkraftwerkPage from './pages/BalkonkraftwerkPage';
 import BatteriepassPage from './pages/BatteriepassPage';
 import TechnologiePage from './pages/TechnologiePage';
+import SolardachziegelPage from './pages/SolardachziegelPage';
+import KomplettsetsPage from './pages/KomplettsetsPage';
+import SolarpflichtPage from './pages/SolarpflichtPage';
 import Impressum from './pages/Impressum';
 import Datenschutz from './pages/Datenschutz';
 
@@ -53,6 +56,24 @@ export default function App() {
         <Route path="/balkonkraftwerk" element={<BalkonkraftwerkPage />} />
         <Route path="/batteriepass" element={<BatteriepassPage />} />
         <Route path="/technologie" element={<TechnologiePage />} />
+        
+        {/* Spezial-Cluster für weitergeleitete Domains */}
+        <Route path="/solardachziegel" element={<SolardachziegelPage />} />
+        <Route path="/pvdachziegel" element={<Navigate to="/solardachziegel" replace />} />
+        <Route path="/pvziegel" element={<Navigate to="/solardachziegel" replace />} />
+
+        <Route path="/komplettsets" element={<KomplettsetsPage />} />
+        <Route path="/pvkomplettset" element={<Navigate to="/komplettsets" replace />} />
+        <Route path="/pv-komplettset" element={<Navigate to="/komplettsets" replace />} />
+        <Route path="/solarkomplettset" element={<Navigate to="/komplettsets" replace />} />
+        <Route path="/balkonsolarset" element={<Navigate to="/komplettsets" replace />} />
+
+        <Route path="/solarpflicht" element={<SolarpflichtPage />} />
+        <Route path="/solarebaupflicht" element={<Navigate to="/solarpflicht" replace />} />
+        <Route path="/solarspitzengesetz" element={<Navigate to="/solarpflicht" replace />} />
+        <Route path="/solarreform" element={<Navigate to="/solarpflicht" replace />} />
+        <Route path="/solarfoerderprogramm" element={<Navigate to="/solarpflicht" replace />} />
+
         <Route path="/impressum" element={<Impressum />} />
         <Route path="/datenschutz" element={<Datenschutz />} />
         <Route path="*" element={<Navigate to="/" replace />} />

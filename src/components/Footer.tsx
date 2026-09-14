@@ -86,6 +86,21 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link to="/solardachziegel" className="hover:text-amber-400 transition-colors">
+                  Solardachziegel (BIPV vs. Aufdach)
+                </Link>
+              </li>
+              <li>
+                <Link to="/komplettsets" className="hover:text-amber-400 transition-colors">
+                  Photovoltaik Komplettsets &amp; Bausätze
+                </Link>
+              </li>
+              <li>
+                <Link to="/solarpflicht" className="hover:text-amber-400 transition-colors">
+                  Solarpflicht 16 Bundesländer &amp; GEG
+                </Link>
+              </li>
+              <li>
                 <Link to="/rechner-embed" className="hover:text-amber-400 transition-colors">
                   Iframe Embed Rechner
                 </Link>
