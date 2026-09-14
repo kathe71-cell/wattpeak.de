@@ -105,7 +105,7 @@ export default function Home() {
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans antialiased flex flex-col justify-between">
       <Header />
 
-      <main className="space-y-16 pb-16">
+      <main className="space-y-16 pb-32 sm:pb-16">
         {/* HERO SECTION: BRAND CLAIM, 3 PRIMARY ENTRY PATHS & 3-STEP FINDER */}
         <section className="py-10 md:py-16 bg-gradient-to-b from-white via-slate-50 to-slate-100 border-b border-slate-200">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
@@ -168,7 +168,7 @@ export default function Home() {
                   <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold mb-4">
                     <HomeIcon className="w-5 h-5 text-amber-400" />
                   </div>
-                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-500">Volle Unabhängigkeit</span>
+                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-500">Hohe Eigenversorgung</span>
                   <h3 className="text-lg font-black text-slate-950 mt-1">Solaranlage fürs Haus</h3>
                   <p className="text-xs text-slate-600 mt-2 leading-relaxed">
                     Dachanlagen von 5 bis 15 kWp. Hoher Eigenverbrauch, gesetzliche EEG-Einspeisevergütung und Amortisationsanalyse vor Handwerker-Beauftragung.

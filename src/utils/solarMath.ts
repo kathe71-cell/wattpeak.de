@@ -159,17 +159,21 @@ export interface SolarParams {
 }
 
 export interface EnergyBalance {
-  totalAnnualYieldKwh: number;      // Erzeugung E_gen
-  directConsumptionKwh: number;     // Direktverbrauch E_dir
-  storageChargeKwh: number;         // In den Speicher geladene Energie E_char
-  storageDischargeKwh: number;      // Aus dem Speicher entnommene Energie E_dis
-  storageLossKwh: number;           // Speicherverluste E_loss = E_char - E_dis
-  totalSelfUsedKwh: number;         // Genutzter Solarstrom E_self_used = E_dir + E_dis
-  feedInKwh: number;                // Netzeinspeisung E_feed = E_gen - E_dir - E_char
-  gridPurchaseKwh: number;          // Netzbezug E_grid = E_demand - E_self_used
-  annualDemandKwh: number;          // Strombedarf E_demand
-  selfConsumptionRatePercent: number; // (E_dir + E_char) / E_gen * 100
-  autarkyRatePercent: number;       // E_self_used / E_demand * 100
+  totalAnnualYieldKwh: number;              // Erzeugung E_gen
+  directConsumptionKwh: number;             // Direktverbrauch E_dir
+  storageChargeKwh: number;                 // In den Speicher geladene Energie E_char
+  storageDischargeKwh: number;              // Aus dem Speicher entnommene Energie E_dis
+  storageLossKwh: number;                   // Speicherverluste E_loss = E_char - E_dis
+  totalSelfUsedKwh: number;                 // Nutzbare Eigenversorgung E_self_used = E_dir + E_dis
+  feedInKwh: number;                        // Netzeinspeisung E_feed = E_gen - E_dir - E_char
+  gridPurchaseKwh: number;                  // Netzbezug E_grid = E_demand - E_self_used
+  annualDemandKwh: number;                  // Strombedarf E_demand
+  
+  // Eindeutig definierte Quoten gemäß Energiebilanz:
+  usableSelfConsumptionRatePercent: number; // Nutzbarer Anteil am PV-Ertrag: E_self_used / E_gen * 100
+  generationUtilizationRatePercent: number; // PV-Nutzungsgrad inkl. Speicherverlusten: (E_dir + E_char) / E_gen * 100
+  selfConsumptionRatePercent: number;       // Bezieht sich auf den nutzbaren Anteil (usableSelfConsumptionRatePercent)
+  autarkyRatePercent: number;               // Autarkiegrad: E_self_used / E_demand * 100
 }
 
 export interface EconomicEvaluation {
@@ -212,6 +216,8 @@ export interface SolarCalculationResult {
   withoutStorageBenchmark: {
     totalSelfUsedKwh: number;
     autarkyRatePercent: number;
+    usableSelfConsumptionRatePercent: number;
+    generationUtilizationRatePercent: number;
     selfConsumptionRatePercent: number;
     annualNetBenefitEur: number;
     estimatedPaybackYears: number | null;
@@ -410,10 +416,17 @@ export function calculateSolarYield(params: SolarParams): SolarCalculationResult
   const feedInKwh = Math.max(0, totalAnnualYieldKwh - directConsumptionKwh - storageChargeKwh);
   const gridPurchaseKwh = Math.max(0, annualConsumption - totalSelfUsedKwh);
 
-  const selfConsumptionRatePercent = totalAnnualYieldKwh > 0
+  // Nutzbarer Anteil am PV-Ertrag (ohne Speicherverluste):
+  const usableSelfConsumptionRatePercent = totalAnnualYieldKwh > 0
+    ? Number(((totalSelfUsedKwh / totalAnnualYieldKwh) * 100).toFixed(1))
+    : 0;
+
+  // PV-Nutzungsgrad inklusive Speicherladeverluste (vom Dach abgenommener Strom):
+  const generationUtilizationRatePercent = totalAnnualYieldKwh > 0
     ? Number((((directConsumptionKwh + storageChargeKwh) / totalAnnualYieldKwh) * 100).toFixed(1))
     : 0;
 
+  // Autarkiegrad: Nutzbare Vor-Ort-Versorgung am Haushaltsstrombedarf:
   const autarkyRatePercent = annualConsumption > 0
     ? Number(((totalSelfUsedKwh / annualConsumption) * 100).toFixed(1))
     : 0;
@@ -428,7 +441,9 @@ export function calculateSolarYield(params: SolarParams): SolarCalculationResult
     feedInKwh,
     gridPurchaseKwh,
     annualDemandKwh: annualConsumption,
-    selfConsumptionRatePercent: Math.min(100, selfConsumptionRatePercent),
+    usableSelfConsumptionRatePercent: Math.min(100, usableSelfConsumptionRatePercent),
+    generationUtilizationRatePercent: Math.min(100, generationUtilizationRatePercent),
+    selfConsumptionRatePercent: Math.min(100, usableSelfConsumptionRatePercent),
     autarkyRatePercent: Math.min(100, autarkyRatePercent),
   };
 
@@ -569,6 +584,8 @@ function calculateSolarYieldWithoutStorage(
   return {
     totalSelfUsedKwh: directKwh,
     autarkyRatePercent,
+    usableSelfConsumptionRatePercent: selfConsumptionRatePercent,
+    generationUtilizationRatePercent: selfConsumptionRatePercent,
     selfConsumptionRatePercent,
     annualNetBenefitEur,
     estimatedPaybackYears

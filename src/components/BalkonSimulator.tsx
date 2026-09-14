@@ -73,9 +73,11 @@ export default function BalkonSimulator() {
       annualGenerationKwh: calc.balance.totalAnnualYieldKwh,
       directSelfConsumptionKwh: calc.balance.directConsumptionKwh,
       storedAndUsedKwh: calc.balance.storageDischargeKwh,
+      storageLossKwh: calc.balance.storageLossKwh,
       totalUsedKwh: calc.balance.totalSelfUsedKwh,
       givenAwayKwh: calc.balance.feedInKwh,
-      selfConsumptionRate: calc.balance.selfConsumptionRatePercent,
+      usableSelfConsumptionRate: calc.balance.usableSelfConsumptionRatePercent,
+      generationUtilizationRate: calc.balance.generationUtilizationRatePercent,
       annualSavingsEur: calc.economy.annualNetBenefitEur,
       paybackYears: calc.economy.estimatedPaybackYears !== null ? calc.economy.estimatedPaybackYears.toFixed(1) : '–',
     };
@@ -342,10 +344,16 @@ export default function BalkonSimulator() {
 
             {/* Split Bar Chart */}
             <div className="space-y-2">
-              <div className="flex justify-between text-xs font-mono">
-                <span className="font-bold text-slate-900">Nutzungsquote des erzeugten Stroms</span>
-                <span className="font-black text-emerald-600">{simResults.selfConsumptionRate} %</span>
+              <div className="flex justify-between items-baseline text-xs font-mono">
+                <span className="font-bold text-slate-900">Nutzbarer Anteil am PV-Ertrag</span>
+                <span className="font-black text-emerald-600">{simResults.usableSelfConsumptionRate} %</span>
               </div>
+              {hasStorage && simResults.storageLossKwh > 0 && (
+                <div className="flex justify-between text-[11px] font-mono text-slate-500">
+                  <span>PV-Nutzungsgrad (inkl. Ladeverluste):</span>
+                  <span className="font-semibold text-slate-700">{simResults.generationUtilizationRate} %</span>
+                </div>
+              )}
               <div className="w-full h-4 bg-slate-100 rounded-full overflow-hidden flex">
                 <div 
                   className="bg-emerald-500 h-full transition-all duration-300"
@@ -356,13 +364,20 @@ export default function BalkonSimulator() {
                   <div 
                     className="bg-amber-500 h-full transition-all duration-300"
                     style={{ width: `${(simResults.storedAndUsedKwh / (simResults.annualGenerationKwh || 1)) * 100}%` }}
-                    title={`Über Akku gerettet: ${simResults.storedAndUsedKwh} kWh`}
+                    title={`Nutzbare Akku-Entladung: ${simResults.storedAndUsedKwh} kWh`}
+                  ></div>
+                )}
+                {hasStorage && simResults.storageLossKwh > 0 && (
+                  <div 
+                    className="bg-amber-200/90 h-full transition-all duration-300 border-r border-amber-300"
+                    style={{ width: `${(simResults.storageLossKwh / (simResults.annualGenerationKwh || 1)) * 100}%` }}
+                    title={`Wandlungs- & Speicherverluste (~12%): ${simResults.storageLossKwh} kWh`}
                   ></div>
                 )}
                 <div 
                   className="bg-slate-300 h-full transition-all duration-300"
                   style={{ width: `${(simResults.givenAwayKwh / (simResults.annualGenerationKwh || 1)) * 100}%` }}
-                  title={`Verschenkt an Netz: ${simResults.givenAwayKwh} kWh`}
+                  title={`Unentgeltlich eingespeist: ${simResults.givenAwayKwh} kWh`}
                 ></div>
               </div>
               <div className="flex flex-wrap gap-3 text-[10px] font-mono text-slate-500 pt-1">
@@ -374,8 +389,13 @@ export default function BalkonSimulator() {
                     <span className="w-2 h-2 rounded-full bg-amber-500"></span> Akku ({simResults.storedAndUsedKwh} kWh)
                   </span>
                 )}
+                {hasStorage && simResults.storageLossKwh > 0 && (
+                  <span className="flex items-center gap-1">
+                    <span className="w-2 h-2 rounded-full bg-amber-200 border border-amber-400"></span> Wandlungsverluste ({simResults.storageLossKwh} kWh)
+                  </span>
+                )}
                 <span className="flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-slate-300"></span> Verschenkt ({simResults.givenAwayKwh} kWh)
+                  <span className="w-2 h-2 rounded-full bg-slate-300"></span> Einspeisung ({simResults.givenAwayKwh} kWh)
                 </span>
               </div>
             </div>

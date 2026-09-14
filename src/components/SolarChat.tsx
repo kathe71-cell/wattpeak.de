@@ -159,7 +159,7 @@ export default function SolarChat() {
           type="button"
           onClick={() => setIsOpen(true)}
           aria-label="Solar-KI Assistent öffnen"
-          className="fixed bottom-18 sm:bottom-6 right-3 sm:right-6 z-40 bg-slate-950/95 hover:bg-slate-900 text-white rounded-full shadow-2xl border border-slate-700/80 hover:border-amber-400/80 backdrop-blur-md flex items-center transition-all duration-200 hover:scale-[1.03] active:scale-95 group cursor-pointer p-2.5 sm:pl-3 sm:pr-4 sm:py-2.5"
+          className="fixed bottom-20 sm:bottom-6 right-3 sm:right-6 z-40 bg-slate-950/95 hover:bg-slate-900 text-white rounded-full shadow-2xl border border-slate-700/80 hover:border-amber-400/80 backdrop-blur-md flex items-center transition-all duration-200 hover:scale-[1.03] active:scale-95 group cursor-pointer p-2.5 sm:pl-3 sm:pr-4 sm:py-2.5"
         >
           {/* Glowing Icon Pill */}
           <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-500 to-amber-300 text-slate-950 flex items-center justify-center font-bold shadow-sm group-hover:rotate-12 transition-transform duration-300 shrink-0">
@@ -181,7 +181,7 @@ export default function SolarChat() {
 
       {/* CHAT WINDOW / MODAL */}
       {isOpen && (
-        <div className="fixed bottom-18 sm:bottom-6 right-3 sm:right-6 z-50 w-[92vw] sm:w-[410px] h-[540px] max-h-[80vh] bg-white rounded-3xl border border-slate-200 shadow-2xl flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-6 duration-200">
+        <div className="fixed bottom-20 sm:bottom-6 right-3 sm:right-6 z-50 w-[calc(100vw-1.5rem)] sm:w-[410px] h-[520px] max-h-[76vh] bg-white rounded-3xl border border-slate-200 shadow-2xl flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-6 duration-200">
           {/* Header with explicit AI disclosure */}
           <div className="bg-slate-950 text-white p-4 flex items-center justify-between border-b border-slate-800">
             <div className="flex items-center gap-3">

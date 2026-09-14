@@ -23,7 +23,7 @@ export default function CalculationTransparencyBox() {
       title: '2. Installierte PV-Leistung (Wp / kWp)',
       short: 'Nennleistung des Modulfelds unter Labor-STC',
       formula: 'P_peak in kWp (1 kWp = 1.000 Wp)',
-      explanation: 'Die Nennleistung in WattPeak (Wp) beschreibt die Modulleistung unter Standard-Testbedingungen (1.000 W/m² Einstrahlung, 25 °C Zelltemperatur, Spektrum AM 1,5 nach DIN EN IEC 60904-3). Sie bestimmt das Erzeugungspotenzial des Generators.'
+      explanation: 'Die Nennleistung in WattPeak (Wp) beschreibt die Modulleistung unter genormten Standard-Testbedingungen (1.000 W/m² Einstrahlung, 25 °C Zelltemperatur, Spektrum AM 1,5 nach DIN EN IEC 60904-3 für Photovoltaik-Komponenten). Sie bestimmt das maximale Erzeugungspotenzial des Generators.'
     },
     {
       id: 3,
@@ -54,16 +54,16 @@ export default function CalculationTransparencyBox() {
       icon: Battery,
       title: '6. Batteriespeicher & Zyklusübertrag',
       short: 'Zwischenspeichern von Mittagsstrom für den Abend',
-      formula: 'Kapazität (kWh) × Wirkungsgrad (~90 % Round-Trip)',
+      formula: 'Kapazität (kWh) × Wirkungsgrad (~88 % Round-Trip)',
       explanation: 'Ohne Speicher wird tagsüber überschüssiger Strom ins Netz eingespeist, während abends teurer Netzstrom bezogen werden muss. Ein Speicher nimmt diesen Überschuss auf und gibt ihn zeitversetzt ab. Pro 1.000 kWh Jahresstromverbrauch steigert 1 kWh Speicherkapazität die Autarkie typischerweise um 12 bis 16 Prozentpunkte.'
     },
     {
       id: 7,
       icon: UserCheck,
-      title: '7. Eigenverbrauch & Lastprofil',
+      title: '7. Eigenverbrauch & Nutzungsgrad',
       short: 'Gleichzeitigkeit von Sonnenstunden und Stromverbrauch',
-      formula: 'Eigenverbrauchsquote (%) = Eigenverbrauch / PV-Ertrag',
-      explanation: 'Der Eigenverbrauch hängt davon ab, wie viel Strom zeitgleich mit der Sonnenstrahlung verbraucht wird (Grundlast von Kühlschrank, Router, Waschmaschine, Wärmepumpe). Je höher die Solaranlage dimensioniert ist, desto kleiner wird ohne Speicher der prozentuale Eigenverbrauchsanteil.'
+      formula: 'Nutzbare Eigenquote = (E_dir + E_entladen) / E_PV',
+      explanation: 'Wir trennen physikalisch sauber zwischen nutzbarem Eigenverbrauch (im Haushalt ankommender Strom) und dem PV-Nutzungsgrad inklusive Wandlungs- und Speicherverlusten (~12 % Round-Trip). Der Autarkiegrad wiederum setzt den Eigenverbrauch ins Verhältnis zum Haushaltsgesamtbedarf.'
     },
     {
       id: 8,
@@ -78,8 +78,8 @@ export default function CalculationTransparencyBox() {
       icon: ArrowUpRight,
       title: '9. Einspeisevergütung nach EEG',
       short: 'Gesetzlich garantierte Vergütung für Überschuss',
-      formula: 'Erlös = Einspeisung (kWh) × Vergütungssatz (~0,0811 €/kWh)',
-      explanation: 'Strom, der weder direkt im Haus verbraucht noch im Akku gespeichert werden kann, fließt über den Netzeinspeisepunkt ins öffentliche Stromnetz. Bei Dachanlagen wird dieser Überschuss 20 Jahre lang nach dem Erneuerbare-Energien-Gesetz (EEG) fest vergütet.'
+      formula: 'EEG 2025: 8,03 ct/kWh (≤10 kWp) / 6,95 ct/kWh (>10 kWp)',
+      explanation: 'Strom, der weder direkt im Haus verbraucht noch im Akku gespeichert werden kann, fließt über den Netzeinspeisepunkt ins öffentliche Stromnetz. Bei Dachanlagen wird dieser Überschuss 20 Jahre lang nach dem Erneuerbare-Energien-Gesetz (EEG) fest vergütet (Stand 2025: 8,03 ct/kWh bis 10 kWp; 6,95 ct/kWh ab 10 kWp).'
     }
   ];
 

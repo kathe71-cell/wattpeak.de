@@ -58,7 +58,7 @@ export default function SolarComparisonCatalog() {
       {/* Title & Subtitle */}
       <div className="text-center max-w-3xl mx-auto mb-6">
         <span className="bg-amber-100 text-amber-950 border border-amber-300 font-extrabold text-xs uppercase tracking-widest px-3 py-1 rounded">
-          Geprüfte Herstellerdaten · Stand Q1 2025/2026
+          Geprüfte Herstellerdaten · Stand: Februar 2025
         </span>
         <h2 className="text-3xl sm:text-4xl font-black text-slate-950 tracking-tight mt-3">
           Photovoltaik- &amp; Komponenten-Katalog
@@ -204,7 +204,9 @@ export default function SolarComparisonCatalog() {
                     </div>
                     <div>
                       <span className="text-slate-400 text-[10px] block uppercase">Technologie</span>
-                      <span className="font-bold text-slate-800">{prod.cellTechnology || 'Standard'}</span>
+                      <span className="font-bold text-slate-800">
+                        {prod.cellTechnology || (prod.category.startsWith('storage') ? 'LiFePO4 Speicher' : prod.category === 'inverter' ? 'Mikrowechselrichter' : 'Komponenten-Set')}
+                      </span>
                     </div>
                     <div>
                       <span className="text-slate-400 text-[10px] block uppercase">Garantie</span>
@@ -349,7 +351,9 @@ export default function SolarComparisonCatalog() {
                   <tr>
                     <td className="p-3 bg-slate-50 text-slate-500 font-bold">Zellchemie / Technik</td>
                     {comparedProducts.map((p) => (
-                      <td key={p.id} className="p-3 text-slate-700">{p.cellTechnology || 'Standard'}</td>
+                      <td key={p.id} className="p-3 text-slate-700">
+                        {p.cellTechnology || (p.category.startsWith('storage') ? 'LiFePO4 Speicher' : p.category === 'inverter' ? 'Mikrowechselrichter' : 'Komponenten-Set')}
+                      </td>
                     ))}
                   </tr>
                   <tr>
@@ -401,7 +405,7 @@ export default function SolarComparisonCatalog() {
       {/* Disclaimers */}
       <div className="text-center text-xs text-slate-500 pt-3 font-mono max-w-4xl mx-auto leading-relaxed space-y-1.5">
         <div>
-          * Werbelink / Partnerlink: Als Amazon-Partner verdiene ich an qualifizierten Verkäufen. Angezeigte Preisspannen basieren auf Marktbeobachtungen (Stand: Q1 2025/2026) und dienen als unverbindliche Orientierung.
+          * Werbelink / Partnerlink: Als Amazon-Partner verdiene ich an qualifizierten Verkäufen. Angezeigte Preisspannen basieren auf Marktbeobachtungen (Stand: Februar 2025) und dienen als unverbindliche Orientierung.
         </div>
         <div>
           Für Photovoltaikanlagen und wesentliche Komponenten gilt gem. § 12 Abs. 3 UStG unter den gesetzlichen Voraussetzungen für private Betreiber auf Wohngebäuden der Nullsteuersatz (0 % MwSt.).

@@ -72,6 +72,38 @@ describe('WattPeak Unified Solar Calculation Engine', () => {
       // wenn die Kilowattstunden-Zahl etwas anderes aussagt
       expect(Math.abs(res.balance.autarkyRatePercent - calculatedAutarkyFromKwh)).toBeLessThan(0.2);
     });
+
+    it('sollte nutzbaren Anteil am PV-Ertrag und PV-Nutzungsgrad inkl. Speicherverlusten sauber trennen', () => {
+      const params: SolarParams = {
+        systemType: 'rooftop',
+        kwp: 10.0,
+        region: 'mitte',
+        tilt: 35,
+        azimuth: 0,
+        cellType: 'topcon',
+        annualConsumption: 5000,
+        storageKwh: 10.0,
+        electricityPrice: 0.36
+      };
+
+      const res = calculateSolarYield(params);
+      const b = res.balance;
+
+      // Speicherverluste müssen positiv sein bei aktivem Speicher
+      expect(b.storageLossKwh).toBeGreaterThan(0);
+      expect(b.storageChargeKwh).toBe(b.storageDischargeKwh + b.storageLossKwh);
+
+      // Nutzbarer Anteil am PV-Ertrag: E_self_used / E_gen * 100
+      const expectedUsableRate = Number(((b.totalSelfUsedKwh / b.totalAnnualYieldKwh) * 100).toFixed(1));
+      expect(b.usableSelfConsumptionRatePercent).toBe(expectedUsableRate);
+
+      // PV-Nutzungsgrad inkl. Speicherverlusten: (E_dir + E_char) / E_gen * 100
+      const expectedUtilizationRate = Number((((b.directConsumptionKwh + b.storageChargeKwh) / b.totalAnnualYieldKwh) * 100).toFixed(1));
+      expect(b.generationUtilizationRatePercent).toBe(expectedUtilizationRate);
+
+      // Die Quote inkl. Verluste muss strikt größer sein als der reine nutzbare Anteil
+      expect(b.generationUtilizationRatePercent).toBeGreaterThan(b.usableSelfConsumptionRatePercent);
+    });
   });
 
   describe('2. Balkonkraftwerke vs. Dachanlagen', () => {

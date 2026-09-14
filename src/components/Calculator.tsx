@@ -204,7 +204,7 @@ export default function SolarCalculator({ isEmbed = false }: CalculatorProps) {
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
             <span className="text-xs font-mono font-bold text-slate-700">
-              Modell: DIN EN IEC 60904-3 &middot; Stand 2026
+              Modul-STC: DIN EN IEC 60904-3 &middot; EEG-Stand 2025
             </span>
           </div>
 
@@ -591,12 +591,16 @@ export default function SolarCalculator({ isEmbed = false }: CalculatorProps) {
               </div>
 
               <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200/80">
-                <span className="text-[11px] font-mono font-bold text-slate-500 uppercase">Eigenverbrauchsquote</span>
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-mono font-bold text-slate-500 uppercase">Eigenverbrauchsquote</span>
+                  <span className="text-[10px] font-mono text-slate-400">Nutzbar</span>
+                </div>
                 <div className="text-2xl font-black text-slate-950 font-mono mt-0.5">
-                  {result.balance.selfConsumptionRatePercent} %
+                  {result.balance.usableSelfConsumptionRatePercent} %
                 </div>
                 <span className="text-[10px] text-slate-500 block mt-1">
                   {result.balance.totalSelfUsedKwh.toLocaleString('de-DE')} kWh vor Ort genutzt
+                  {result.balance.storageLossKwh > 0 && ` · PV-Nutzung inkl. Verluste: ${result.balance.generationUtilizationRatePercent} %`}
                 </span>
               </div>
 
