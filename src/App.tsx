@@ -31,9 +31,9 @@ function GlobalWidgets() {
   );
 }
 
-export default function App() {
+export function AppRoutes() {
   return (
-    <BrowserRouter>
+    <>
       {/* Vercel Web Analytics 2-way tracking component */}
       <VercelAnalytics />
       
@@ -80,6 +80,14 @@ export default function App() {
         <Route path="/datenschutz" element={<Datenschutz />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+    </>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppRoutes />
     </BrowserRouter>
   );
 }
