@@ -50,7 +50,7 @@ export function AppRoutes() {
         <Route path="/anlagenvergleich" element={<Navigate to="/anlagen-vergleich" replace />} />
         <Route path="/system-decoder" element={<Navigate to="/anlagen-vergleich" replace />} />
         <Route path="/hardware-katalog" element={<HardwareKatalogPage />} />
-        <Route path="/rechner" element={<Navigate to="/ertragsrechner" replace />} />
+        <Route path="/rechner" element={<ErtragsrechnerPage />} />
         <Route path="/decoder" element={<Navigate to="/anlagen-vergleich" replace />} />
         <Route path="/katalog" element={<Navigate to="/hardware-katalog" replace />} />
         <Route path="/hardware" element={<Navigate to="/hardware-katalog" replace />} />

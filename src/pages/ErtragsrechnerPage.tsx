@@ -32,7 +32,7 @@ export default function ErtragsrechnerPage() {
           <div className="max-w-3xl space-y-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 text-amber-950 font-mono text-xs font-bold border border-amber-300">
               <CalcIcon className="w-3.5 h-3.5 text-amber-800" />
-              Physikalisches Näherungsmodell · DIN EN IEC 60904-3
+              Physikalisches Näherungsmodell · DWD / PVGIS Einstrahlungsdaten
             </div>
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-950 tracking-tight leading-tight">
               Photovoltaik Ertragsrechner:<br />
@@ -48,7 +48,7 @@ export default function ErtragsrechnerPage() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-8 pt-8 border-t border-slate-100 text-xs font-mono">
             <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
               <span className="text-slate-500 uppercase">Modul-STC</span>
-              <div className="text-slate-950 font-black text-sm sm:text-base mt-0.5">DIN EN IEC 60904-3</div>
+              <div className="text-slate-950 font-black text-sm sm:text-base mt-0.5">PVGIS / DWD Referenz</div>
             </div>
             <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
               <span className="text-slate-500 uppercase">DWD-Mittelwert DE</span>

@@ -13,6 +13,10 @@ const ROUTES = {
     title: 'Wattpeak · Solar verstehen. Besser entscheiden. | wattpeak.de',
     description: 'Unabhängige Solar-Entscheidungsplattform: 800W Balkonkraftwerke, Haus-Dachanlagen und Speichernachrüstung berechnen, vergleichen und objektiv bewerten.',
   },
+  '/rechner': {
+    title: 'PV-Rechner Übersicht: Ertrag, Balkonkraftwerk & Speicher · Wattpeak | wattpeak.de',
+    description: 'Alle Photovoltaik-Rechner im Überblick: PV-Ertragsrechner, Balkonkraftwerk 800W Simulator, Speicherauslegung und Wirtschaftlichkeitsberechnung.',
+  },
   '/ertragsrechner': {
     title: 'PV-Ertragsrechner & Wirtschaftlichkeit · Wattpeak | wattpeak.de',
     description: 'Berechnen Sie Solarertrag, Eigenverbrauchsquote, Speicher-Mehrwert und Amortisationsdauer physikalisch fundiert für Ihr Dach oder Balkonkraftwerk.',
