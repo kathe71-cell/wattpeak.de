@@ -5,7 +5,7 @@ export default function EmbedWidgetBox() {
   const [copied, setCopied] = useState(false);
   const [kwpPreset, setKwpPreset] = useState('8.5');
 
-  const embedCode = `<iframe \n  src="https://wattpeak.de/rechner-embed?kwp=${kwpPreset}&region=mitte&tilt=32"\n  width="100%" \n  height="780" \n  frameborder="0" \n  style="border-radius: 16px; border: 1px solid #e2e8f0; max-width: 850px; box-shadow: 0 4px 20px rgba(0,0,0,0.06);"\n  title="WattPeak Ertragsrechner (DIN EN IEC 60904-3)"\n></iframe>\n<p style="font-size: 11px; font-family: sans-serif; color: #64748b; margin-top: 6px;">\n  Bereitgestellt von <a href="https://wattpeak.de/" target="_blank" rel="noopener" style="color: #d97706; font-weight: 600; text-decoration: none;">wattpeak.de</a> – Fachportal für Photovoltaik &amp; Speichertechnik.\n</p>`;
+  const embedCode = `<iframe \n  src="https://wattpeak.de/rechner-embed?kwp=${kwpPreset}&region=mitte&tilt=32"\n  width="100%" \n  height="780" \n  frameborder="0" \n  style="border-radius: 16px; border: 1px solid #e2e8f0; max-width: 850px; box-shadow: 0 4px 20px rgba(0,0,0,0.06);"\n  title="WattPeak Ertragsrechner (DIN EN IEC 60904-3)"\n></iframe>\n<p style="font-size: 11px; font-family: sans-serif; color: #64748b; margin-top: 6px;">\n  Bereitgestellt von <a href="https://wattpeak.de/" target="_blank" rel="noopener" style="color: #d97706; font-weight: 600; text-decoration: none;">wattpeak.de</a> – Informationsportal für Photovoltaik &amp; Speichertechnik.\n</p>`;
 
   const copyEmbed = () => {
     navigator.clipboard.writeText(embedCode);

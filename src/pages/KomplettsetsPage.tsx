@@ -177,6 +177,22 @@ export default function KomplettsetsPage() {
               </div>
             ))}
           </div>
+
+          {/* E-Auto Hinweis */}
+          <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 text-xs sm:text-sm text-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
+            <div>
+              <strong className="text-slate-900">Praxis-Tipp für E-Auto-Besitzer:</strong> Wer eine PV-Heimanlage für solares Überschussladen nutzen möchte, benötigt eine steuerbare 11-kW-Wallbox mit automatischer Phasenumschaltung.
+            </div>
+            <a
+              href="https://www.ladestandorte.de/wallbox-vergleich"
+              target="_blank"
+              rel="noopener"
+              className="inline-flex items-center gap-1.5 font-bold text-amber-700 hover:text-amber-600 shrink-0 underline"
+            >
+              Wallbox-Vergleich auf ladestandorte.de
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
         </section>
 
         {/* Quality Checklist */}

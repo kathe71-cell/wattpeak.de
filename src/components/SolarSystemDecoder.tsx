@@ -12,6 +12,9 @@ export default function SolarSystemDecoder() {
     title: string;
     subtitle: string;
     hardware: string;
+    mpptRange?: string;
+    maxInputCurrent?: string;
+    maxInputVoltage?: string;
     features: string[];
     amazonQuery: string;
     params: SolarParams;
@@ -22,10 +25,13 @@ export default function SolarSystemDecoder() {
       subtitle: 'Für Balkongeländer, Terrasse & Mietwohnungen',
       investmentLabel: 'ca. 330 – 390 € * (Basis-Set)',
       hardware: '2x 440Wp Bifazial N-Type TOPCon + Hoymiles HMS-800W-2T',
+      mpptRange: '16 – 60 V DC (2x MPPT getrennt)',
+      maxInputCurrent: '14,0 A je Tracker',
+      maxInputVoltage: '65 V DC',
       features: [
-        'Kein Elektriker nötig – Direktanschluss über Schukosteckdose',
+        'Kein Elektriker nötig – Direktanschluss über Schukosteckdose (Solarpaket I)',
         'Unbürokratische 5-Minuten-Registrierung im MaStR der Bundesnetzagentur',
-        '0 % Mehrwertsteuer gem. § 12 Abs. 3 UStG für private Wohngebäude'
+        '800 W AC-Einspeisegrenze am Wechselrichter (gemäß Solarpaket I / VDE AR-N 4105)'
       ],
       amazonQuery: 'Balkonkraftwerk 800W Komplettset Hoymiles',
       params: {
@@ -38,7 +44,7 @@ export default function SolarSystemDecoder() {
         azimuth: 0,
         cellType: 'topcon',
         shading: 'none',
-        annualConsumption: 2000, // Typischer 1- bis 2-Personen-Haushalt
+        annualConsumption: 2000,
         storageKwh: 0,
         electricityPrice: 0.36,
         feedInRemunerationType: 'uncompensated',
@@ -51,8 +57,11 @@ export default function SolarSystemDecoder() {
       subtitle: 'Für optimierten Eigenverbrauch in den Abend- & Nachtstunden',
       investmentLabel: 'ca. 950 – 1.150 € * (Set + LiFePO4 Speicher)',
       hardware: '2x 440Wp Module + Anker SOLIX Solarbank 2 E1600 Pro (All-in-One)',
+      mpptRange: '16 – 60 V DC (4x MPPT integriert)',
+      maxInputCurrent: '16,0 A je Eingang',
+      maxInputVoltage: '60 V DC',
       features: [
-        'Rettet Mittagsüberschuss für die nächtliche Grundlast (Kühlschrank, Router, Standby)',
+        'Speichert Mittagsüberschuss für die nächtliche Grundlast (Kühlschrank, Router, Standby)',
         'Integrierter 800W Inverter und 4x MPPT Tracker für getrennte Modulausrichtung',
         'Smarte App-Steuerung und Kompatibilität mit Smart Plugs'
       ],
@@ -80,6 +89,9 @@ export default function SolarSystemDecoder() {
       subtitle: 'Wirtschaftliche Grundabsicherung für Einfamilienhäuser',
       investmentLabel: 'ca. 6.200 – 7.200 € * (schlüsselfertig inkl. Montage)',
       hardware: '11–12x 445Wp Glas-Glas TOPCon Module + 5 kW String-Wechselrichter',
+      mpptRange: '120 – 850 V DC (2x String-MPPT)',
+      maxInputCurrent: '13,5 A je String',
+      maxInputVoltage: '1.000 V DC max.',
       features: [
         'Deutliche Senkung des Netzstrombezugs tagsüber',
         'Gesetzliche Einspeisevergütung nach EEG für jede eingespeiste Kilowattstunde',
@@ -95,7 +107,7 @@ export default function SolarSystemDecoder() {
         azimuth: 0,
         cellType: 'topcon',
         shading: 'none',
-        annualConsumption: 3500, // Standard 2-3 Personen EFH
+        annualConsumption: 3500,
         storageKwh: 0,
         electricityPrice: 0.36,
         feedInRemunerationType: 'eeg_partial',
@@ -108,6 +120,9 @@ export default function SolarSystemDecoder() {
       subtitle: 'Optimiert für Einfamilienhaus, Wärmepumpe & hohe Autarkie',
       investmentLabel: 'ca. 13.500 – 15.500 € * (schlüsselfertig inkl. Speicher)',
       hardware: '22–23x 445Wp Glas-Glas + 10 kW Hybrid-Wechselrichter + 7,5 kWh LiFePO4 Speicher',
+      mpptRange: '160 – 950 V DC (2x MPPT)',
+      maxInputCurrent: '15,0 A je String',
+      maxInputVoltage: '1.000 V DC max.',
       features: [
         'Hohe Eigenversorgung über Tag, Abend und Nacht (typisch 65–75 % Autarkie)',
         'Notstromfunktion und automatischer Umschaltbetrieb bei Netzausfall',
@@ -123,7 +138,7 @@ export default function SolarSystemDecoder() {
         azimuth: 0,
         cellType: 'topcon',
         shading: 'none',
-        annualConsumption: 5000, // Familie / EFH mit höherem Bedarf
+        annualConsumption: 5000,
         storageKwh: 7.5,
         electricityPrice: 0.36,
         feedInRemunerationType: 'eeg_partial',
@@ -269,7 +284,7 @@ export default function SolarSystemDecoder() {
               </span>
               <div className="font-extrabold text-amber-300 text-sm">{currentConfig.hardware}</div>
               <div className="text-[11px] font-mono text-slate-400">
-                Marktpreis-Richtwert (Stand: Februar 2025): {currentConfig.investmentLabel}
+                Marktpreis-Richtwert (Stand: September 2026): {currentConfig.investmentLabel}
               </div>
               <ul className="space-y-1.5 pt-2 text-slate-300">
                 {currentConfig.features.map((f, i) => (

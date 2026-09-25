@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Zap, Menu, X } from 'lucide-react';
+import { Zap, Menu, X, Search } from 'lucide-react';
+import SearchModal from './SearchModal';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -52,7 +54,7 @@ export default function Header() {
         </Link>
 
         {/* Desktop Navigation - Clean, Balanced & Elegant */}
-        <nav className="hidden lg:flex items-center space-x-7 text-sm font-semibold text-slate-600">
+        <nav className="hidden lg:flex items-center space-x-5 text-sm font-semibold text-slate-600">
           <Link
             to="/anlagen-vergleich"
             className="hover:text-amber-600 transition text-slate-900 font-bold hover:bg-slate-50 px-2 py-1 rounded-lg"
@@ -89,10 +91,25 @@ export default function Header() {
           >
             Zelltechnik
           </Link>
+          <button
+            onClick={() => setSearchOpen(true)}
+            className="flex items-center gap-1.5 text-xs text-slate-600 hover:text-amber-600 bg-slate-100 hover:bg-slate-200 border border-slate-200 px-2.5 py-1.5 rounded-lg transition-colors font-semibold"
+            title="Suche öffnen (⌘K)"
+          >
+            <Search className="w-4 h-4 text-amber-500" />
+            <span className="font-mono bg-white border border-slate-300 text-slate-500 px-1 py-0.2 rounded text-[10px]">⌘K</span>
+          </button>
         </nav>
 
-        {/* Mobile menu toggle */}
-        <div className="flex lg:hidden">
+        {/* Mobile menu toggle & Search */}
+        <div className="flex items-center gap-2 lg:hidden">
+          <button
+            onClick={() => setSearchOpen(true)}
+            className="p-2 text-slate-700 hover:text-amber-600 rounded-lg hover:bg-slate-100"
+            aria-label="Suche öffnen"
+          >
+            <Search className="w-5 h-5 text-amber-500" />
+          </button>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="p-2 rounded-lg text-slate-700 hover:text-slate-950 hover:bg-slate-100"
@@ -106,6 +123,13 @@ export default function Header() {
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
         <div className="lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-2 shadow-xl">
+          <button
+            onClick={() => { setMobileMenuOpen(false); setSearchOpen(true); }}
+            className="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-slate-100 text-slate-800 font-semibold hover:bg-slate-200 text-sm"
+          >
+            <span className="flex items-center gap-2"><Search className="w-4 h-4 text-amber-500" /> PV-Rechner &amp; Hardware suchen</span>
+            <span className="text-xs bg-white border border-slate-300 text-slate-500 px-1.5 py-0.5 rounded font-mono">⌘K</span>
+          </button>
           <Link
             to="/anlagen-vergleich"
             onClick={() => setMobileMenuOpen(false)}
@@ -132,24 +156,27 @@ export default function Header() {
             onClick={() => setMobileMenuOpen(false)}
             className="block px-3 py-2 rounded-lg font-semibold text-slate-800 hover:bg-slate-50"
           >
-            800W Stecker-Solargeräte (Solarpaket I)
+            800W Balkonsolar
           </Link>
           <Link
             to="/batteriepass"
             onClick={() => setMobileMenuOpen(false)}
             className="block px-3 py-2 rounded-lg font-semibold text-slate-800 hover:bg-slate-50"
           >
-            EU-Batteriepass &amp; SOH-Diagnostik
+            EU-Batteriepass
           </Link>
           <Link
             to="/technologie"
             onClick={() => setMobileMenuOpen(false)}
             className="block px-3 py-2 rounded-lg font-semibold text-slate-800 hover:bg-slate-50"
           >
-            Zelltechnik &amp; Halbleiter
+            Zelltechnik
           </Link>
         </div>
       )}
+
+      {/* Search Modal */}
+      <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
   );
 }

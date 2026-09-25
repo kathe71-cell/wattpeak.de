@@ -54,15 +54,12 @@ export default function Impressum() {
             </div>
           </section>
 
-          {/* Steuer- und Redaktionsstatus */}
+          {/* Redaktionsstatus */}
           <section className="space-y-4">
             <h2 className="text-lg font-bold text-slate-950">
-              Umsatzsteuer &amp; Redaktionelle Verantwortung
+              Redaktionelle Verantwortung
             </h2>
             <div className="text-sm text-slate-700 leading-relaxed space-y-3">
-              <p>
-                <strong>Umsatzsteuer-Status:</strong> Gemäß § 19 UStG wird als Kleinunternehmer keine Umsatzsteuer erhoben und folglich nicht auf Rechnungen ausgewiesen.
-              </p>
               <p>
                 <strong>Verantwortlich für redaktionelle Inhalte gemäß § 18 Abs. 2 Medienstaatsvertrag (MStV):</strong><br />
                 Jens Kathe<br />

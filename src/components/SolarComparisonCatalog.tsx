@@ -58,7 +58,7 @@ export default function SolarComparisonCatalog() {
       {/* Title & Subtitle */}
       <div className="text-center max-w-3xl mx-auto mb-6">
         <span className="bg-amber-100 text-amber-950 border border-amber-300 font-extrabold text-xs uppercase tracking-widest px-3 py-1 rounded">
-          Geprüfte Herstellerdaten · Stand: Februar 2025
+          Geprüfte Herstellerdaten · Stand: September 2026
         </span>
         <h2 className="text-3xl sm:text-4xl font-black text-slate-950 tracking-tight mt-3">
           Photovoltaik- &amp; Komponenten-Katalog
@@ -405,7 +405,7 @@ export default function SolarComparisonCatalog() {
       {/* Disclaimers */}
       <div className="text-center text-xs text-slate-500 pt-3 font-mono max-w-4xl mx-auto leading-relaxed space-y-1.5">
         <div>
-          * Werbelink / Partnerlink: Als Amazon-Partner verdiene ich an qualifizierten Verkäufen. Angezeigte Preisspannen basieren auf Marktbeobachtungen (Stand: Februar 2025) und dienen als unverbindliche Orientierung.
+          * Werbelink / Partnerlink: Als Amazon-Partner verdiene ich an qualifizierten Verkäufen. Angezeigte Preisspannen basieren auf Marktbeobachtungen (Stand: September 2026) und dienen als unverbindliche Orientierung.
         </div>
         <div>
           Für Photovoltaikanlagen und wesentliche Komponenten gilt gem. § 12 Abs. 3 UStG unter den gesetzlichen Voraussetzungen für private Betreiber auf Wohngebäuden der Nullsteuersatz (0 % MwSt.).

@@ -38,7 +38,7 @@ export interface UnifiedProduct {
   efficiency?: string;
   cellTechnology?: string;
   priceRange: string;         // Marktpreis-Richtwert (z.B. "ca. 129 – 169 € *")
-  priceReferenceDate: string; // z.B. "Marktübersicht Stand: Februar 2025"
+  priceReferenceDate: string; // z.B. "Marktübersicht Stand: September 2026"
   warranty: string;           // Rein offizielle Herstellergarantie
   technicalBadges: string[];  // Sachliche technische Zertifikate
   compatibility: ProductCompatibility;
@@ -72,7 +72,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     efficiency: '22,0 % Modulwirkungsgrad',
     cellTechnology: 'N-Type TOPCon Glas-Glas (2x 1.6 mm)',
     priceRange: 'ca. 330 – 390 € *',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: Februar 2025',
+    priceReferenceDate: 'Marktpreis-Richtwert Stand: September 2026',
     warranty: 'Herstellergarantie: 25 J. Produkt / 30 J. linear auf Module, 12 J. auf Wechselrichter',
     technicalBadges: ['VDE-AR-N 4105', 'Solarpaket I konform', 'Bifazial Glas-Glas'],
     compatibility: {
@@ -102,7 +102,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     efficiency: '22,0 % Modulwirkungsgrad',
     cellTechnology: 'N-Type TOPCon Glas-Glas',
     priceRange: 'ca. 590 – 690 € *',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: Februar 2025',
+    priceReferenceDate: 'Marktpreis-Richtwert Stand: September 2026',
     warranty: 'Herstellergarantie: 25 J. Produkt / 30 J. linear auf Module',
     technicalBadges: ['Max. Solarpaket I Belegung', 'VDE-AR-N 4105', 'Schwachlicht-Optimiert'],
     compatibility: {
@@ -132,7 +132,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     efficiency: '21,5 % Modulwirkungsgrad',
     cellTechnology: 'Monokristallin Half-Cut',
     priceRange: 'ca. 290 – 350 € *',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: Februar 2025',
+    priceReferenceDate: 'Marktpreis-Richtwert Stand: September 2026',
     warranty: 'Herstellergarantie: 10 J. auf Wechselrichter, 15 J. auf Module',
     technicalBadges: ['VDE-AR-N 4105', 'Relais integriert', 'IP67 Wetterfest'],
     compatibility: {
@@ -163,7 +163,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     capacityKwh: '1,6 kWh (bis 9,6 kWh erweiterbar)',
     acPowerWatts: '800 W AC integriert',
     priceRange: 'ca. 799 – 1.099 € *',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: Februar 2025',
+    priceReferenceDate: 'Marktpreis-Richtwert Stand: September 2026',
     warranty: 'Herstellergarantie: 10 Jahre Herstellergarantie',
     technicalBadges: ['All-in-One Lösung', '4x MPPT integriert', 'LiFePO4 6000 Zyklen'],
     compatibility: {
@@ -189,7 +189,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     ],
     capacityKwh: '1,6 kWh',
     priceRange: 'ca. 549 – 649 € *',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: Februar 2025',
+    priceReferenceDate: 'Marktpreis-Richtwert Stand: September 2026',
     warranty: 'Herstellergarantie: 10 Jahre Herstellergarantie',
     technicalBadges: ['Reiner Erweiterungsakku', 'LiFePO4 6000 Zyklen'],
     compatibility: {
@@ -218,7 +218,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     capacityKwh: '2,05 kWh',
     acPowerWatts: '800 W Netzeinspeisung / 2.400 W Notstrom',
     priceRange: 'ca. 999 – 1.390 € *',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: Februar 2025',
+    priceReferenceDate: 'Marktpreis-Richtwert Stand: September 2026',
     warranty: 'Herstellergarantie: 5 Jahre Herstellergarantie auf Akku',
     technicalBadges: ['Balkon + Powerstation', 'Notstrom 2400W', 'LiFePO4 3000 Zyklen'],
     compatibility: {
@@ -245,7 +245,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     ],
     capacityKwh: '2,05 kWh',
     priceRange: 'ca. 699 – 899 € *',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: Februar 2025',
+    priceReferenceDate: 'Marktpreis-Richtwert Stand: September 2026',
     warranty: 'Herstellergarantie: 10 Jahre Herstellergarantie',
     technicalBadges: ['IP66 wetterfest', 'Winter-Akkuheizung', 'Universell kompatibel'],
     compatibility: {
@@ -276,7 +276,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     acPowerWatts: '800 W AC',
     efficiency: '96,7 % Spitzenwirkungsgrad',
     priceRange: 'ca. 119 – 149 € *',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: Februar 2025',
+    priceReferenceDate: 'Marktpreis-Richtwert Stand: September 2026',
     warranty: 'Herstellergarantie: 12 Jahre Herstellergarantie',
     technicalBadges: ['VDE-AR-N 4105 zertifiziert', '2x MPPT', 'WLAN integriert'],
     compatibility: {
@@ -304,7 +304,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     acPowerWatts: '800 W AC (umschaltbar)',
     efficiency: '97,3 % Wirkungsgrad',
     priceRange: 'ca. 129 – 165 € *',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: Februar 2025',
+    priceReferenceDate: 'Marktpreis-Richtwert Stand: September 2026',
     warranty: 'Herstellergarantie: 12 Jahre Herstellergarantie',
     technicalBadges: ['20A Eingangsstrom', 'VDE 4105', 'Bluetooth & WLAN'],
     compatibility: {
@@ -335,7 +335,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     efficiency: '22,3 % Wirkungsgrad',
     cellTechnology: 'N-Type i-TOPCon Glas-Glas',
     priceRange: 'ca. 75 – 99 € * (Einzelmodul)',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: Februar 2025',
+    priceReferenceDate: 'Marktpreis-Richtwert Stand: September 2026',
     warranty: 'Herstellergarantie: 25 Jahre Produktgarantie / 30 Jahre lineare Leistungsgarantie',
     technicalBadges: ['Bifazial Glas-Glas', 'Brandschutzklasse A', 'Hagelfest'],
     compatibility: {
@@ -363,7 +363,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     efficiency: '22,0 % Wirkungsgrad',
     cellTechnology: 'N-Type TOPCon',
     priceRange: 'ca. 70 – 95 € *',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: Februar 2025',
+    priceReferenceDate: 'Marktpreis-Richtwert Stand: September 2026',
     warranty: 'Herstellergarantie: 15 Jahre Produkt- / 30 Jahre lineare Leistungsgarantie',
     technicalBadges: ['N-Type TOPCon', 'Black Frame', 'IEC zertifiziert'],
     compatibility: {
@@ -390,7 +390,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       'Inklusive Hakensicherung gegen Herabfallen'
     ],
     priceRange: 'ca. 49 – 79 € *',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: Februar 2025',
+    priceReferenceDate: 'Marktpreis-Richtwert Stand: September 2026',
     warranty: 'Herstellergarantie: 10 Jahre Materialgarantie',
     technicalBadges: ['Edelstahl V2A', 'Neigbar 15-30°', 'Sturmsicher'],
     compatibility: {
@@ -415,7 +415,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       'Unterstützt von Anker, EcoFlow und Home Assistant für Nulleinspeisung'
     ],
     priceRange: 'ca. 95 – 125 € *',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: Februar 2025',
+    priceReferenceDate: 'Marktpreis-Richtwert Stand: September 2026',
     warranty: 'Herstellergarantie: 2 Jahre Herstellergarantie',
     technicalBadges: ['DIN-Hutschiene', 'Echtzeit-Phasensaldierung', 'LAN & WLAN'],
     compatibility: {

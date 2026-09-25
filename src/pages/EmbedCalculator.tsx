@@ -6,7 +6,7 @@ import { useDocumentMeta } from '../utils/seo';
 export default function EmbedCalculator() {
   useDocumentMeta({
     title: 'Wattpeak PV-Ertragsrechner Embed Widget',
-    description: 'Kostenloses interaktives PV-Ertragsrechner Widget für Webmaster und Fachportale.',
+    description: 'Kostenloses interaktives PV-Ertragsrechner Widget für Webmaster und Informationsportale.',
     canonicalPath: '/rechner-embed',
   });
   return (

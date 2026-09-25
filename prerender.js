@@ -51,7 +51,7 @@ const ROUTES = {
   },
   '/rechner-embed': {
     title: 'Wattpeak PV-Ertragsrechner Embed Widget | wattpeak.de',
-    description: 'Kostenloses interaktives PV-Ertragsrechner Widget für Webmaster und Fachportale.',
+    description: 'Kostenloses interaktives PV-Ertragsrechner Widget für Webmaster und Informationsportale.',
   },
   '/impressum': {
     title: 'Impressum (§ 5 DDG) · Wattpeak | wattpeak.de',
