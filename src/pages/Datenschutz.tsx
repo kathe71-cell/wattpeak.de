@@ -81,9 +81,11 @@ export default function Datenschutz() {
           <section className="space-y-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
             <h2 className="text-base font-bold text-slate-950">5. Ihre Rechte als betroffene Person</h2>
             <p>
-              Sie haben jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten (Art. 15 DSGVO), 
-              deren Berichtigung (Art. 16 DSGVO), Löschung (Art. 17 DSGVO) sowie Einschränkung der Verarbeitung (Art. 18 DSGVO) 
-              und das Recht auf Datenübertragbarkeit (Art. 20 DSGVO). Hierzu können Sie sich jederzeit an die im Impressum angegebene E-Mail-Adresse wenden.
+              Sie haben jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten (Art. 15 DSGVO),
+              deren Berichtigung (Art. 16 DSGVO), Löschung (Art. 17 DSGVO) sowie Einschränkung der Verarbeitung (Art. 18 DSGVO),
+              das Recht auf Datenübertragbarkeit (Art. 20 DSGVO) sowie das Recht auf Widerspruch gegen die Verarbeitung (Art. 21 DSGVO).
+              Hierzu können Sie sich jederzeit an die im Impressum angegebene E-Mail-Adresse wenden. Zudem steht Ihnen ein Beschwerderecht bei
+              der zuständigen Datenschutz-Aufsichtsbehörde zu (Art. 77 DSGVO).
             </p>
           </section>
         </div>
