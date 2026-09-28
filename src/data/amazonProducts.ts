@@ -7,6 +7,7 @@ export interface AmazonProduct {
   specs: string[];
   priceRange: string;
   asinOrSearch: string;
+  asin?: string;        // Echter Amazon ASIN für /dp/-Direktlinks
   rating: number;
   reviewCount: number;
   badge?: string;
@@ -20,6 +21,21 @@ export function getAmazonAffiliateUrl(searchQuery: string): string {
   return `https://www.amazon.de/s?k=${encoded}&tag=${AMAZON_TRACKING_ID}`;
 }
 
+/**
+ * Direktlink auf Amazon-Produktseite via ASIN — Affiliate-Konversionen
+ * und SEO-Linkqualität sind besser als Suchanfragen.
+ * Fallback auf Suchanfrage wenn keine ASIN verfügbar.
+ */
+export function getAmazonDirectUrl(asin?: string, fallbackSearchQuery?: string): string {
+  if (asin) {
+    return `https://www.amazon.de/dp/${asin}?tag=${AMAZON_TRACKING_ID}`;
+  }
+  if (fallbackSearchQuery) {
+    return getAmazonAffiliateUrl(fallbackSearchQuery);
+  }
+  return `https://www.amazon.de/?tag=${AMAZON_TRACKING_ID}`;
+}
+
 export const AMAZON_PRODUCTS: AmazonProduct[] = [
   {
     id: 'hoymiles-hms-800w',
@@ -30,6 +46,7 @@ export const AMAZON_PRODUCTS: AmazonProduct[] = [
     specs: ['800 W AC-Ausgangsleistung', '2x MPPT (Gleichstrom-Optimierung)', 'Integriertes WLAN & S-Miles App', 'VDE-AR-N 4105 & NA-Schutz konform'],
     priceRange: 'ca. 129 – 169 €',
     asinOrSearch: 'Hoymiles HMS-800W-2T 800W Mikrowechselrichter',
+    asin: 'B0CJGKQXVL',
     rating: 4.8,
     reviewCount: 1420,
     badge: 'Solarpaket I Konform',
@@ -44,6 +61,7 @@ export const AMAZON_PRODUCTS: AmazonProduct[] = [
     specs: ['1.600 Wh LiFePO4 Kapazität (bis 9,6 kWh)', '4x MPPT Tracker integriert', 'Integrierter 800W Inverter', '6.000 Zyklen Lebensdauer (SOH >80%)'],
     priceRange: 'ca. 799 – 1.099 €',
     asinOrSearch: 'Anker Solix Solarbank 2 E1600 Pro',
+    asin: 'B0DKNQB1TQ',
     rating: 4.7,
     reviewCount: 520,
     badge: 'High-Capacity LFP',
@@ -58,6 +76,7 @@ export const AMAZON_PRODUCTS: AmazonProduct[] = [
     specs: ['2.048 Wh erweiterbar bis 6.144 Wh', 'Echtzeit-Null-Einspeisung', 'LiFePO4 Akku mit 3.000+ Zyklen', 'Schuko-Notstromsteckdose 2.400W'],
     priceRange: 'ca. 999 – 1.490 €',
     asinOrSearch: 'EcoFlow PowerStream 800W Delta 2 Max',
+    asin: 'B0FJRXF19P',
     rating: 4.6,
     reviewCount: 380,
     badge: 'Notstromfähig',
@@ -86,6 +105,7 @@ export const AMAZON_PRODUCTS: AmazonProduct[] = [
     specs: ['3-Phasen-Messung bis 120A', 'WLAN, LAN & Bluetooth Konnektivität', 'Genauigkeitsklasse B (IEC 62053-21)', 'Kompatibel mit Home Assistant & MQTT'],
     priceRange: 'ca. 89 – 119 €',
     asinOrSearch: 'Shelly Pro 3EM Energiezähler',
+    asin: 'B0G14VF9TL',
     rating: 4.8,
     reviewCount: 2150,
     badge: 'Präzisions-Sensorik',
@@ -100,6 +120,7 @@ export const AMAZON_PRODUCTS: AmazonProduct[] = [
     specs: ['Bis zu 3.680 W / 16A Belastbarkeit', 'Echtzeit-Leistungsmessung (W & kWh)', 'Überlast- & Übertemperaturschutz', 'WLAN & Bluetooth integriert'],
     priceRange: 'ca. 16 – 24 €',
     asinOrSearch: 'Shelly Plus 1PM Leistungsmessung',
+    asin: 'B0965J4HT5',
     rating: 4.8,
     reviewCount: 5400,
     badge: 'Top-Zubehör',

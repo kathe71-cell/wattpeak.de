@@ -101,8 +101,18 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/rechner-embed" className="hover:text-amber-400 transition-colors">
-                  Iframe Embed Rechner
+                <Link to="/einspeiseverguetung" className="hover:text-amber-400 transition-colors">
+                  Einspeisevergütung 2025/2026 (EEG-Sätze)
+                </Link>
+              </li>
+              <li>
+                <Link to="/balkonkraftwerk-speicher" className="hover:text-amber-400 transition-colors">
+                  Balkonspeicher Vergleich (Anker/EcoFlow/Growatt)
+                </Link>
+              </li>
+              <li>
+                <Link to="/wechselrichter-vergleich" className="hover:text-amber-400 transition-colors">
+                  Wechselrichter: Mikro vs. String vs. Hybrid
                 </Link>
               </li>
             </ul>

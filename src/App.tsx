@@ -17,6 +17,9 @@ import KomplettsetsPage from './pages/KomplettsetsPage';
 import SolarpflichtPage from './pages/SolarpflichtPage';
 import Impressum from './pages/Impressum';
 import Datenschutz from './pages/Datenschutz';
+import EinspeiseverguetungPage from './pages/EinspeiseverguetungPage';
+import BalkonkraftwerkSpeicherPage from './pages/BalkonkraftwerkSpeicherPage';
+import WechselrichterVergleichPage from './pages/WechselrichterVergleichPage';
 
 function GlobalWidgets() {
   const location = useLocation();
@@ -75,6 +78,15 @@ export function AppRoutes() {
         <Route path="/solarspitzengesetz" element={<Navigate to="/solarpflicht" replace />} />
         <Route path="/solarreform" element={<Navigate to="/solarpflicht" replace />} />
         <Route path="/solarfoerderprogramm" element={<Navigate to="/solarpflicht" replace />} />
+
+        {/* Neue SEO-Seiten */}
+        <Route path="/einspeiseverguetung" element={<EinspeiseverguetungPage />} />
+        <Route path="/einspeisevergütung" element={<Navigate to="/einspeiseverguetung" replace />} />
+        <Route path="/balkonkraftwerk-speicher" element={<BalkonkraftwerkSpeicherPage />} />
+        <Route path="/balkonspeicher" element={<Navigate to="/balkonkraftwerk-speicher" replace />} />
+        <Route path="/wechselrichter-vergleich" element={<WechselrichterVergleichPage />} />
+        <Route path="/wechselrichter" element={<Navigate to="/wechselrichter-vergleich" replace />} />
+        <Route path="/mikrowechselrichter" element={<Navigate to="/wechselrichter-vergleich" replace />} />
 
         <Route path="/impressum" element={<Impressum />} />
         <Route path="/datenschutz" element={<Datenschutz />} />

@@ -5,7 +5,7 @@ import {
   CloudRain, HelpCircle, Scale 
 } from 'lucide-react';
 import { calculateSolarYield, RegionZone } from '../utils/solarMath';
-import { getAmazonSearchUrl } from '../data/products';
+import { getAmazonDirectUrl } from '../data/products';
 
 export default function BalkonSimulator() {
   // Simulator inputs
@@ -414,7 +414,10 @@ export default function BalkonSimulator() {
 
             {/* Hardware Recommendation CTA */}
             <a
-              href={getAmazonSearchUrl(hasStorage ? 'Anker Solix Solarbank 2 E1600 Pro Balkonkraftwerk Speicher' : 'Balkonkraftwerk 800W Komplettset Hoymiles')}
+              href={getAmazonDirectUrl(
+                hasStorage ? 'B0DKNQB1TQ' : 'B0CJGKQXVL',
+                hasStorage ? 'Anker Solix Solarbank 2 E1600 Pro Balkonkraftwerk Speicher' : 'Balkonkraftwerk 800W Komplettset Hoymiles'
+              )}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full flex items-center justify-center gap-2 bg-amber-400 hover:bg-amber-300 active:scale-95 text-slate-950 font-extrabold py-3 px-4 rounded-xl text-sm shadow transition-all cursor-pointer"

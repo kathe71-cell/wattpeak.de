@@ -7,7 +7,7 @@ export interface SeoMetaProps {
   structuredData?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
-const BASE_URL = 'https://wattpeak.de';
+const BASE_URL = 'https://www.wattpeak.de';
 
 /**
  * Sauberes, robustes Metadaten- & Canonical-Management für alle SPA-Routen

@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { ShoppingCart, CheckCircle2, Calculator } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { getAmazonSearchUrl } from '../data/products';
+import { getAmazonDirectUrl } from '../data/products';
 import { calculateSolarYield, SolarParams } from '../utils/solarMath';
 
 export default function SolarSystemDecoder() {
@@ -297,7 +297,7 @@ export default function SolarSystemDecoder() {
             </div>
 
             <a
-              href={getAmazonSearchUrl(currentConfig.amazonQuery)}
+              href={getAmazonDirectUrl(undefined, currentConfig.amazonQuery)}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full bg-amber-400 hover:bg-amber-300 active:scale-95 text-slate-950 font-black text-xs sm:text-sm py-3 px-4 rounded-xl transition flex items-center justify-center gap-2 shadow-lg cursor-pointer"

@@ -1,6 +1,6 @@
 import React from 'react';
 import { ShoppingBag, ArrowUpRight, Check, ShieldCheck } from 'lucide-react';
-import { UNIFIED_PRODUCTS, getAmazonSearchUrl } from '../data/products';
+import { UNIFIED_PRODUCTS, getAmazonDirectUrl } from '../data/products';
 
 export default function AmazonProductShowcase() {
   // Show leading 4-6 hardware highlights
@@ -82,12 +82,12 @@ export default function AmazonProductShowcase() {
               </div>
 
               <a
-                href={getAmazonSearchUrl(product.amazonSearchQuery)}
+                href={getAmazonDirectUrl(product.asin, product.amazonSearchQuery)}
                 target="_blank"
                 rel="sponsored noopener noreferrer"
                 className="w-full inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 font-extrabold text-xs py-2.5 px-3 rounded-xl shadow-sm transition-all"
               >
-                Bei Amazon.de suchen *
+                {product.asin ? 'Bei Amazon.de ansehen *' : 'Bei Amazon.de suchen *'}
                 <ArrowUpRight className="w-3.5 h-3.5 text-slate-950" />
               </a>
             </div>

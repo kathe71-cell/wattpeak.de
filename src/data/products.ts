@@ -43,12 +43,28 @@ export interface UnifiedProduct {
   technicalBadges: string[];  // Sachliche technische Zertifikate
   compatibility: ProductCompatibility;
   amazonSearchQuery: string;
+  asin?: string;              // Amazon ASIN für direkte Produktseite /dp/{ASIN}
 }
 
 export const AMAZON_TRACKING_ID = 'wattpeak.de-21';
 
 export function getAmazonSearchUrl(query: string): string {
   return `https://www.amazon.de/s?k=${encodeURIComponent(query)}&tag=${AMAZON_TRACKING_ID}`;
+}
+
+/**
+ * Gibt direkten Amazon-Produktlink (/dp/ASIN) zurück wenn ASIN vorhanden,
+ * andernfalls Fallback auf Suchanfrage (/s?k=...).
+ * Direktlinks ranken besser für Affiliate-Konversionen und sind SEO-sauber.
+ */
+export function getAmazonDirectUrl(asin?: string, fallbackQuery?: string): string {
+  if (asin) {
+    return `https://www.amazon.de/dp/${asin}?tag=${AMAZON_TRACKING_ID}`;
+  }
+  if (fallbackQuery) {
+    return getAmazonSearchUrl(fallbackQuery);
+  }
+  return `https://www.amazon.de/?tag=${AMAZON_TRACKING_ID}`;
 }
 
 export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
@@ -81,7 +97,8 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       solarPackage1Compliant: true,
       plugType: 'Schuko-Anschlusskabel beiliegend'
     },
-    amazonSearchQuery: 'Balkonkraftwerk 800W Komplettset Hoymiles HMS-800W Trina'
+    amazonSearchQuery: 'Balkonkraftwerk 800W Komplettset Hoymiles HMS-800W Trina',
+    asin: 'B0CJGKQXVL'  // Hoymiles HMS-800W-2T 800W Komplettset
   },
   {
     id: 'set-1760wp-4modul',
@@ -172,7 +189,8 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       solarPackage1Compliant: true,
       plugType: 'Direkter Netzsteckeranschluss'
     },
-    amazonSearchQuery: 'Anker SOLIX Solarbank 2 E1600 Pro Balkonkraftwerk Speicher'
+    amazonSearchQuery: 'Anker SOLIX Solarbank 2 E1600 Pro Balkonkraftwerk Speicher',
+    asin: 'B0DKNQB1TQ'  // Anker SOLIX Solarbank 2 E1600 AC
   },
   {
     id: 'anker-solix-expansion-bp1600',
@@ -227,7 +245,8 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       solarPackage1Compliant: true,
       plugType: 'Schuko-Netzkabel'
     },
-    amazonSearchQuery: 'EcoFlow PowerStream 800W DELTA 2 Max Balkonkraftwerk'
+    amazonSearchQuery: 'EcoFlow PowerStream 800W DELTA 2 Max Balkonkraftwerk',
+    asin: 'B0FJRXF19P'  // EcoFlow STREAM 800W + DELTA 2 Max Bundle
   },
   {
     id: 'growatt-noah-2000',
@@ -254,7 +273,8 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       solarPackage1Compliant: true,
       plugType: 'MC4 Solarkabel'
     },
-    amazonSearchQuery: 'Growatt NOAH 2000 Balkonkraftwerk Speicher LiFePO4'
+    amazonSearchQuery: 'Growatt NOAH 2000 Balkonkraftwerk Speicher LiFePO4',
+    asin: 'B0F9PWSNZ8'  // Growatt NOAH 2000
   },
 
   // --- 3. MIKROWECHSELRICHTER & WECHSELRICHTER ---
@@ -285,7 +305,8 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       solarPackage1Compliant: true,
       plugType: 'Betteri BC01 oder Schukokabel'
     },
-    amazonSearchQuery: 'Hoymiles HMS-800W-2T Mikrowechselrichter 800W'
+    amazonSearchQuery: 'Hoymiles HMS-800W-2T Mikrowechselrichter 800W',
+    asin: 'B0CJGKQXVL'  // Hoymiles HMS-800W-2T
   },
   {
     id: 'apsystems-ez1-m',
@@ -313,7 +334,8 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       solarPackage1Compliant: true,
       plugType: 'Schuko-Anschlusskabel'
     },
-    amazonSearchQuery: 'APsystems EZ1-M Mikrowechselrichter 800W'
+    amazonSearchQuery: 'APsystems EZ1-M Mikrowechselrichter 800W',
+    asin: 'B0CMXX3Y58'  // APsystems EZ1-M 800W
   },
 
   // --- 4. SOLARMODULE ---
@@ -344,7 +366,8 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       solarPackage1Compliant: true,
       plugType: 'MC4-EVO2 Originalstecker'
     },
-    amazonSearchQuery: 'Trina Solar Vertex S+ 440Wp 445Wp Bifazial Glas Glas'
+    amazonSearchQuery: 'Trina Solar Vertex S+ 440Wp 445Wp Bifazial Glas Glas',
+    asin: 'B0G1Z4LV6C'  // Trina Solar Vertex S+ 450Wp Glas-Glas
   },
   {
     id: 'jinko-tiger-neo-440',
@@ -425,7 +448,8 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       solarPackage1Compliant: true,
       plugType: 'Hutschienen-Klemmen'
     },
-    amazonSearchQuery: 'Shelly Pro 3EM Energiemessgerät Hutschiene'
+    amazonSearchQuery: 'Shelly Pro 3EM Energiemessgerät Hutschiene',
+    asin: 'B0G14VF9TL'  // Shelly Pro 3EM
   }
 ];
 

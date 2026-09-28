@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Search, Filter, ShoppingCart, Check, Scale, X, ArrowRight, AlertTriangle, ShieldCheck } from 'lucide-react';
-import { UNIFIED_PRODUCTS, UnifiedProduct, ProductCategory, getAmazonSearchUrl } from '../data/products';
+import { UNIFIED_PRODUCTS, UnifiedProduct, ProductCategory, getAmazonDirectUrl } from '../data/products';
 
 export default function SolarComparisonCatalog() {
   const [activeCategory, setActiveCategory] = useState<string>('all');
@@ -247,7 +247,7 @@ export default function SolarComparisonCatalog() {
                   </div>
 
                   <a
-                    href={getAmazonSearchUrl(prod.amazonSearchQuery)}
+                    href={getAmazonDirectUrl(prod.asin, prod.amazonSearchQuery)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full bg-amber-400 hover:bg-amber-300 active:scale-95 text-slate-950 font-extrabold text-xs py-3 px-4 rounded-xl transition flex items-center justify-center gap-2 shadow cursor-pointer"
@@ -384,7 +384,7 @@ export default function SolarComparisonCatalog() {
                     {comparedProducts.map((p) => (
                       <td key={p.id} className="p-3">
                         <a
-                          href={getAmazonSearchUrl(p.amazonSearchQuery)}
+                          href={getAmazonDirectUrl(p.asin, p.amazonSearchQuery)}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-1.5 bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs px-3 py-2 rounded-xl transition cursor-pointer"
