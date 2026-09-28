@@ -129,7 +129,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       plugType: 'Schuko-Anschluss'
     },
     amazonSearchQuery: 'Balkonkraftwerk 800W 4 Module Komplettset 1600W 1800W',
-    asin: 'B0CJGKQXVL'  // Hoymiles HMS-800W-2T (Komponente des Sets – bestes verfügbares Einzelprodukt)
+    asin: 'B0CVYGJ86V'  // KLARBEIT 1760Wp Hoymiles 4-Modul Komplettset 800W
   },
   {
     id: 'set-840wp-deye',
@@ -181,7 +181,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     ],
     capacityKwh: '1,6 kWh (bis 9,6 kWh erweiterbar)',
     acPowerWatts: '800 W AC integriert',
-    priceRange: 'ca. 799 – 1.099 € *',
+    priceRange: 'ca. 429 – 699 € *',
     priceReferenceDate: 'Marktpreis-Richtwert Stand: September 2026',
     warranty: 'Herstellergarantie: 10 Jahre Herstellergarantie',
     technicalBadges: ['All-in-One Lösung', '4x MPPT integriert', 'LiFePO4 6000 Zyklen'],
@@ -266,7 +266,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       'IP66 wetterfest für den dauerhaften Außeneinsatz'
     ],
     capacityKwh: '2,05 kWh',
-    priceRange: 'ca. 699 – 899 € *',
+    priceRange: 'ca. 379 – 549 € *',
     priceReferenceDate: 'Marktpreis-Richtwert Stand: September 2026',
     warranty: 'Herstellergarantie: 10 Jahre Herstellergarantie',
     technicalBadges: ['IP66 wetterfest', 'Winter-Akkuheizung', 'Universell kompatibel'],

@@ -184,12 +184,12 @@ export default function KomplettsetsPage() {
               <strong className="text-slate-900">Praxis-Tipp für E-Auto-Besitzer:</strong> Wer eine PV-Heimanlage für solares Überschussladen nutzen möchte, benötigt eine steuerbare 11-kW-Wallbox mit automatischer Phasenumschaltung.
             </div>
             <a
-              href="https://www.ladestandorte.de/wallbox-vergleich"
+              href="https://www.test.de/Wallbox-Test-die-besten-Ladestationen-im-Vergleich-5699091-0/"
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer nofollow"
               className="inline-flex items-center gap-1.5 font-bold text-amber-700 hover:text-amber-600 shrink-0 underline"
             >
-              Wallbox-Vergleich auf ladestandorte.de
+              Wallbox-Test bei Stiftung Warentest
               <ArrowRight className="w-3.5 h-3.5" />
             </a>
           </div>
