@@ -17,6 +17,7 @@ export default function SolarSystemDecoder() {
     maxInputVoltage?: string;
     features: string[];
     amazonQuery: string;
+    amazonAsin?: string;
     params: SolarParams;
     investmentLabel: string;
   }> = {
@@ -34,6 +35,7 @@ export default function SolarSystemDecoder() {
         '800 W AC-Einspeisegrenze am Wechselrichter (gemäß Solarpaket I / VDE AR-N 4105)'
       ],
       amazonQuery: 'Balkonkraftwerk 800W Komplettset Hoymiles',
+      amazonAsin: 'B0CJGKQXVL',  // Hoymiles HMS-800W-2T 880Wp Komplettset
       params: {
         systemType: 'balcony',
         kwp: 0.88,
@@ -66,6 +68,7 @@ export default function SolarSystemDecoder() {
         'Smarte App-Steuerung und Kompatibilität mit Smart Plugs'
       ],
       amazonQuery: 'Anker SOLIX Solarbank 2 E1600 Pro',
+      amazonAsin: 'B0DKNQB1TQ',  // Anker SOLIX Solarbank 2 E1600 Pro
       params: {
         systemType: 'balcony',
         kwp: 0.88,
@@ -98,6 +101,7 @@ export default function SolarSystemDecoder() {
         'Jederzeit modular um einen Hochvolt-Heimspeicher erweiterbar'
       ],
       amazonQuery: 'Photovoltaik Komplettset 5 kWp',
+      amazonAsin: 'B0G1Z4LV6C',  // Trina Solar Vertex S+ Glas-Glas (repräsentatives Modul für Dachanlagen)
       params: {
         systemType: 'rooftop',
         kwp: 5.0,
@@ -129,6 +133,7 @@ export default function SolarSystemDecoder() {
         'Optimale Ergänzung zu Wärmepumpe und steuerbarer Wallbox'
       ],
       amazonQuery: 'Photovoltaik Komplettanlage 10 kWp',
+      amazonAsin: 'B0CNPMW5XR',  // Jinko Tiger Neo 440W N-Type (repräsentatives Modul für große Dachanlagen)
       params: {
         systemType: 'rooftop',
         kwp: 10.0,
@@ -297,13 +302,13 @@ export default function SolarSystemDecoder() {
             </div>
 
             <a
-              href={getAmazonDirectUrl(undefined, currentConfig.amazonQuery)}
+              href={getAmazonDirectUrl(currentConfig.amazonAsin, currentConfig.amazonQuery)}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="sponsored noopener noreferrer"
               className="w-full bg-amber-400 hover:bg-amber-300 active:scale-95 text-slate-950 font-black text-xs sm:text-sm py-3 px-4 rounded-xl transition flex items-center justify-center gap-2 shadow-lg cursor-pointer"
             >
               <ShoppingCart className="w-4 h-4 text-slate-950" />
-              <span>Passende Hardware bei Amazon.de ansehen *</span>
+              <span>{currentConfig.amazonAsin ? 'Direkt zum Produkt bei Amazon.de *' : 'Passende Hardware bei Amazon.de suchen *'}</span>
             </a>
             
             <div className="text-[11px] text-center text-slate-400 font-mono leading-relaxed">

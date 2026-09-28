@@ -128,7 +128,8 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       solarPackage1Compliant: true,
       plugType: 'Schuko-Anschluss'
     },
-    amazonSearchQuery: 'Balkonkraftwerk 800W 4 Module Komplettset 1600W 1800W'
+    amazonSearchQuery: 'Balkonkraftwerk 800W 4 Module Komplettset 1600W 1800W',
+    asin: 'B0CJGKQXVL'  // Hoymiles HMS-800W-2T (Komponente des Sets – bestes verfügbares Einzelprodukt)
   },
   {
     id: 'set-840wp-deye',
@@ -158,7 +159,8 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       solarPackage1Compliant: true,
       plugType: 'Schukostecker'
     },
-    amazonSearchQuery: 'Deye 800W Balkonkraftwerk Komplettset'
+    amazonSearchQuery: 'Deye 800W Balkonkraftwerk Komplettset',
+    asin: 'B0C1WCP6J6'  // Balkonkraftwerk 840W mit Deye SUN600 Inverter + 2x DAH 420W
   },
 
   // --- 2. SPEICHERSYSTEME & ALL-IN-ONE ---
@@ -217,7 +219,8 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       solarPackage1Compliant: true,
       plugType: 'System-Stapelanschluss'
     },
-    amazonSearchQuery: 'Anker SOLIX BP1600 Zusatzakku Erweiterungsbatterie'
+    amazonSearchQuery: 'Anker SOLIX BP1600 Zusatzakku Erweiterungsbatterie',
+    asin: 'B0FYDVSH2T'  // Anker SOLIX BP1600 Erweiterungsakku 1600Wh
   },
   {
     id: 'ecoflow-powerstream-delta2max',
@@ -395,7 +398,8 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       solarPackage1Compliant: true,
       plugType: 'MC4 Standard'
     },
-    amazonSearchQuery: 'Jinko Solar Tiger Neo 440Wp N-Type'
+    amazonSearchQuery: 'Jinko Solar Tiger Neo 440Wp N-Type',
+    asin: 'B0CNPMW5XR'  // Jinko Tiger Neo N-Type 440W JKM440N-54HL4R-V Black Frame
   },
 
   // --- 5. MONTAGESYSTEME & ZUBEHÖR ---
@@ -422,7 +426,8 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       solarPackage1Compliant: true,
       plugType: 'Mechanische Befestigung'
     },
-    amazonSearchQuery: 'Balkonkraftwerk Halterung Geländer verstellbar Edelstahl'
+    amazonSearchQuery: 'Balkonkraftwerk Halterung Geländer verstellbar Edelstahl',
+    asin: 'B0CPQ7S9P6'  // Balkonkraftwerk Halterung 10-30° individuell verstellbar Balkongeländer
   },
   {
     id: 'shelly-pro-3em',
