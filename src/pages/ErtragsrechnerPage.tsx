@@ -19,7 +19,7 @@ export default function ErtragsrechnerPage() {
       name: 'Wattpeak PV-Ertragsrechner',
       applicationCategory: 'UtilityApplication',
       operatingSystem: 'All',
-      url: 'https://wattpeak.de/ertragsrechner',
+      url: 'https://www.wattpeak.de/ertragsrechner',
     },
   });
   return (

@@ -16,7 +16,7 @@ export default function BalkonkraftwerkPage() {
       '@context': 'https://schema.org',
       '@type': 'Article',
       headline: '800W Balkonkraftwerk Ratgeber (Solarpaket I)',
-      url: 'https://wattpeak.de/balkonkraftwerk',
+      url: 'https://www.wattpeak.de/balkonkraftwerk',
     },
   });
   return (

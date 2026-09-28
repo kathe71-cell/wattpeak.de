@@ -14,7 +14,7 @@ export default function BatteriepassPage() {
       '@context': 'https://schema.org',
       '@type': 'Article',
       headline: 'EU-Batteriepass & Speicher-Diagnostik',
-      url: 'https://wattpeak.de/batteriepass',
+      url: 'https://www.wattpeak.de/batteriepass',
     },
   });
   // SOH Calculator inputs

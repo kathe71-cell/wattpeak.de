@@ -37,7 +37,7 @@ export default function Home() {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
       name: 'Wattpeak.de',
-      url: 'https://wattpeak.de/',
+      url: 'https://www.wattpeak.de/',
       description: 'Solar verstehen. Besser entscheiden. Unabhängige Solar-Entscheidungsplattform für Balkonkraftwerke, Dachanlagen und Speicher.',
     },
   });
@@ -156,6 +156,12 @@ export default function Home() {
                   >
                     800W-Leitfaden &amp; Gesetze
                   </Link>
+                  <Link
+                    to="/wechselrichter-vergleich"
+                    className="w-full inline-flex items-center justify-center text-slate-500 hover:text-amber-700 font-semibold text-[11px] py-0.5 transition"
+                  >
+                    Mikro vs. String vs. Hybrid →
+                  </Link>
                 </div>
               </div>
 
@@ -217,6 +223,12 @@ export default function Home() {
                     className="w-full inline-flex items-center justify-center text-slate-600 hover:text-slate-950 font-semibold text-[11px] py-1 transition"
                   >
                     EU-Batteriepass &amp; Haltbarkeit
+                  </Link>
+                  <Link
+                    to="/balkonkraftwerk-speicher"
+                    className="w-full inline-flex items-center justify-center text-slate-500 hover:text-amber-700 font-semibold text-[11px] py-0.5 transition"
+                  >
+                    Balkonspeicher Vergleich 2025 →
                   </Link>
                 </div>
               </div>
@@ -461,10 +473,10 @@ export default function Home() {
                 <span className="text-slate-400 uppercase text-[10px]">Solarpaket I</span>
                 <div className="text-slate-950 font-black text-sm mt-0.5">800W AC / 2.000 Wp DC</div>
               </div>
-              <div className="p-3 bg-white rounded-xl border border-slate-200 text-left">
-                <span className="text-slate-400 uppercase text-[10px]">Steuersatz</span>
-                <div className="text-emerald-700 font-black text-sm mt-0.5">0 % MwSt. (§ 12 Abs. 3)</div>
-              </div>
+              <Link to="/einspeiseverguetung" className="p-3 bg-white rounded-xl border border-slate-200 text-left hover:border-amber-400 transition block">
+                <span className="text-slate-400 uppercase text-[10px]">EEG-Vergütung 2025</span>
+                <div className="text-emerald-700 font-black text-sm mt-0.5">8,03 ct/kWh →</div>
+              </Link>
               <div className="p-3 bg-white rounded-xl border border-slate-200 text-left">
                 <span className="text-slate-400 uppercase text-[10px]">Jahresertrag DE</span>
                 <div className="text-slate-950 font-black text-sm mt-0.5">900 – 1.150 kWh/kWp</div>

@@ -16,7 +16,7 @@ export default function KomplettsetsPage() {
       '@context': 'https://schema.org',
       '@type': 'Article',
       headline: 'Photovoltaik & Balkonkraftwerk Komplettsets im Vergleich',
-      url: 'https://wattpeak.de/komplettsets',
+      url: 'https://www.wattpeak.de/komplettsets',
     },
   });
   const setCategories = [

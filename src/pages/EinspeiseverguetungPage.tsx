@@ -23,8 +23,8 @@ const DEGRESSION = [
 
 export default function EinspeiseverguetungPage() {
   useDocumentMeta({
-    title: 'Einspeisevergütung 2025/2026 Photovoltaik – EEG-Sätze aktuell',
-    description: 'Aktuelle EEG-Einspeisevergütung für Photovoltaik 2025 und 2026: Vergütungssätze nach Anlagengröße, halbjährliche Degression und Berechnungsbeispiele für Balkonkraftwerk und Hausdach-PV.',
+    title: 'EEG-Einspeisevergütung 2025/2026 aktuell · wattpeak.de',
+    description: 'EEG-Einspeisevergütung 2025/2026: Vergütungssätze nach Anlagengröße, halbjährliche Degression und Rechenbeispiele für Balkonkraftwerk und Hausdach-PV.',
     canonicalPath: '/einspeiseverguetung',
     structuredData: [
       {

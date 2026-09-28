@@ -17,7 +17,7 @@ export default function HardwareKatalogPage() {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
       name: 'Wattpeak Hardware- & Speicherkatalog',
-      url: 'https://wattpeak.de/hardware-katalog',
+      url: 'https://www.wattpeak.de/hardware-katalog',
     },
   });
   return (

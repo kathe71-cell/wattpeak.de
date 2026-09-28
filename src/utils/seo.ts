@@ -39,17 +39,31 @@ export function useDocumentMeta({ title, description, canonicalPath, structuredD
     }
     canonicalLink.setAttribute('href', canonicalUrl);
 
-    // 4. Open Graph Tags
-    const ogTitle = document.querySelector('meta[property="og:title"]');
-    if (ogTitle) ogTitle.setAttribute('content', fullTitle);
-    
-    const ogDesc = document.querySelector('meta[property="og:description"]');
-    if (ogDesc) ogDesc.setAttribute('content', description);
+    // 4. Open Graph Tags (create-if-missing pattern)
+    const setOrCreateMeta = (attr: string, key: string, value: string) => {
+      let el = document.querySelector(`meta[${attr}="${key}"]`);
+      if (!el) {
+        el = document.createElement('meta');
+        el.setAttribute(attr, key);
+        document.head.appendChild(el);
+      }
+      el.setAttribute('content', value);
+    };
 
-    const ogUrl = document.querySelector('meta[property="og:url"]');
-    if (ogUrl) ogUrl.setAttribute('content', canonicalUrl);
+    setOrCreateMeta('property', 'og:title', fullTitle);
+    setOrCreateMeta('property', 'og:description', description);
+    setOrCreateMeta('property', 'og:url', canonicalUrl);
+    setOrCreateMeta('property', 'og:type', 'website');
+    setOrCreateMeta('property', 'og:image', `${BASE_URL}/og-image.png`);
+    setOrCreateMeta('property', 'og:site_name', 'wattpeak.de');
 
-    // 5. JSON-LD Structured Data
+    // 5. Twitter Card Tags
+    setOrCreateMeta('name', 'twitter:card', 'summary_large_image');
+    setOrCreateMeta('name', 'twitter:title', fullTitle);
+    setOrCreateMeta('name', 'twitter:description', description);
+    setOrCreateMeta('name', 'twitter:image', `${BASE_URL}/og-image.png`);
+
+    // 6. JSON-LD Structured Data
     let scriptTag = document.getElementById('page-structured-data');
     if (structuredData) {
       if (!scriptTag) {

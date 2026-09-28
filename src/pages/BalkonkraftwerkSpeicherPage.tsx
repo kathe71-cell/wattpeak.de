@@ -88,8 +88,8 @@ const SPEICHER: SpeicherProdukt[] = [
 
 export default function BalkonkraftwerkSpeicherPage() {
   useDocumentMeta({
-    title: 'Balkonkraftwerk Speicher 2025: Anker SOLIX, EcoFlow & Growatt NOAH im Vergleich',
-    description: 'Balkonspeicher für Balkonkraftwerke im Vergleich: Anker SOLIX Solarbank 2 E1600, EcoFlow PowerStream + DELTA 2 Max, Growatt NOAH 2000. Kapazität, Kompatibilität und Eigenverbrauch maximieren.',
+    title: 'Balkonspeicher Vergleich 2025 · wattpeak.de',
+    description: 'Balkonspeicher im Vergleich 2025: Anker SOLIX Solarbank 2, EcoFlow PowerStream und Growatt NOAH 2000 – Kapazität, Kompatibilität und Eigenverbrauch maximieren.',
     canonicalPath: '/balkonkraftwerk-speicher',
     structuredData: [
       {

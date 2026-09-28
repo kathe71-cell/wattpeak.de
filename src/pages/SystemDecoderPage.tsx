@@ -18,7 +18,7 @@ export default function SystemDecoderPage() {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
       name: 'Wattpeak Anlagen-Vergleich & System-Decoder',
-      url: 'https://wattpeak.de/anlagen-vergleich',
+      url: 'https://www.wattpeak.de/anlagen-vergleich',
     },
   });
   return (

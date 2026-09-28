@@ -110,8 +110,8 @@ export default function WechselrichterVergleichPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   useDocumentMeta({
-    title: 'Wechselrichter Vergleich 2025: Mikro vs. String vs. Hybrid',
-    description: 'Mikrowechselrichter, String-Wechselrichter und Hybrid-Wechselrichter für Photovoltaik im technischen Vergleich: Funktionsweise, Vorteile, Nachteile und Produktempfehlungen.',
+    title: 'Wechselrichter 2025: Mikro vs. String vs. Hybrid · wattpeak.de',
+    description: 'Mikro-, String- und Hybrid-Wechselrichter für PV im technischen Vergleich: Funktionsweise, Vor- und Nachteile und konkrete Produktempfehlungen für 2025.',
     canonicalPath: '/wechselrichter-vergleich',
     structuredData: [
       {

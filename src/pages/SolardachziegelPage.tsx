@@ -16,7 +16,7 @@ export default function SolardachziegelPage() {
       '@context': 'https://schema.org',
       '@type': 'Article',
       headline: 'Solardachziegel & Gebäudeintegrierte Photovoltaik',
-      url: 'https://wattpeak.de/solardachziegel',
+      url: 'https://www.wattpeak.de/solardachziegel',
     },
   });
   const manufacturers = [

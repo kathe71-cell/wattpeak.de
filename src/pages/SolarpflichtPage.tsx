@@ -9,14 +9,14 @@ import { useDocumentMeta } from '../utils/seo';
 
 export default function SolarpflichtPage() {
   useDocumentMeta({
-    title: 'Solarpflicht & gesetzliche Bauvorgaben nach Bundesländern · Wattpeak',
+    title: 'Solarpflicht nach Bundesland & GEG · Wattpeak',
     description: 'Übersicht der Solarpflichten bei Neubau und Dachsanierung in den 16 Bundesländern sowie EEG-Vorgaben für private Eigentümer.',
     canonicalPath: '/solarpflicht',
     structuredData: {
       '@context': 'https://schema.org',
       '@type': 'Article',
       headline: 'Solarpflicht & gesetzliche Bauvorgaben nach Bundesländern',
-      url: 'https://wattpeak.de/solarpflicht',
+      url: 'https://www.wattpeak.de/solarpflicht',
     },
   });
 
