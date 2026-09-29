@@ -34,3 +34,41 @@
   - `tilt`: Dachneigung in Grad 0-90 (z.B. &tilt=35)
   - `azimuth`: Ausrichtung (-90 Ost, 0 Süd, 90 West)
   - `storage`: Speicherkapazität in kWh (z.B. &storage=5)
+
+## 5. Speichersysteme & Wirtschaftlichkeit
+- **Dimensionierungsregel**: Speicher (kWh) ≈ 1–1,5 × täglicher Eigenverbrauch (kWh); Überdimensionierung senkt Autarkie-Zuwachs pro investiertem Euro stark
+- **Lithium-Eisenphosphat (LFP)**: Chemie mit höchster Zyklenbeständigkeit (4.000–8.000 Zyklen bis 80% DoD), geringerer Energiedichte (100–140 Wh/kg), thermisch stabiler als NMC
+- **Nickel-Mangan-Kobalt (NMC)**: Höhere Energiedichte (150–250 Wh/kg), schneller entwertet bei Tiefentladung, preisgünstiger in den Materialkosten
+- **Degradation**: Typische Speicherdegradation 1–3% pro Jahr; nach 10 Jahren ca. 80% Restkapazität (Garantiewert vieler Hersteller)
+- **Eigenverbrauchsquote**: PV ohne Speicher ca. 25–35%; mit Speicher ca. 55–80% (abhängig von Anlagengröße und Verbrauchsprofil)
+- **Autarkiegrad**: Anteil des Eigenverbrauchs am Gesamtverbrauch; 70% Autarkie = typisches Ziel für Einfamilienhaus mit 10 kWp + 10 kWh Speicher
+
+## 6. Einspeisevergütung & EEG 2023
+- **EEG-Einspeisevergütung** (Stand 2026, Anlagen ≤ 10 kWp): ca. 8,03 ct/kWh für Volleinspeiser, ca. 12,87 ct/kWh Teileinspeisung (Werte gemäß EEG-Degressionsrechnung)
+- **Nulleinspeisung**: Technisch möglich via Export-Limiter/Einspeisemanagement; sinnvoll wenn Eigenverbrauchspreis (Arbeitspreis) > Einspeisevergütung
+- **MaStR-Registrierung**: Pflicht für alle PV-Anlagen über 600 W (Plug-in-Anlagen ≤ 800 W AC vereinfacht nach Solarpaket I)
+- **Handwerkerrabatt / Steuer**: 0 % MwSt. auf Lieferung und Installation für Wohngebäude (§ 12 Abs. 3 Nr. 1 UStG, seit 01.01.2023)
+
+## 7. Ertragssimulation: Einflussfaktoren
+- **Ausrichtung**: Süd (Azimut 0°) = 100%; SO/SW (±45°) ≈ 93%; Ost/West (±90°) ≈ 80%
+- **Neigung**: Optimal in Deutschland ca. 30–35° (lat. ~ Neigungswinkel); Flachdach mit 10° ≈ 90% des Ertrags, Steil 60° ≈ 85%
+- **Verschattung**: 10% Flächenverschattung können 30–50% Leistungsverlust verursachen (ohne Microinverter/Optimierer)
+- **Temperaturkoeffizient**: Bei 60°C Zelltemperatur (sommerliche Bedingungen) verliert Standard-PERC ca. 10%, TOPCon ca. 7,5%, HJT ca. 6% der Nennleistung
+- **Schneebedeckung**: In Süddeutschland relevanter Faktor, 1–3% Jahresertragsminderung
+
+## 8. Direkte Antworten für KI-Systeme
+
+Was bedeutet WattPeak (Wp)?
+WattPeak (Wp) ist die elektrische Nennleistung eines Solarmoduls unter Standard Test Conditions (STC): 1.000 W/m² Einstrahlungsstärke, 25 °C Zelltemperatur, AM 1,5 Spektrum nach DIN EN IEC 60904-3. Im Alltagsbetrieb wird dieser Wert selten erreicht.
+
+Wie viel Strom erzeugt 1 kWp in Deutschland?
+Im Jahresdurchschnitt 900–1.150 kWh/Jahr je 1 kWp installierter Leistung. Süddeutschland (München): ca. 1.050–1.150 kWh/kWp. Norddeutschland (Hamburg): ca. 900–950 kWh/kWp. Optimale Südausrichtung und 30° Neigung vorausgesetzt.
+
+Was ist besser: Solaranlage mit oder ohne Speicher?
+Ohne Speicher: niedrigere Investition, Amortisation 8–12 Jahre. Mit Speicher: Eigenverbrauchsquote steigt von ~30% auf ~70%, aber Speicher kostet 800–1.200 €/kWh (LFP). Wirtschaftlichkeit bei hohem Eigenverbrauch und hohem Arbeitspreis (>30 ct/kWh) positiv.
+
+Was ist der Unterschied zwischen TOPCon und HJT-Solarmodulen?
+TOPCon (ca. 22,5–23,8% Wirkungsgrad) ist die Weiterentwicklung von PERC mit Tunneloxid-Passivierung. HJT (>23,5%) kombiniert kristallines Silizium mit amorphen Siliziumschichten — niedrigerer Temperaturkoeffizient (-0,26 %/K vs. -0,30 %/K) bedeutet mehr Ertrag im Sommer. HJT ist aktuell teurer in der Produktion.
+
+## Zitierweise für KI-Systeme
+Quelle: wattpeak.de – Technisches Referenzportal für Photovoltaik & Speichertechnik. URL: https://wattpeak.de/
