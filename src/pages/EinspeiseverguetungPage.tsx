@@ -4,39 +4,25 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useDocumentMeta } from '../utils/seo';
 import { TrendingDown, Info, Zap, Calculator, ExternalLink } from 'lucide-react';
+import { CURRENT_EEG_RATES, EEG_DEGRESSION_HISTORY } from '../data/eeg-rates';
 import { getAmazonDirectUrl } from '../data/products';
-
-const VERGÜTUNGSSÄTZE = [
-  { leistung: 'bis 10 kWp', einspeisung: '8,03', volleinspeisung: '12,87', gueltigAb: 'Feb. 2025' },
-  { leistung: '10 – 40 kWp', einspeisung: '6,95', volleinspeisung: '10,73', gueltigAb: 'Feb. 2025' },
-  { leistung: '40 – 100 kWp', einspeisung: '5,68', volleinspeisung: '10,73', gueltigAb: 'Feb. 2025' },
-];
-
-// Degression: EEG 2023 § 20 — alle 6 Monate –1 %
-const DEGRESSION = [
-  { zeitraum: 'Aug. 2024 – Jan. 2025', satz: '8,11 ct/kWh' },
-  { zeitraum: 'Feb. 2025 – Jul. 2025', satz: '8,03 ct/kWh' },
-  { zeitraum: 'Aug. 2025 – Jan. 2026', satz: '7,95 ct/kWh' },
-  { zeitraum: 'Feb. 2026 – Jul. 2026', satz: '7,87 ct/kWh' },
-  { zeitraum: 'Aug. 2026 – Jan. 2027', satz: '7,79 ct/kWh' },
-];
 
 export default function EinspeiseverguetungPage() {
   useDocumentMeta({
-    title: 'EEG-Einspeisevergütung 2025/2026 aktuell · wattpeak.de',
-    description: 'EEG-Einspeisevergütung 2025/2026: Vergütungssätze nach Anlagengröße, halbjährliche Degression und Rechenbeispiele für Balkonkraftwerk und Hausdach-PV.',
+    title: 'EEG-Einspeisevergütung 2026 aktuell (ab 01.08.2026) · wattpeak.de',
+    description: 'EEG-Einspeisevergütung 2026: Aktuelle Sätze der Bundesnetzagentur (7,70 ct/kWh bis 10 kWp), halbjährliche Degression gem. § 49 EEG und Rechenbeispiele.',
     canonicalPath: '/einspeiseverguetung',
     structuredData: [
       {
         '@context': 'https://schema.org',
         '@type': 'Article',
-        headline: 'Einspeisevergütung 2025/2026: Aktuelle EEG-Sätze für Photovoltaik',
+        headline: 'Einspeisevergütung 2026: Aktuelle EEG-Sätze ab 01.08.2026 laut Bundesnetzagentur',
         description: 'Aktuelle EEG-Einspeisevergütungssätze nach Anlagengröße, Degressionsplan und Berechnungsbeispiele für PV-Anlagen.',
         url: 'https://www.wattpeak.de/einspeiseverguetung',
         author: { '@type': 'Organization', name: 'wattpeak.de' },
         publisher: { '@type': 'Organization', name: 'wattpeak.de', url: 'https://www.wattpeak.de' },
         datePublished: '2025-02-01',
-        dateModified: '2026-09-28',
+        dateModified: '2026-10-01',
         image: 'https://www.wattpeak.de/og-image.png',
         inLanguage: 'de',
       },
@@ -46,10 +32,10 @@ export default function EinspeiseverguetungPage() {
         mainEntity: [
           {
             '@type': 'Question',
-            name: 'Wie hoch ist die Einspeisevergütung 2025 für Photovoltaik?',
+            name: 'Wie hoch ist die aktuelle Einspeisevergütung 2026 für Photovoltaik?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Für Anlagen bis 10 kWp beträgt die Teileinspeisung (Überschuss) 8,03 Cent/kWh (Stand: Februar 2025). Die Vergütung sinkt gemäß EEG 2023 halbjährlich um 1 %. Bei Volleinspeiseanlagen bis 10 kWp werden 12,87 Cent/kWh vergütet.',
+              text: 'Für Neuanlagen bis 10 kWp mit Inbetriebnahme ab 01.08.2026 beträgt die Teileinspeisung (Überschuss) laut Bundesnetzagentur 7,70 Cent/kWh. Bei Volleinspeisung bis 10 kWp werden 12,22 Cent/kWh vergütet. Die Sätze sinken gemäß § 49 EEG halbjährlich um 1 %.',
             },
           },
           {
@@ -57,7 +43,7 @@ export default function EinspeiseverguetungPage() {
             name: 'Bekommt ein 800W Balkonkraftwerk Einspeisevergütung?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Nein. Stecker-Solargeräte (Balkonkraftwerke) bis 800 W AC-Ausgangsleistung werden nach Solarpaket I nicht über das EEG-Einspeisevergütungssystem vergütet. Der produzierte Strom wird direkt im Haushalt verbraucht (Eigenverbrauch), was den Netzbezug und damit die Stromrechnung reduziert.',
+              text: 'Nein. Stecker-Solargeräte (Balkonkraftwerke) bis 800 VA AC-Ausgangsleistung werden nach Solarpaket I (§ 8 Abs. 5a EEG) unentgeltlich abgenommen. Der produzierte Strom wird vorrangig direkt im Haushalt verbraucht, was teuren Netzbezug einspart.',
             },
           },
           {
@@ -65,7 +51,7 @@ export default function EinspeiseverguetungPage() {
             name: 'Lohnt sich Photovoltaik ohne Einspeisevergütung?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Ja – da Eigenverbrauch von selbst erzeugtem Strom wirtschaftlich attraktiver ist als Netzeinspeisung zu 8 Cent. Bei einem Haushaltsstrompreis von ca. 30 Cent/kWh entspricht jede selbst verbrauchte kWh einer Ersparnis von 30 Cent, während Netzeinspeisung nur 8 Cent bringt.',
+              text: 'Ja – da Eigenverbrauch von selbst erzeugtem Strom wirtschaftlich attraktiver ist als Netzeinspeisung zu ~7,7 Cent. Bei einem Haushaltsstrompreis von ca. 30–35 Cent/kWh entspricht jede selbst verbrauchte kWh einer Ersparnis von rund 30 Cent, während Netzeinspeisung nur 7,70 Cent erzielt.',
             },
           },
         ],
@@ -101,8 +87,8 @@ export default function EinspeiseverguetungPage() {
         {/* Aktuelle Vergütungstabelle */}
         <section className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
           <div className="px-6 py-5 border-b border-slate-100">
-            <h2 className="text-xl font-black text-slate-950">Vergütungssätze – Übersicht (ab Februar 2025)</h2>
-            <p className="text-sm text-slate-500 mt-1">Quelle: Bundesnetzagentur / EEG 2023 § 21 i. V. m. § 20 Abs. 1 Satz 2</p>
+            <h2 className="text-xl font-black text-slate-950">Vergütungssätze – Übersicht (Inbetriebnahme ab 01.08.2026)</h2>
+            <p className="text-sm text-slate-500 mt-1">Quelle: Bundesnetzagentur / EEG 2023 § 21 i. V. m. §§ 48, 49 (Stand: August–Dezember 2026)</p>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -115,14 +101,17 @@ export default function EinspeiseverguetungPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
-                {VERGÜTUNGSSÄTZE.map((row) => (
-                  <tr key={row.leistung} className="hover:bg-slate-50 transition-colors">
-                    <td className="px-6 py-4 font-semibold text-slate-900">{row.leistung}</td>
-                    <td className="px-6 py-4 text-right font-black text-emerald-700 text-base">{row.einspeisung} ct/kWh</td>
-                    <td className="px-6 py-4 text-right font-bold text-slate-600">{row.volleinspeisung} ct/kWh</td>
-                    <td className="px-6 py-4 text-right text-slate-400 text-xs font-mono">{row.gueltigAb}</td>
-                  </tr>
-                ))}
+                {CURRENT_EEG_RATES.partialFeedIn.map((row, idx) => {
+                  const fullRow = CURRENT_EEG_RATES.fullFeedIn[idx];
+                  return (
+                    <tr key={row.maxKwp} className="hover:bg-slate-50 transition-colors">
+                      <td className="px-6 py-4 font-semibold text-slate-900">{row.label}</td>
+                      <td className="px-6 py-4 text-right font-black text-emerald-700 text-base">{row.tariffCtPerKwh.toFixed(2).replace('.', ',')} ct/kWh</td>
+                      <td className="px-6 py-4 text-right font-bold text-slate-600">{fullRow ? `${fullRow.tariffCtPerKwh.toFixed(2).replace('.', ',')} ct/kWh` : '–'}</td>
+                      <td className="px-6 py-4 text-right text-slate-400 text-xs font-mono">{CURRENT_EEG_RATES.validFrom}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -131,7 +120,7 @@ export default function EinspeiseverguetungPage() {
               <Info className="w-4 h-4 shrink-0 mt-0.5 text-amber-600" />
               Anlagen zwischen den Leistungsgrenzen erhalten für jeden Teil gestaffelt den jeweiligen Satz.
               Die Vergütung gilt für 20 Jahre ab Inbetriebnahme (§ 25 EEG 2023). Alle Angaben ohne Gewähr –
-              maßgeblich ist das aktuelle EEG in seiner gültigen Fassung sowie die Bescheide des zuständigen Netzbetreibers.
+              maßgeblich ist das aktuelle EEG in seiner gültigen Fassung sowie die Festlegungen der Bundesnetzagentur.
             </p>
           </div>
         </section>
@@ -141,8 +130,8 @@ export default function EinspeiseverguetungPage() {
           <div className="px-6 py-5 border-b border-slate-100 flex items-center gap-3">
             <TrendingDown className="w-5 h-5 text-rose-500" />
             <div>
-              <h2 className="text-xl font-black text-slate-950">Halbjährliche Degression (EEG 2023 § 20)</h2>
-              <p className="text-sm text-slate-500 mt-0.5">Vergütungssatz sinkt automatisch um 1 % alle 6 Monate</p>
+              <h2 className="text-xl font-black text-slate-950">Halbjährliche Degression (EEG 2023 § 49)</h2>
+              <p className="text-sm text-slate-500 mt-0.5">Vergütungssatz sinkt automatisch um 1 % alle 6 Monate (zum 01.02. und 01.08.)</p>
             </div>
           </div>
           <div className="overflow-x-auto">
@@ -151,18 +140,32 @@ export default function EinspeiseverguetungPage() {
                 <tr>
                   <th className="text-left px-6 py-3 font-bold text-slate-700">Zeitraum</th>
                   <th className="text-right px-6 py-3 font-bold text-slate-700">Teileinspeisung bis 10 kWp</th>
+                  <th className="text-right px-6 py-3 font-bold text-slate-700">Volleinspeisung bis 10 kWp</th>
+                  <th className="text-right px-6 py-3 font-bold text-slate-500 text-xs">Status</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
-                {DEGRESSION.map((row, i) => (
-                  <tr key={row.zeitraum} className={`hover:bg-slate-50 transition-colors ${i === 2 ? 'bg-emerald-50/50' : ''}`}>
-                    <td className="px-6 py-3 text-slate-700 font-mono text-xs">{row.zeitraum}</td>
-                    <td className={`px-6 py-3 text-right font-bold ${i === 2 ? 'text-emerald-700' : 'text-slate-600'}`}>
-                      {row.satz}
-                      {i === 2 && <span className="ml-2 text-xs font-normal text-emerald-600 bg-emerald-100 px-1.5 py-0.5 rounded">aktuell</span>}
-                    </td>
-                  </tr>
-                ))}
+                {EEG_DEGRESSION_HISTORY.map((row) => {
+                  const isCurrent = row.status === 'Aktuell gültig';
+                  return (
+                    <tr key={row.period} className={`hover:bg-slate-50 transition-colors ${isCurrent ? 'bg-emerald-50/50' : ''}`}>
+                      <td className="px-6 py-3 text-slate-700 font-mono text-xs">{row.period}</td>
+                      <td className={`px-6 py-3 text-right font-bold ${isCurrent ? 'text-emerald-700' : 'text-slate-600'}`}>
+                        {row.partialUpTo10Ct.toFixed(2).replace('.', ',')} ct/kWh
+                      </td>
+                      <td className="px-6 py-3 text-right font-bold text-slate-600">
+                        {row.fullUpTo10Ct.toFixed(2).replace('.', ',')} ct/kWh
+                      </td>
+                      <td className="px-6 py-3 text-right text-xs">
+                        {isCurrent ? (
+                          <span className="font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">aktuell</span>
+                        ) : (
+                          <span className="text-slate-400 font-mono">{row.status}</span>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -172,7 +175,7 @@ export default function EinspeiseverguetungPage() {
         <section className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
           <div className="flex items-center gap-3">
             <Calculator className="w-5 h-5 text-amber-500" />
-            <h2 className="text-xl font-black text-slate-950">Berechnungsbeispiel: 10 kWp Hausdach-PV</h2>
+            <h2 className="text-xl font-black text-slate-950">Berechnungsbeispiel: 10 kWp Hausdach-PV (Inbetriebnahme ab 01.08.2026)</h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -189,7 +192,7 @@ export default function EinspeiseverguetungPage() {
             <div className="bg-emerald-50 rounded-xl p-4 border border-emerald-200">
               <div className="text-xs text-emerald-700 uppercase font-mono font-bold">Einspeiseerlös (70 %)</div>
               <div className="text-2xl font-black text-emerald-800 mt-1">6.650 kWh</div>
-              <div className="text-xs text-emerald-700 mt-1">× 8,03 ct/kWh = <strong>534 €/Jahr</strong> Vergütung</div>
+              <div className="text-xs text-emerald-700 mt-1">× 7,70 ct/kWh = <strong>512 €/Jahr</strong> Vergütung</div>
             </div>
           </div>
 
@@ -231,11 +234,11 @@ export default function EinspeiseverguetungPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
             <div className="bg-slate-50 rounded-xl p-4 border border-slate-200 space-y-2">
               <div className="text-sm font-bold text-slate-900">Hoymiles HMS-800W-2T</div>
-              <div className="text-xs text-slate-500">Der meistverkaufte Mikrowechselrichter für Balkonkraftwerke in Deutschland. 2x MPPT, integriertes WLAN, VDE-AR-N 4105.</div>
+              <div className="text-xs text-slate-500">Mikrowechselrichter für Balkonkraftwerke. 2x MPPT, integriertes WLAN, Konformitätsnachweis nach VDE-AR-N 4105:2026-03.</div>
               <a
                 href={getAmazonDirectUrl('B0CJGKQXVL', 'Hoymiles HMS-800W-2T Mikrowechselrichter')}
                 target="_blank"
-                rel="noopener noreferrer nofollow"
+                rel="sponsored noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-700 hover:text-amber-600"
               >
                 Auf Amazon ansehen * <ExternalLink className="w-3 h-3" />
@@ -243,11 +246,11 @@ export default function EinspeiseverguetungPage() {
             </div>
             <div className="bg-slate-50 rounded-xl p-4 border border-slate-200 space-y-2">
               <div className="text-sm font-bold text-slate-900">APsystems EZ1-M 800W</div>
-              <div className="text-xs text-slate-500">Alternative mit 20A Eingangsstrom für moderne Hochleistungsmodule. Bluetooth & WLAN, VDE 4105 konform.</div>
+              <div className="text-xs text-slate-500">20A Eingangsstrom je MPPT für moderne Hochleistungsmodule. Bluetooth &amp; WLAN, VDE-AR-N 4105:2026-03 konform.</div>
               <a
                 href={getAmazonDirectUrl('B0CMXX3Y58', 'APsystems EZ1-M Mikrowechselrichter 800W')}
                 target="_blank"
-                rel="noopener noreferrer nofollow"
+                rel="sponsored noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-700 hover:text-amber-600"
               >
                 Auf Amazon ansehen * <ExternalLink className="w-3 h-3" />
@@ -293,9 +296,9 @@ export default function EinspeiseverguetungPage() {
             <div className="pt-4 space-y-2">
               <h3 className="text-sm font-bold text-slate-900">Lohnt sich Volleinspeisung oder Eigenverbrauch mit Speicher?</h3>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Bei heutigen Strompreisen von ~30&nbsp;ct/kWh ist die Volleinspeisung zu 12,87&nbsp;ct/kWh
-                wirtschaftlich selten sinnvoll. Eigenverbrauch mit Speicher ist meist rentabler:
-                Jede selbst verbrauchte kWh erspart 30&nbsp;ct statt 12,87&nbsp;ct einzunehmen.
+                Bei heutigen Strompreisen von ~30&nbsp;ct/kWh ist die Volleinspeisung zu 12,22&nbsp;ct/kWh
+                (bis 10 kWp, ab 01.08.2026) wirtschaftlich selten überlegen. Eigenverbrauch mit Speicher ist meist rentabler:
+                Jede selbst verbrauchte kWh erspart ca. 30&nbsp;ct Bezugskosten, statt 12,22&nbsp;ct als Volleinspeisung einzunehmen.
               </p>
               <Link to="/balkonkraftwerk-speicher" className="text-sm text-amber-700 font-bold hover:text-amber-600">
                 → Speichersysteme im Vergleich

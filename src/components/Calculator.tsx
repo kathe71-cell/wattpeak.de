@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { 
   calculateSolarYield, 
+  getDefaultFeedInTariff,
   LOCATION_PRESETS, MOUNTING_OPTIONS,
   MountingType, RegionZone, SystemType,
   SolarParams
@@ -120,7 +121,7 @@ export default function SolarCalculator({ isEmbed = false }: CalculatorProps) {
 
   const [feedInTariff, setFeedInTariff] = useState<number>(() => {
     if (typeof initialFromUrl?.params.feedInTariff === 'number') return initialFromUrl.params.feedInTariff;
-    return 0.0803; // 8,03 ct / kWh bis 10 kWp
+    return getDefaultFeedInTariff(7.5, 'rooftop', 'eeg_partial'); // 7,70 ct / kWh (BNetzA Stand August–Dezember 2026)
   });
 
   const [customInvestmentEur, setCustomInvestmentEur] = useState<number | undefined>(() => {
@@ -204,7 +205,7 @@ export default function SolarCalculator({ isEmbed = false }: CalculatorProps) {
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
             <span className="text-xs font-mono font-bold text-slate-700">
-              Modul-STC: DIN EN IEC 60904-3 &middot; EEG-Stand 2025
+              Modul-STC: DIN EN IEC 60904-3 &middot; EEG-Stand: August–Dezember 2026
             </span>
           </div>
 

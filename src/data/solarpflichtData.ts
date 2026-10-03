@@ -1,0 +1,238 @@
+/**
+ * WATTPEAK.DE SOLARPFLICHT-DATENBANK DER 16 BUNDESLÄNDER
+ * 
+ * Differenzierte juristische Übersicht nach Landesbauordnungen und Klimaschutzgesetzen.
+ * 
+ * Differenzierung nach:
+ * - Nichtwohngebäude (Gewerbe / Industrie Neubau)
+ * - Wohngebäude (Neubau)
+ * - Grundlegende Dachsanierung (Altbau / Bestand)
+ * - Parkplatz-Flächen (PV-Überdachung)
+ * 
+ * Stand: Oktober 2026
+ */
+
+export interface StateSolarObligation {
+  state: string;
+  code: string;
+  newBuildNonRes: string;
+  newBuildRes: string;
+  roofRenovation: string;
+  parkingLots: string;
+  minCoverage: string;
+  validFrom: string;
+  legalSource: string;
+  lastVerified: string;
+  summaryStatus: 'Umfassend verpflichtend' | 'Teilpflicht (Gewerbe & Neubau)' | 'Teilpflicht (Gewerbe)' | 'Prüf- / Soll-Bestimmung' | 'Freiwillig / Förderanreize';
+}
+
+export const STATE_SOLAR_OBLIGATIONS: StateSolarObligation[] = [
+  {
+    state: 'Baden-Württemberg',
+    code: 'BW',
+    newBuildNonRes: 'Pflicht für alle gewerblichen und öffentlichen Neubauten',
+    newBuildRes: 'Pflicht für alle neuen Wohngebäude',
+    roofRenovation: 'Pflicht bei grundlegender Dachsanierung (vollständige Erneuerung der Dachhaut)',
+    parkingLots: 'Pflicht bei offenen Parkplätzen ab 35 Stellplätzen',
+    minCoverage: 'Mindestens 60 % der geeigneten Dachfläche',
+    validFrom: 'Neubau Nichtwohn: 01.01.2022 | Neubau Wohn: 01.05.2022 | Sanierung: 01.01.2023',
+    legalSource: 'KlimaG BW § 23 (Klimaschutz- und Klimaanpassungsgesetz Baden-Württemberg)',
+    lastVerified: '2026-10-01',
+    summaryStatus: 'Umfassend verpflichtend',
+  },
+  {
+    state: 'Bayern',
+    code: 'BY',
+    newBuildNonRes: 'Pflicht für Gewerbe-, Industrie- und sonstige Nichtwohngebäude',
+    newBuildRes: 'Soll-Bestimmung (Eindringliche Empfehlung, Vorbereitungspflicht für Zählerplatz)',
+    roofRenovation: 'Soll-Bestimmung bei vollständiger Erneuerung der Dachhaut von Nichtwohngebäuden',
+    parkingLots: 'Freiwillig mit kommunalen Satzungsermächtigungen',
+    minCoverage: 'Wirtschaftlich zumutbare Auslegung der geeigneten Dachfläche',
+    validFrom: 'Gewerbeneubau: 01.03.2023 | Nichtwohnneubau allgemein: 01.07.2023',
+    legalSource: 'Art. 44a BayBO (Bayerische Bauordnung)',
+    lastVerified: '2026-10-01',
+    summaryStatus: 'Teilpflicht (Gewerbe)',
+  },
+  {
+    state: 'Berlin',
+    code: 'BE',
+    newBuildNonRes: 'Pflicht für Neubauten mit mehr als 50 m² Nutzfläche',
+    newBuildRes: 'Pflicht für alle Neubauten mit mehr als 50 m² Nutzfläche',
+    roofRenovation: 'Pflicht bei wesentlicher Dachsanierung (vollständiger Austausch der Dachhaut)',
+    parkingLots: 'Pflicht für neue gewerbliche Stellplatzanlagen ab 50 Stellplätzen',
+    minCoverage: 'Mindestens 30 % der Bruttodachfläche',
+    validFrom: '01.01.2023 (vollumfänglich in Kraft)',
+    legalSource: 'Solargesetz Berlin (SolarG BE)',
+    lastVerified: '2026-10-01',
+    summaryStatus: 'Umfassend verpflichtend',
+  },
+  {
+    state: 'Brandenburg',
+    code: 'BB',
+    newBuildNonRes: 'Pflicht für gewerbliche und öffentliche Neubauten',
+    newBuildRes: 'Pflicht für neue Wohngebäude mit mehr als 50 m² Nutzfläche',
+    roofRenovation: 'Pflicht bei umfassender Dachsanierung ab 2026',
+    parkingLots: 'Pflicht bei neuen Parkplatzanlagen ab 50 Stellplätzen',
+    minCoverage: 'Mindestens 50 % der geeigneten Dachfläche',
+    validFrom: 'Nichtwohn: 01.06.2024 | Wohnneubau: 01.01.2025 | Sanierung: 01.01.2026',
+    legalSource: 'Brandenburgisches Klimaschutzgesetz (BbgKlimaG) § 15',
+    lastVerified: '2026-10-01',
+    summaryStatus: 'Umfassend verpflichtend',
+  },
+  {
+    state: 'Bremen',
+    code: 'HB',
+    newBuildNonRes: 'Pflicht für alle neuen Nichtwohngebäude',
+    newBuildRes: 'Pflicht für neue Wohngebäude',
+    roofRenovation: 'Pflicht bei grundlegender Dachsanierung',
+    parkingLots: 'Pflicht für neue offene Parkplätze ab 50 Stellplätzen',
+    minCoverage: 'Mindestens 50 % der Nettodachfläche',
+    validFrom: 'Nichtwohn: 01.07.2024 | Wohn & Sanierung: 01.07.2025',
+    legalSource: 'Bremisches Gesetz über die Solarpflicht (BremSolarG)',
+    lastVerified: '2026-10-01',
+    summaryStatus: 'Umfassend verpflichtend',
+  },
+  {
+    state: 'Hamburg',
+    code: 'HH',
+    newBuildNonRes: 'Pflicht für alle neuen Nichtwohngebäude',
+    newBuildRes: 'Pflicht für alle neuen Wohngebäude',
+    roofRenovation: 'Pflicht bei vollständiger Erneuerung der Dachhaut',
+    parkingLots: 'Pflicht für neue Stellplatzanlagen ab 35 Stellplätzen',
+    minCoverage: 'Mindestens 30 % der Bruttodachfläche',
+    validFrom: 'Neubau: 01.01.2023 | Dachsanierung: 01.01.2024',
+    legalSource: 'Hamburgisches Klimaschutzgesetz (HmbKliSchG) § 16',
+    lastVerified: '2026-10-01',
+    summaryStatus: 'Umfassend verpflichtend',
+  },
+  {
+    state: 'Hessen',
+    code: 'HE',
+    newBuildNonRes: 'Pflicht für neue Landesliegenschaften und gewerbliche Neubauten',
+    newBuildRes: 'Keine allgemeine Pflicht (Fokus auf Vorbereitungspflicht & Förderanreize)',
+    roofRenovation: 'Pflicht für Landesgebäude bei Sanierung; privat freiwillig',
+    parkingLots: 'Pflicht für neue offene Parkplätze ab 50 Stellplätzen bei Nichtwohngebäuden',
+    minCoverage: 'Mindestens 50 % der geeigneten Dachfläche',
+    validFrom: 'Landesgebäude: 01.12.2023 | Gewerbe & Parkplätze: 01.01.2024',
+    legalSource: 'Hessisches Energiegesetz (HEG) § 8',
+    lastVerified: '2026-10-01',
+    summaryStatus: 'Teilpflicht (Gewerbe)',
+  },
+  {
+    state: 'Mecklenburg-Vorpommern',
+    code: 'MV',
+    newBuildNonRes: 'Pflicht für neue Gewerbebauten und öffentliche Gebäude',
+    newBuildRes: 'Soll-Bestimmung / Vorbereitungspflicht für Solaranlagen',
+    roofRenovation: 'Freiwillig mit Förderprogrammen',
+    parkingLots: 'Prüfpflicht ab 100 Stellplätzen',
+    minCoverage: 'Wirtschaftlich zumutbare Belegung',
+    validFrom: 'Nichtwohnneubau: 01.01.2025',
+    legalSource: 'Klimaschutzgesetz Mecklenburg-Vorpommern (KlimaG M-V)',
+    lastVerified: '2026-10-01',
+    summaryStatus: 'Teilpflicht (Gewerbe)',
+  },
+  {
+    state: 'Niedersachsen',
+    code: 'NI',
+    newBuildNonRes: 'Pflicht für alle neuen Nichtwohngebäude',
+    newBuildRes: 'Pflicht für alle neuen Wohngebäude',
+    roofRenovation: 'Pflicht bei vollständiger Erneuerung des Dachaufbaus',
+    parkingLots: 'Pflicht für neue offene Parkplätze ab 50 Stellplätzen',
+    minCoverage: 'Mindestens 50 % der belegbaren Dachfläche',
+    validFrom: 'Gewerbe: 01.01.2023 | Wohnneubau: 01.01.2025 | Dachsanierung: 01.01.2025',
+    legalSource: 'Niedersächsische Bauordnung (NBauO) § 32a',
+    lastVerified: '2026-10-01',
+    summaryStatus: 'Umfassend verpflichtend',
+  },
+  {
+    state: 'Nordrhein-Westfalen (NRW)',
+    code: 'NW',
+    newBuildNonRes: 'Pflicht für alle gewerblichen und industriellen Neubauten',
+    newBuildRes: 'Pflicht für alle neuen Wohngebäude',
+    roofRenovation: 'Pflicht bei vollständiger Erneuerung der Dacheindeckung',
+    parkingLots: 'Pflicht für neue offene Parkplätze ab 35 Stellplätzen',
+    minCoverage: 'Mindestens 30 % der geeigneten Dachfläche (oder mind. 1 kWp je 15 m²)',
+    validFrom: 'Gewerbe: 01.01.2024 | Wohnneubau: 01.01.2025 | Dachsanierung: 01.01.2026',
+    legalSource: 'Bauordnung für das Land Nordrhein-Westfalen (BauO NRW) § 42a',
+    lastVerified: '2026-10-01',
+    summaryStatus: 'Umfassend verpflichtend',
+  },
+  {
+    state: 'Rheinland-Pfalz',
+    code: 'RP',
+    newBuildNonRes: 'Pflicht für gewerbliche Neubauten ab 100 m² Nutzfläche',
+    newBuildRes: 'Soll-Bestimmung (Vorbereitungspflicht für Leitungswege und Zählerplatz)',
+    roofRenovation: 'Pflicht bei umfassender Erneuerung von Gewerbedächern',
+    parkingLots: 'Pflicht für neue offene Parkplätze ab 50 Stellplätzen',
+    minCoverage: 'Mindestens 60 % der geeigneten Dachfläche',
+    validFrom: 'Gewerbeneubau & Parkplätze: 01.01.2023',
+    legalSource: 'Landessolargesetz Rheinland-Pfalz (LSolarG RP)',
+    lastVerified: '2026-10-01',
+    summaryStatus: 'Teilpflicht (Gewerbe & Neubau)',
+  },
+  {
+    state: 'Saarland',
+    code: 'SL',
+    newBuildNonRes: 'Pflicht für gewerbliche und öffentliche Neubauten',
+    newBuildRes: 'Prüf- und Vorbereitungspflicht für Neubauten',
+    roofRenovation: 'Prüfpflicht bei umfassender Dacherneuerung',
+    parkingLots: 'Pflicht bei neuen Parkplatzanlagen ab 100 Stellplätzen',
+    minCoverage: 'Wirtschaftlich angemessene Auslegung',
+    validFrom: '01.01.2025',
+    legalSource: 'Saarländisches Klimaschutzgesetz (SKlimaG)',
+    lastVerified: '2026-10-01',
+    summaryStatus: 'Teilpflicht (Gewerbe)',
+  },
+  {
+    state: 'Sachsen',
+    code: 'SN',
+    newBuildNonRes: 'Pflicht für Neubauten staatlicher Liegenschaften; Vorbereitung für Gewerbe',
+    newBuildRes: 'Freiwillig (keine landesweite Baupflicht für Privatwohnungen)',
+    roofRenovation: 'Freiwillig mit gezielten Förderprogrammen der SAB',
+    parkingLots: 'Freiwillig / Kommunale Satzungen',
+    minCoverage: 'Orientierung an wirtschaftlicher Eigenbedarfsdeckung',
+    validFrom: '01.01.2023 (Fokus Landesbauten)',
+    legalSource: 'Sächsische Bauordnung (SächsBO) & Energie- und Klimaprogramm',
+    lastVerified: '2026-10-01',
+    summaryStatus: 'Freiwillig / Förderanreize',
+  },
+  {
+    state: 'Sachsen-Anhalt',
+    code: 'ST',
+    newBuildNonRes: 'Pflicht für öffentliche Landes- und Kommunalgebäude',
+    newBuildRes: 'Freiwillig für private Wohngebäude',
+    roofRenovation: 'Freiwillig',
+    parkingLots: 'Freiwillig',
+    minCoverage: 'Ermittlung nach VDI 2067 Wirtschaftlichkeit',
+    validFrom: '01.01.2024 (öffentliche Gebäude)',
+    legalSource: 'Bauordnung des Landes Sachsen-Anhalt (BauO LSA)',
+    lastVerified: '2026-10-01',
+    summaryStatus: 'Freiwillig / Förderanreize',
+  },
+  {
+    state: 'Schleswig-Holstein',
+    code: 'SH',
+    newBuildNonRes: 'Pflicht für alle neuen Nichtwohngebäude',
+    newBuildRes: 'Vorbereitungspflicht (Statik und Leerrohre für spätere Nachrüstung)',
+    roofRenovation: 'Pflicht bei grundlegender Sanierung von Nichtwohngebäudedächern',
+    parkingLots: 'Pflicht für neue Parkplatzanlagen ab 100 Stellplätzen',
+    minCoverage: 'Mindestens 30 % der geeigneten Dachfläche',
+    validFrom: 'Nichtwohnneubau & Parkplätze: 01.01.2023',
+    legalSource: 'Energiewende- und Klimaschutzgesetz Schleswig-Holstein (EWKG SH) § 9',
+    lastVerified: '2026-10-01',
+    summaryStatus: 'Teilpflicht (Gewerbe & Neubau)',
+  },
+  {
+    state: 'Thüringen',
+    code: 'TH',
+    newBuildNonRes: 'Pflicht für Landesliegenschaften und kommunale Neubauten',
+    newBuildRes: 'Freiwillig für private Bauherren',
+    roofRenovation: 'Freiwillig mit Förderprogrammen (Thüringer Solar-Invest)',
+    parkingLots: 'Freiwillig',
+    minCoverage: 'Wirtschaftlich optimierte Eigenbedarfsdeckung',
+    validFrom: '01.01.2024',
+    legalSource: 'Thüringer Gesetz zum Klimaschutz und zur Anpassung an die Klimafolgen',
+    lastVerified: '2026-10-01',
+    summaryStatus: 'Freiwillig / Förderanreize',
+  },
+];

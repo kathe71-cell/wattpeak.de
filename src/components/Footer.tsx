@@ -44,7 +44,7 @@ export default function Footer() {
                 <ShieldCheck className="w-3.5 h-3.5" /> Cookielos DSGVO
               </span>
               <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono text-slate-300">
-                <Lock className="w-3.5 h-3.5" /> VDE-AR-N 4105
+                <Lock className="w-3.5 h-3.5" /> VDE-AR-N 4105:2026-03
               </span>
             </div>
           </div>
@@ -102,7 +102,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link to="/einspeiseverguetung" className="hover:text-amber-400 transition-colors">
-                  Einspeisevergütung 2025/2026 (EEG-Sätze)
+                  Einspeisevergütung 2026 (EEG-Sätze ab 01.08.2026)
                 </Link>
               </li>
               <li>
@@ -145,14 +145,14 @@ export default function Footer() {
         {/* Bottom Strip */}
         <div className="mt-12 pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
           <div>
-            &copy; {currentYear} wattpeak.de · Fachredaktion Erneuerbare Energien
+            &copy; {currentYear} wattpeak.de · Redaktion &amp; Quellenmethodik
           </div>
           <div className="flex flex-wrap items-center gap-3">
             <span>§ 5 DDG</span>
             <span>·</span>
             <span>DIN EN IEC 60904-3</span>
             <span>·</span>
-            <span>VDE-AR-N 4105</span>
+            <span>VDE-AR-N 4105:2026-03</span>
             <span>·</span>
             <span>Zero-CDN</span>
           </div>

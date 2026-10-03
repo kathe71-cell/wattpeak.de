@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Filter, ShoppingCart, Check, Scale, X, ArrowRight, AlertTriangle, ShieldCheck } from 'lucide-react';
+import { Search, Filter, ShoppingCart, Check, Scale, X, ArrowRight, AlertTriangle, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import { UNIFIED_PRODUCTS, UnifiedProduct, ProductCategory, getAmazonDirectUrl } from '../data/products';
 
 export default function SolarComparisonCatalog() {
@@ -58,7 +58,7 @@ export default function SolarComparisonCatalog() {
       {/* Title & Subtitle */}
       <div className="text-center max-w-3xl mx-auto mb-6">
         <span className="bg-amber-100 text-amber-950 border border-amber-300 font-extrabold text-xs uppercase tracking-widest px-3 py-1 rounded">
-          Geprüfte Herstellerdaten · Stand: September 2026
+          Geprüfte Herstellerdaten · Stand: Oktober 2026
         </span>
         <h2 className="text-3xl sm:text-4xl font-black text-slate-950 tracking-tight mt-3">
           Photovoltaik- &amp; Komponenten-Katalog
@@ -154,9 +154,20 @@ export default function SolarComparisonCatalog() {
                 <div>
                   {/* Category & Status Strip */}
                   <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className="bg-slate-100 text-slate-800 text-[11px] font-bold px-2.5 py-1 rounded-md">
-                      {prod.categoryLabel}
-                    </span>
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className="bg-slate-100 text-slate-800 text-[11px] font-bold px-2.5 py-1 rounded-md">
+                        {prod.categoryLabel}
+                      </span>
+                      {prod.verificationStatus === 'VERIFIED' ? (
+                        <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold text-emerald-800 bg-emerald-50 border border-emerald-300 px-2 py-0.5 rounded-md" title="Herstellerangaben anhand offizieller Datenblätter geprüft">
+                          <CheckCircle2 className="w-3 h-3 text-emerald-600" /> Geprüft
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold text-slate-600 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-md">
+                          Basisdaten
+                        </span>
+                      )}
+                    </div>
                     <button
                       type="button"
                       onClick={() => toggleCompare(prod.id)}
@@ -249,7 +260,7 @@ export default function SolarComparisonCatalog() {
                   <a
                     href={getAmazonDirectUrl(prod.asin, prod.amazonSearchQuery)}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="sponsored noopener noreferrer"
                     className="w-full bg-amber-400 hover:bg-amber-300 active:scale-95 text-slate-950 font-extrabold text-xs py-3 px-4 rounded-xl transition flex items-center justify-center gap-2 shadow cursor-pointer"
                   >
                     <ShoppingCart className="w-4 h-4 text-slate-950" />
@@ -369,6 +380,19 @@ export default function SolarComparisonCatalog() {
                     ))}
                   </tr>
                   <tr>
+                    <td className="p-3 bg-slate-50 text-slate-500 font-bold">Datenprüfung &amp; Quelle</td>
+                    {comparedProducts.map((p) => (
+                      <td key={p.id} className="p-3 text-[11px] text-slate-700">
+                        <span className={`inline-block font-mono text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                          p.verificationStatus === 'VERIFIED' ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-700'
+                        }`}>
+                          {p.verificationStatus === 'VERIFIED' ? 'VERIFIED' : 'PARTIAL'}
+                        </span>
+                        <span className="text-slate-500 block text-[10px] mt-1">{p.manufacturerSource}</span>
+                      </td>
+                    ))}
+                  </tr>
+                  <tr>
                     <td className="p-3 bg-slate-50 text-slate-500 font-bold">Kompatibilität &amp; Netz</td>
                     {comparedProducts.map((p) => (
                       <td key={p.id} className="p-3 text-[11px] text-slate-600">
@@ -386,7 +410,7 @@ export default function SolarComparisonCatalog() {
                         <a
                           href={getAmazonDirectUrl(p.asin, p.amazonSearchQuery)}
                           target="_blank"
-                          rel="noopener noreferrer"
+                          rel="sponsored noopener noreferrer"
                           className="inline-flex items-center gap-1.5 bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs px-3 py-2 rounded-xl transition cursor-pointer"
                         >
                           <ShoppingCart className="w-3.5 h-3.5" />
@@ -405,7 +429,7 @@ export default function SolarComparisonCatalog() {
       {/* Disclaimers */}
       <div className="text-center text-xs text-slate-500 pt-3 font-mono max-w-4xl mx-auto leading-relaxed space-y-1.5">
         <div>
-          * Werbelink / Partnerlink: Als Amazon-Partner verdiene ich an qualifizierten Verkäufen. Angezeigte Preisspannen basieren auf Marktbeobachtungen (Stand: September 2026) und dienen als unverbindliche Orientierung.
+          * Werbelink / Partnerlink: Als Amazon-Partner verdiene ich an qualifizierten Verkäufen. Angezeigte Preisspannen basieren auf Marktbeobachtungen (Stand: Oktober 2026) und dienen als unverbindliche Orientierung.
         </div>
         <div>
           Für Photovoltaikanlagen und wesentliche Komponenten gilt gem. § 12 Abs. 3 UStG unter den gesetzlichen Voraussetzungen für private Betreiber auf Wohngebäuden der Nullsteuersatz (0 % MwSt.).

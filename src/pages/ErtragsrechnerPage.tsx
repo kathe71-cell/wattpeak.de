@@ -59,8 +59,8 @@ export default function ErtragsrechnerPage() {
               <div className="text-slate-950 font-black text-sm sm:text-base mt-0.5">ca. 82 – 86 %</div>
             </div>
             <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
-              <span className="text-slate-500 uppercase">EEG-Vergütung 2025</span>
-              <div className="text-amber-700 font-black text-sm sm:text-base mt-0.5">8,03 ct/kWh (bis 10 kWp)</div>
+              <span className="text-slate-500 uppercase">EEG-Satz (ab 08/2026)</span>
+              <div className="text-amber-700 font-black text-sm sm:text-base mt-0.5">7,70 ct/kWh (bis 10 kWp)</div>
             </div>
           </div>
         </section>

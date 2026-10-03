@@ -46,20 +46,20 @@ export default function SystemDecoderPage() {
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-8 pt-8 border-t border-slate-100 text-xs font-mono">
             <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
-              <span className="text-slate-500 uppercase">Balkon-Autarkie</span>
+              <span className="text-slate-500 uppercase">Balkon-Autarkie (2.500 kWh)</span>
               <div className="text-slate-950 font-black text-sm sm:text-base mt-0.5">15 – 35 %</div>
             </div>
             <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
-              <span className="text-slate-500 uppercase">Dach + Speicher</span>
-              <div className="text-emerald-700 font-black text-sm sm:text-base mt-0.5">65 – 85 % Autarkie</div>
+              <span className="text-slate-500 uppercase">Dach + Speicher (4.500 kWh)</span>
+              <div className="text-emerald-700 font-black text-sm sm:text-base mt-0.5">55 – 75 % Autarkie</div>
             </div>
             <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
-              <span className="text-slate-500 uppercase">Typ. Amortisation</span>
-              <div className="text-slate-950 font-black text-sm sm:text-base mt-0.5">3 – 8 Jahre</div>
+              <span className="text-slate-500 uppercase">Amortisation</span>
+              <div className="text-slate-950 font-black text-sm sm:text-base mt-0.5">Modellabhängig (s. Matrix)</div>
             </div>
             <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
               <span className="text-slate-500 uppercase">USt.-Satz Wohnhaus</span>
-              <div className="text-amber-700 font-black text-sm sm:text-base mt-0.5">0 % (§ 12 Abs. 3)</div>
+              <div className="text-amber-700 font-black text-sm sm:text-base mt-0.5">0 % (§ 12 Abs. 3 UStG)</div>
             </div>
           </div>
         </section>

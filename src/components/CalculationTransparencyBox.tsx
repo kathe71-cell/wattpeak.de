@@ -78,8 +78,8 @@ export default function CalculationTransparencyBox() {
       icon: ArrowUpRight,
       title: '9. Einspeisevergütung nach EEG',
       short: 'Gesetzlich garantierte Vergütung für Überschuss',
-      formula: 'EEG 2025: 8,03 ct/kWh (≤10 kWp) / 6,95 ct/kWh (>10 kWp)',
-      explanation: 'Strom, der weder direkt im Haus verbraucht noch im Akku gespeichert werden kann, fließt über den Netzeinspeisepunkt ins öffentliche Stromnetz. Bei Dachanlagen wird dieser Überschuss 20 Jahre lang nach dem Erneuerbare-Energien-Gesetz (EEG) fest vergütet (Stand 2025: 8,03 ct/kWh bis 10 kWp; 6,95 ct/kWh ab 10 kWp).'
+      formula: 'BNetzA 2026: 7,70 ct/kWh (≤10 kWp) / 6,66 ct/kWh (10–40 kWp)',
+      explanation: 'Strom, der weder direkt im Haus verbraucht noch im Akku gespeichert werden kann, fließt über den Netzeinspeisepunkt ins öffentliche Stromnetz. Bei Dachanlagen wird dieser Überschuss 20 Jahre lang nach dem Erneuerbare-Energien-Gesetz (EEG) fest vergütet (Bundesnetzagentur-Stand für Inbetriebnahmen ab 01.08.2026: 7,70 ct/kWh bis 10 kWp; 6,66 ct/kWh für 10 bis 40 kWp; Stecker-Solargeräte speisen unentgeltlich nach § 8 Abs. 5a EEG ein).'
     }
   ];
 

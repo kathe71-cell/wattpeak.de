@@ -139,7 +139,7 @@ export default function Home() {
                   <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-amber-700">Einstieg ohne Genehmigung</span>
                   <h3 className="text-lg font-black text-slate-950 mt-1">Balkonkraftwerk (800W)</h3>
                   <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                    Für Mieter &amp; Wohnungseigentümer. Bis zu 2.000 Wp Modulleistung, 800W AC-Einspeisung über Schuko-Steckdose (Solarpaket I), 0 % MwSt.
+                    Für Mieter &amp; Wohnungseigentümer. Bis zu 2.000 Wp Modulleistung gem. EEG (§ 3 Nr. 43 / § 8 Abs. 5a), 800 VA AC-Einspeisung. Schutzkontakt-Anschluss nach DIN VDE V 0126-95:2025-12, 0 % MwSt. gem. § 12 Abs. 3 UStG.
                   </p>
                 </div>
                 <div className="pt-5 border-t border-slate-100 mt-5 space-y-2">
@@ -474,16 +474,16 @@ export default function Home() {
                 <div className="text-slate-950 font-black text-sm mt-0.5">800W AC / 2.000 Wp DC</div>
               </div>
               <Link to="/einspeiseverguetung" className="p-3 bg-white rounded-xl border border-slate-200 text-left hover:border-amber-400 transition block">
-                <span className="text-slate-400 uppercase text-[10px]">EEG-Vergütung 2025</span>
-                <div className="text-emerald-700 font-black text-sm mt-0.5">8,03 ct/kWh →</div>
+                <span className="text-slate-400 uppercase text-[10px]">EEG-Vergütung (ab 08/2026)</span>
+                <div className="text-emerald-700 font-black text-sm mt-0.5">7,70 ct/kWh →</div>
               </Link>
               <div className="p-3 bg-white rounded-xl border border-slate-200 text-left">
                 <span className="text-slate-400 uppercase text-[10px]">Jahresertrag DE</span>
                 <div className="text-slate-950 font-black text-sm mt-0.5">900 – 1.150 kWh/kWp</div>
               </div>
               <div className="p-3 bg-white rounded-xl border border-slate-200 text-left">
-                <span className="text-slate-400 uppercase text-[10px]">Zulassung</span>
-                <div className="text-slate-950 font-black text-sm mt-0.5">VDE-AR-N 4105 Schuko</div>
+                <span className="text-slate-400 uppercase text-[10px]">Netzanschluss-Norm</span>
+                <div className="text-slate-950 font-black text-sm mt-0.5">VDE-AR-N 4105:2026-03</div>
               </div>
             </div>
           </div>

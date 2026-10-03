@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { ShoppingCart, CheckCircle2, Calculator } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getAmazonDirectUrl } from '../data/products';
-import { calculateSolarYield, SolarParams } from '../utils/solarMath';
+import { calculateSolarYield, getDefaultFeedInTariff, SolarParams } from '../utils/solarMath';
 
 export default function SolarSystemDecoder() {
   const [selectedSystem, setSelectedSystem] = useState<'balkon-basic' | 'balkon-speicher' | 'dach-klein' | 'dach-gross'>('balkon-speicher');
@@ -32,7 +32,7 @@ export default function SolarSystemDecoder() {
       features: [
         'Kein Elektriker nötig – Direktanschluss über Schukosteckdose (Solarpaket I)',
         'Unbürokratische 5-Minuten-Registrierung im MaStR der Bundesnetzagentur',
-        '800 W AC-Einspeisegrenze am Wechselrichter (gemäß Solarpaket I / VDE AR-N 4105)'
+        '800 W AC-Einspeisegrenze am Wechselrichter (gemäß § 8 Abs. 5a EEG / VDE-AR-N 4105:2026-03)'
       ],
       amazonQuery: 'Balkonkraftwerk 800W Komplettset Hoymiles',
       amazonAsin: 'B0CJGKQXVL',  // Hoymiles HMS-800W-2T 880Wp Komplettset
@@ -115,7 +115,7 @@ export default function SolarSystemDecoder() {
         storageKwh: 0,
         electricityPrice: 0.36,
         feedInRemunerationType: 'eeg_partial',
-        feedInTariff: 0.0803,
+        feedInTariff: getDefaultFeedInTariff(5.0, 'rooftop', 'eeg_partial'),
         customInvestmentEur: 6500,
       }
     },
@@ -147,7 +147,7 @@ export default function SolarSystemDecoder() {
         storageKwh: 7.5,
         electricityPrice: 0.36,
         feedInRemunerationType: 'eeg_partial',
-        feedInTariff: 0.0803,
+        feedInTariff: getDefaultFeedInTariff(10.0, 'rooftop', 'eeg_partial'),
         customInvestmentEur: 14500,
       }
     }

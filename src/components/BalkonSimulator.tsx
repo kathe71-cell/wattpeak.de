@@ -419,7 +419,7 @@ export default function BalkonSimulator() {
                 hasStorage ? 'Anker Solix Solarbank 2 E1600 Pro Balkonkraftwerk Speicher' : 'Balkonkraftwerk 800W Komplettset Hoymiles'
               )}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="sponsored noopener noreferrer"
               className="w-full flex items-center justify-center gap-2 bg-amber-400 hover:bg-amber-300 active:scale-95 text-slate-950 font-extrabold py-3 px-4 rounded-xl text-sm shadow transition-all cursor-pointer"
             >
               Passende Hardware bei Amazon ansehen *
@@ -428,7 +428,7 @@ export default function BalkonSimulator() {
           </div>
 
           <div className="text-[11px] text-slate-500 leading-relaxed font-sans">
-            <strong className="text-slate-800 font-semibold">* Modellrechnung.</strong> Die tatsächliche Stromersparnis hängt vom realen Lastprofil, Wetter und individueller Verschattung ab. Bei Stecker-Solargeräten erfolgt die Einspeisung unentgeltlich, sofern keine separate Abrechnung beantragt wurde.
+            <strong className="text-slate-800 font-semibold">* Modellrechnung.</strong> Die tatsächliche Stromersparnis hängt vom realen Lastprofil, Wetter und individueller Verschattung ab. Bei Stecker-Solargeräten erfolgt die Einspeisung unentgeltlich nach § 8 Abs. 5a EEG, sofern keine separate Abrechnung beantragt wurde.
           </div>
         </div>
       </div>
@@ -437,16 +437,16 @@ export default function BalkonSimulator() {
       <div className="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 space-y-3 text-xs text-slate-700">
         <h4 className="font-extrabold text-slate-950 text-sm flex items-center gap-2">
           <HelpCircle className="w-4 h-4 text-amber-500" />
-          Hintergrund: Wp-Modulleistung vs. AC-Wechselrichterleistung
+          Hintergrund: Wp-Modulleistung vs. AC-Wechselrichterleistung (EEG &amp; DIN VDE V 0126-95)
         </h4>
         <p className="leading-relaxed">
-          Warum erlaubt das Solarpaket I bis zu <strong>2.000 Wp Modulleistung</strong> bei nur <strong>800 Watt Wechselrichter-Einspeisung</strong>?
+          Warum erlaubt das Solarpaket I bis zu <strong>2.000 Wp Modulleistung</strong> bei nur <strong>800 VA Wechselrichter-Einspeisung</strong>?
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1 font-sans">
           <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
             <span className="font-bold text-slate-900 block mb-1">Kappung bei Mittagsspitzen (Clipping)</span>
             <p className="text-slate-600">
-              An klaren Junitagen liefert ein 1.760-Wp-Modulfeld rechnerisch mehr Gleichstrom, als der 800-W-Wechselrichter ins Stromnetz abgeben darf. Die Spitzenleistung wird bei 800 Watt gedeckelt.
+              An klaren Junitagen liefert ein 1.760-Wp-Modulfeld rechnerisch mehr Gleichstrom, als der 800-VA-Wechselrichter ins Stromnetz abgeben darf. Die Einspeisung wird bei 800 Watt gedeckelt.
             </p>
           </div>
           <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
@@ -455,6 +455,9 @@ export default function BalkonSimulator() {
               Der entscheidende Vorteil der Überbelegung liegt im Frühjahr, Herbst und bei diffuser Bewölkung: Während zwei Module bei Schlechtwetter vielleicht nur 150 Watt liefern, erreicht ein 4-Modul-Setup 300 bis 400 Watt und deckt die Haushaltsgrundlast zuverlässiger ab.
             </p>
           </div>
+        </div>
+        <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 text-[11px] text-slate-600 font-mono">
+          <strong className="text-slate-800">Normativer Kontext:</strong> Das EEG regelt die energierechtliche Privilegierung (max. 2 kW / 800 VA). Für den Anschluss über Schutzkontaktsteckdosen (Schuko) definiert die Produktnorm <em>DIN VDE V 0126-95:2025-12</em> die technischen Sicherheits- und Temperaturvorgaben des Gesamtsystems.
         </div>
       </div>
     </div>

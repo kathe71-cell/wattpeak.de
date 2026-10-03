@@ -7,109 +7,21 @@ import TrustBox from '../components/TrustBox';
 import { Scale, AlertTriangle, ArrowRight, ShieldCheck, FileText } from 'lucide-react';
 import { useDocumentMeta } from '../utils/seo';
 
+import { STATE_SOLAR_OBLIGATIONS } from '../data/solarpflichtData';
+
 export default function SolarpflichtPage() {
   useDocumentMeta({
-    title: 'Solarpflicht nach Bundesland & GEG · Wattpeak',
-    description: 'Übersicht der Solarpflichten bei Neubau und Dachsanierung in den 16 Bundesländern sowie EEG-Vorgaben für private Eigentümer.',
+    title: 'Solarpflicht nach Bundesland (16 Länder im Vergleich) · wattpeak.de',
+    description: 'Übersicht der Solarpflichten bei Neubau, Dachsanierung und Parkplätzen in allen 16 Bundesländern inkl. gesetzlicher Grundlagen und Ausnahmetatbestände.',
     canonicalPath: '/solarpflicht',
     structuredData: {
       '@context': 'https://schema.org',
       '@type': 'Article',
-      headline: 'Solarpflicht & gesetzliche Bauvorgaben nach Bundesländern',
+      headline: 'Solarpflicht nach Bundesland: Gesetze, Fristen und Ausnahmen im Vergleich',
       url: 'https://www.wattpeak.de/solarpflicht',
+      dateModified: '2026-10-01',
     },
   });
-
-  const statesData = [
-    {
-      state: 'Baden-Württemberg',
-      newBuildNonRes: 'Pflicht (seit Jan 2022)',
-      newBuildRes: 'Pflicht (seit Mai 2022)',
-      roofReno: 'Pflicht bei grundlegender Dachsanierung (seit Jan 2023)',
-      coverage: 'Mind. 60 % der geeigneten Dachfläche',
-      status: 'Strengste Pflicht'
-    },
-    {
-      state: 'Bayern',
-      newBuildNonRes: 'Pflicht für Gewerbe & Industrie (seit März 2023)',
-      newBuildRes: 'Aktuell Soll-Bestimmung / Empfehlung',
-      roofReno: 'Soll-Bestimmung bei Sanierung',
-      coverage: 'Wirtschaftlich zumutbare Auslegung',
-      status: 'Teilpflicht (Gewerbe)'
-    },
-    {
-      state: 'Berlin',
-      newBuildNonRes: 'Pflicht (seit Jan 2023)',
-      newBuildRes: 'Pflicht ab 50 m² Nutzfläche (seit Jan 2023)',
-      roofReno: 'Pflicht bei wesentlicher Dachsanierung',
-      coverage: 'Mind. 30 % der Bruttodachfläche',
-      status: 'Umfassende Pflicht'
-    },
-    {
-      state: 'Nordrhein-Westfalen (NRW)',
-      newBuildNonRes: 'Pflicht für Gewerbeneubauten (seit Jan 2024)',
-      newBuildRes: 'Pflicht für Wohnungsneubau (ab Jan 2025)',
-      roofReno: 'Pflicht bei vollständiger Dacherneuerung (ab Jan 2026)',
-      coverage: 'Geeignete Dachflächen',
-      status: 'Stufenweiser Ausbau'
-    },
-    {
-      state: 'Niedersachsen',
-      newBuildNonRes: 'Pflicht für Gewerbe & Hallen (seit 2023)',
-      newBuildRes: 'Pflicht für Wohnungsneubauten (seit Jan 2025)',
-      roofReno: 'Pflicht bei grundlegender Dachsanierung (ab 2025)',
-      coverage: 'Mind. 50 % der belegbaren Fläche',
-      status: 'Umfassende Pflicht'
-    },
-    {
-      state: 'Hamburg',
-      newBuildNonRes: 'Pflicht (seit Jan 2023)',
-      newBuildRes: 'Pflicht (seit Jan 2023)',
-      roofReno: 'Pflicht bei Dachhaut-Erneuerung (seit Jan 2024)',
-      coverage: 'Mind. 30 % der Bruttofläche',
-      status: 'Umfassende Pflicht'
-    },
-    {
-      state: 'Hessen',
-      newBuildNonRes: 'Pflicht für Landesliegenschaften & Gewerbe (ab Nov 2023)',
-      newBuildRes: 'Freiwillig / Fördermodell',
-      roofReno: 'Freiwillig',
-      coverage: 'Gewerblich orientiert',
-      status: 'Teilpflicht (Öffentlich/Gewerbe)'
-    },
-    {
-      state: 'Rheinland-Pfalz',
-      newBuildNonRes: 'Pflicht für Gewerbeneubau & Parkplätze >50 Stellplätze',
-      newBuildRes: 'Soll-Bestimmung (Vorbereitungspflicht Leerrohre)',
-      roofReno: 'Gewerblich bei Sanierung',
-      coverage: 'Wirtschaftlich optimiert',
-      status: 'Teilpflicht'
-    },
-    {
-      state: 'Bremen',
-      newBuildNonRes: 'Pflicht (seit Juli 2024)',
-      newBuildRes: 'Pflicht ab Juli 2025',
-      roofReno: 'Pflicht bei Dachsanierung ab Juli 2025',
-      coverage: 'Mind. 50 % der Nettodachfläche',
-      status: 'Beschlossen'
-    },
-    {
-      state: 'Schleswig-Holstein',
-      newBuildNonRes: 'Pflicht für Nichtwohngebäude & Parkplätze >100 Plätze',
-      newBuildRes: 'Aktuell noch keine Wohnneubau-Pflicht',
-      roofReno: 'Gewerblich bei Dachsanierung',
-      coverage: 'Mind. 30 % der geeigneten Fläche',
-      status: 'Teilpflicht'
-    },
-    {
-      state: 'Sachsen / Sachsen-Anhalt / Thüringen',
-      newBuildNonRes: 'Vorrangig öffentliche Vorbildfunktion & Prüfungspflichten',
-      newBuildRes: 'Keine allgemeine PV-Pflicht für Privatbauten',
-      roofReno: 'Freiwillig / Förderanreize',
-      coverage: 'Individuelle Wirtschaftlichkeit',
-      status: 'Überwiegend freiwillig'
-    }
-  ];
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col justify-between">
@@ -121,15 +33,15 @@ export default function SolarpflichtPage() {
           <div className="max-w-3xl space-y-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 text-amber-950 font-mono text-xs font-bold border border-amber-300">
               <Scale className="w-3.5 h-3.5 text-amber-800" />
-              GEG &amp; Landesbauordnungen 2024–2026
+              GEG &amp; Landesbauordnungen · Stand Oktober 2026
             </div>
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-950 tracking-tight leading-tight">
               Solarpflicht in Deutschland:<br />
               <span className="text-amber-500">Alle 16 Bundesländer im Check.</span>
             </h1>
             <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-medium">
-              Wann ist eine Solaranlage gesetzlich vorgeschrieben? Welche Regeln gelten für Neubauten, 
-              wann greift die Pflicht bei Dachsanierungen im Altbau und unter welchen Umständen sind Eigentümer befreit?
+              Wann ist eine Solaranlage gesetzlich vorgeschrieben? Welche Regeln gelten für Gewerbe- und Wohnneubauten, 
+              wann greift die Pflicht bei Dachsanierungen und Parkplätzen, und welche Rechtsgrundlagen gelten in Ihrem Bundesland?
             </p>
 
             <div className="flex flex-wrap gap-3 pt-2">
@@ -141,10 +53,10 @@ export default function SolarpflichtPage() {
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
-                to="/system-decoder"
+                to="/anlagen-vergleich"
                 className="inline-flex items-center gap-2 bg-white hover:bg-slate-100 text-slate-900 border border-slate-300 font-bold text-sm px-6 py-3 rounded-2xl transition"
               >
-                Systeme vergleichen
+                Anlagen vergleichen
               </Link>
             </div>
           </div>
@@ -157,7 +69,7 @@ export default function SolarpflichtPage() {
             </div>
             <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
               <span className="text-slate-500 uppercase">Wohnneubau</span>
-              <div className="text-amber-700 font-black text-lg mt-0.5">In 8+ Ländern</div>
+              <div className="text-amber-700 font-black text-lg mt-0.5">In 9+ Ländern</div>
             </div>
             <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
               <span className="text-slate-500 uppercase">Dachsanierung</span>
@@ -165,7 +77,7 @@ export default function SolarpflichtPage() {
             </div>
             <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
               <span className="text-slate-500 uppercase">Förderung (MwSt.)</span>
-              <div className="text-emerald-700 font-black text-lg mt-0.5">0 % Steuersatz</div>
+              <div className="text-emerald-700 font-black text-lg mt-0.5">0 % gem. § 12 (3)</div>
             </div>
           </div>
         </section>
@@ -174,10 +86,10 @@ export default function SolarpflichtPage() {
         <section className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-sm space-y-6">
           <div className="max-w-3xl space-y-2">
             <h2 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight">
-              Bundesländer-Vergleich: Gesetzliche PV-Pflichten im Detail
+              Bundesländer-Vergleich: Gesetzliche PV-Pflichten aller 16 Länder
             </h2>
             <p className="text-sm text-slate-600">
-              Da das Baurecht Ländersache ist, variieren Fristen, Mindestbelegungsgrade und Sanierungspflichten stark zwischen den Bundesländern.
+              Da das Baurecht Ländersache ist, variieren Fristen, Mindestbelegungsgrade, Sanierungs- und Parkplatzpflichten stark zwischen den Bundesländern.
             </p>
           </div>
 
@@ -186,23 +98,25 @@ export default function SolarpflichtPage() {
               <thead>
                 <tr className="border-b border-slate-200 bg-slate-50 text-slate-700 font-mono uppercase text-[11px]">
                   <th className="py-3.5 px-4 font-bold">Bundesland</th>
-                  <th className="py-3.5 px-4 font-bold">Nichtwohngebäude (Neubau)</th>
-                  <th className="py-3.5 px-4 font-bold">Wohngebäude (Neubau)</th>
+                  <th className="py-3.5 px-4 font-bold">Nichtwohn-Neubau</th>
+                  <th className="py-3.5 px-4 font-bold">Wohn-Neubau</th>
                   <th className="py-3.5 px-4 font-bold">Dachsanierung</th>
-                  <th className="py-3.5 px-4 font-bold">Mindestbelegung</th>
+                  <th className="py-3.5 px-4 font-bold">Parkplatz-Pflicht</th>
+                  <th className="py-3.5 px-4 font-bold">Rechtsgrundlage</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
-                {statesData.map((s) => (
-                  <tr key={s.state} className="hover:bg-slate-50/70 transition-colors">
+                {STATE_SOLAR_OBLIGATIONS.map((s) => (
+                  <tr key={s.code} className="hover:bg-slate-50/70 transition-colors">
                     <td className="py-3.5 px-4 font-bold text-slate-950 font-mono">
                       {s.state}
-                      <span className="block text-[10px] text-amber-700 font-sans font-normal mt-0.5">{s.status}</span>
+                      <span className="block text-[10px] text-amber-700 font-sans font-normal mt-0.5">{s.summaryStatus}</span>
                     </td>
                     <td className="py-3.5 px-4 text-slate-700">{s.newBuildNonRes}</td>
                     <td className="py-3.5 px-4 text-slate-700">{s.newBuildRes}</td>
-                    <td className="py-3.5 px-4 text-slate-700">{s.roofReno}</td>
-                    <td className="py-3.5 px-4 font-mono text-slate-600">{s.coverage}</td>
+                    <td className="py-3.5 px-4 text-slate-700">{s.roofRenovation}</td>
+                    <td className="py-3.5 px-4 text-slate-600 font-mono text-[11px]">{s.parkingLots}</td>
+                    <td className="py-3.5 px-4 text-slate-500 font-mono text-[10px] max-w-[200px]">{s.legalSource}</td>
                   </tr>
                 ))}
               </tbody>

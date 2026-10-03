@@ -57,6 +57,18 @@ const ROUTES = {
     title: 'Wattpeak PV-Ertragsrechner Embed Widget | wattpeak.de',
     description: 'Kostenloses interaktives PV-Ertragsrechner Widget für Webmaster und Informationsportale.',
   },
+  '/einspeiseverguetung': {
+    title: 'EEG-Einspeisevergütung 2026 aktuell (ab 01.08.2026) · wattpeak.de',
+    description: 'EEG-Einspeisevergütung 2026: Aktuelle Sätze der Bundesnetzagentur (7,70 ct/kWh bis 10 kWp), halbjährliche Degression gem. § 49 EEG und Rechenbeispiele.',
+  },
+  '/balkonkraftwerk-speicher': {
+    title: 'Balkonspeicher Vergleich: LiFePO4 Speicher für Balkonkraftwerke · wattpeak.de',
+    description: 'Balkonspeicher im Vergleich: Anker SOLIX Solarbank, EcoFlow PowerStream und Growatt NOAH 2000. Speichergröße, Zyklen & Eigenverbrauch.',
+  },
+  '/wechselrichter-vergleich': {
+    title: 'Wechselrichter Vergleich: Mikro vs. String vs. Hybrid · wattpeak.de',
+    description: 'Wechselrichter-Vergleich für PV & Balkonkraftwerke: Mikrowechselrichter, String-Wechselrichter und Hybridwechselrichter mit Vor- und Nachteilen.',
+  },
   '/impressum': {
     title: 'Impressum (§ 5 DDG) · Wattpeak | wattpeak.de',
     description: 'Gesetzliche Pflichtangaben und Kontaktdaten des Diensteanbieters von Wattpeak.de gemäß § 5 Digitale-Dienste-Gesetz (DDG).',
@@ -64,6 +76,10 @@ const ROUTES = {
   '/datenschutz': {
     title: 'Datenschutzerklärung · Wattpeak | wattpeak.de',
     description: 'Datenschutzerklärung und Informationen zur DSGVO-konformen und datensparsamen Nutzung der Plattform Wattpeak.de.',
+  },
+  '/404': {
+    title: '404 – Seite nicht gefunden · wattpeak.de',
+    description: 'Die aufgerufene Seite existiert leider nicht oder wurde verschoben.',
   },
 };
 
@@ -89,7 +105,7 @@ for (const [url, meta] of Object.entries(ROUTES)) {
   html = html.replace(/<link rel="canonical" href=".*?" \/>/, `<link rel="canonical" href="${canonicalUrl}" />`);
   html = html.replace(/<meta property="og:url" content=".*?" \/>/, `<meta property="og:url" content="${canonicalUrl}" />`);
 
-  const filePath = url === '/' ? 'dist/index.html' : `dist${url}/index.html`;
+  const filePath = url === '/' ? 'dist/index.html' : url === '/404' ? 'dist/404.html' : `dist${url}/index.html`;
   const dir = path.dirname(toAbsolute(filePath));
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });

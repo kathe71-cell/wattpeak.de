@@ -92,11 +92,12 @@ export default function BalkonkraftwerkPage() {
             <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-600 font-bold">
               3
             </div>
-            <h3 className="text-lg font-black text-slate-950">Schuko-Stecker &amp; Übergangs-Rückdrehzähler</h3>
+            <h3 className="text-lg font-black text-slate-950">Schuko-Stecker &amp; Produktnorm DIN VDE V 0126-95</h3>
             <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-              Der herkömmliche Haushalts-Schukostecker ist nun gesetzlich und normativ anerkannt, sofern der Wechselrichter 
-              über einen integrierten NA-Schutz nach VDE-AR-N 4105 verfügt. Zudem dürfen alte Ferraris-Zähler (die rückwärts drehen) 
-              für eine Übergangsfrist weiterlaufen, bis der Messstellenbetreiber den Zähler kostenlos austauscht.
+              Die Produktnorm DIN VDE V 0126-95:2025-12 regelt die Anforderungen an steckerfertige Gesamtsysteme mit Schutzkontaktstecker. 
+              Voraussetzung sind ein zertifizierter NA-Schutz nach VDE-AR-N 4105:2026-03 (Relais-Abschaltung unter 200 ms) 
+              sowie die Einhaltung der maximalen Belastbarkeit des Endstromkreises (DIN VDE 0100-551). Rückwärtsdrehende 
+              Ferraris-Zähler werden übergangsweise toleriert, bis der Messstellenbetreiber eine moderne Messeinrichtung installiert.
             </p>
           </div>
 

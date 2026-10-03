@@ -15,7 +15,7 @@ export default function LegalFaq() {
     },
     {
       q: 'Welche technischen Grenzwerte gelten für Balkonkraftwerke laut Solarpaket I?',
-      a: 'Mit dem Inkrafttreten des Solarpakets I (EEG-Novelle 2024, geltend 2025/2026) wurden die Grenzen bundesweit vereinheitlicht: Die maximale Wechselrichter-Einspeiseleistung (AC) am Netzanschlusspunkt beträgt 800 Watt. Die installierte Modul-Gleichstromleistung (DC) darf bis zu 2.000 Wp betragen. Die Netzanmeldung wurde radikal vereinfacht: Es genügt die unbürokratische Registrierung im Marktstammdatenregister (MaStR) der Bundesnetzagentur; eine gesonderte Meldung beim Verteilnetzbetreiber (VNB) ist entfallen. Der Schukostecker ist normativ anerkannt (VDE-AR-N 4105 / Produktnorm).'
+      a: 'Mit dem Solarpaket I (EEG § 3 Nr. 43 / § 8 Abs. 5a) wurden die Grenzen bundesweit vereinheitlicht: Die maximale Wechselrichter-Einspeiseleistung (AC) beträgt 800 VA. Die installierte Modul-Gleichstromleistung (DC) darf bis zu 2.000 Wp betragen. Für den Anschluss über Schutzkontaktsteckdose regelt die Produktnorm DIN VDE V 0126-95:2025-12 die Systemsicherheit in Verbindung mit dem Netzanschlussstandard VDE-AR-N 4105:2026-03 (integrierter NA-Schutz). Es genügt die unbürokratische Registrierung im Marktstammdatenregister (MaStR) der Bundesnetzagentur; eine gesonderte Meldung beim Netzbetreiber ist entfallen.'
     },
     {
       q: 'Gilt 0 % Mehrwertsteuer pauschal für alle Solarprodukte?',
@@ -41,7 +41,7 @@ export default function LegalFaq() {
         <div>
           <div className="flex items-center gap-2 text-xs font-mono font-bold text-amber-700 uppercase tracking-widest">
             <Scale className="w-4 h-4 text-amber-500" />
-            Rechtliche &amp; Technische Grundlagen · Stand: 2025/2026
+            Rechtliche &amp; Technische Grundlagen · Stand: Oktober 2026
           </div>
           <h2 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight mt-1">
             Häufige Fragen zu Wp, EEG &amp; Steuerrecht

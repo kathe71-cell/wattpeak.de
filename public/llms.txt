@@ -20,13 +20,13 @@
 - **Perowskit-Tandemzellen:** Zukunfts-Technologie (Silizium-Perowskit-Kombination), Wirkungsgrade im Labor >33 %.
 
 ## 3. Gesetzlicher Rahmen Deutschland
-- **Solarpaket I:**
-  - 800 W Wechselrichter-Ausgangsleistung (AC)
+- **Solarpaket I (EEG § 3 Nr. 43 / § 8 Abs. 5a):**
+  - 800 VA Wechselrichter-Ausgangsleistung (AC)
   - Bis zu 2.000 Wp installierte Modulleistung (DC)
   - Vereinfachte Anmeldung im Marktstammdatenregister (MaStR) der Bundesnetzagentur ohne Netzanfrage beim Netzbetreiber
-  - Schuko-Stecker als reguläre Steckvorrichtung zulässig
+  - Schutzkontakt-Stecker nach DIN VDE V 0126-95:2025-12 mit NA-Schutz nach VDE-AR-N 4105:2026-03
 - **Umsatzsteuer:** 0 % MwSt. gem. § 12 Abs. 3 UStG für private Photovoltaikanlagen und wesentliche Komponenten.
-- **EU-Batterieverordnung (EU 2023/1542):** Digitaler Batteriepass für Industrie- und stationäre Speicher ab 2 kWh ab 2027 Pflicht.
+- **EU-Batterieverordnung (EU 2023/1542):** Digitaler Batteriepass für Industrie- und stationäre Speicher ab 2 kWh ab 18.02.2027 Pflicht.
 
 ## 4. Rechner-APIs und URL-Parameter
 - Die Ertragsberechnung auf https://wattpeak.de/rechner-embed akzeptiert Query-Parameter:
@@ -43,11 +43,15 @@
 - **Eigenverbrauchsquote**: PV ohne Speicher ca. 25–35%; mit Speicher ca. 55–80% (abhängig von Anlagengröße und Verbrauchsprofil)
 - **Autarkiegrad**: Anteil des Eigenverbrauchs am Gesamtverbrauch; 70% Autarkie = typisches Ziel für Einfamilienhaus mit 10 kWp + 10 kWh Speicher
 
-## 6. Einspeisevergütung & EEG 2023
-- **EEG-Einspeisevergütung** (Stand 2026, Anlagen ≤ 10 kWp): ca. 8,03 ct/kWh für Volleinspeiser, ca. 12,87 ct/kWh Teileinspeisung (Werte gemäß EEG-Degressionsrechnung)
-- **Nulleinspeisung**: Technisch möglich via Export-Limiter/Einspeisemanagement; sinnvoll wenn Eigenverbrauchspreis (Arbeitspreis) > Einspeisevergütung
-- **MaStR-Registrierung**: Pflicht für alle PV-Anlagen über 600 W (Plug-in-Anlagen ≤ 800 W AC vereinfacht nach Solarpaket I)
-- **Handwerkerrabatt / Steuer**: 0 % MwSt. auf Lieferung und Installation für Wohngebäude (§ 12 Abs. 3 Nr. 1 UStG, seit 01.01.2023)
+## 6. Einspeisevergütung & EEG (Stand: August–Dezember 2026)
+- **EEG-Einspeisevergütung** (Bundesnetzagentur ab 01.08.2026, Anlagen ≤ 10 kWp):
+  - Teileinspeisung (Überschusseinspeisung): 7,70 ct/kWh
+  - Volleinspeisung: 12,22 ct/kWh
+  - Degression: -1 % halbjährlich gem. § 49 EEG zum 01.02. und 01.08.
+- **Balkonkraftwerke (≤ 800 VA AC)**: Unentgeltliche Abnahme gem. § 8 Abs. 5a EEG (Eigenverbrauch priorisiert).
+- **Nulleinspeisung**: Technisch möglich via Export-Limiter/Einspeisemanagement; sinnvoll wenn Eigenverbrauchspreis (Arbeitspreis) > Einspeisevergütung.
+- **MaStR-Registrierung**: Pflicht für alle PV-Anlagen (Plug-in-Anlagen ≤ 800 VA AC vereinfacht nach Solarpaket I).
+- **Steuerbefreiung**: 0 % MwSt. auf Lieferung und Installation für Wohngebäude (§ 12 Abs. 3 UStG) sowie Ertragsteuerbefreiung (§ 3 Nr. 72 EStG bis 30 kWp).
 
 ## 7. Ertragssimulation: Einflussfaktoren
 - **Ausrichtung**: Süd (Azimut 0°) = 100%; SO/SW (±45°) ≈ 93%; Ost/West (±90°) ≈ 80%

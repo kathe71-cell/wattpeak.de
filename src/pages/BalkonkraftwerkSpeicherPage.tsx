@@ -254,7 +254,7 @@ export default function BalkonkraftwerkSpeicherPage() {
                       <a
                         href={getAmazonDirectUrl(produkt.asin, produkt.searchQuery)}
                         target="_blank"
-                        rel="noopener noreferrer nofollow"
+                        rel="sponsored noopener noreferrer"
                         className="inline-flex items-center gap-2 px-5 py-2.5 bg-amber-500 text-slate-950 font-bold rounded-xl hover:bg-amber-400 transition-colors text-sm"
                       >
                         Auf Amazon ansehen * <ExternalLink className="w-4 h-4" />
@@ -301,12 +301,11 @@ export default function BalkonkraftwerkSpeicherPage() {
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex gap-3">
             <Info className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
             <p className="text-sm text-amber-900 leading-relaxed">
-              <strong>Smart Meter:</strong> Für die Null-Einspeisung wird ein <strong>Shelly Pro 3EM</strong> (
-              <a href={getAmazonDirectUrl('B0G14VF9TL', 'Shelly Pro 3EM Energiemessgerät')} target="_blank" rel="noopener noreferrer nofollow" className="text-amber-700 font-bold hover:underline">auf Amazon *</a>
+              <strong>Smart Meter:</strong> Für die dynamische Nulleinspeisung wird ein <strong>Shelly Pro 3EM</strong> (
+              <a href={getAmazonDirectUrl('B0G14VF9TL', 'Shelly Pro 3EM Energiemessgerät')} target="_blank" rel="sponsored noopener noreferrer" className="text-amber-700 font-bold hover:underline">auf Amazon *</a>
               ) oder ein Shelly Plus 1PM (
-              <a href={getAmazonDirectUrl('B0965J4HT5', 'Shelly Plus 1PM')} target="_blank" rel="noopener noreferrer nofollow" className="text-amber-700 font-bold hover:underline">auf Amazon *</a>
-              ) empfohlen. Diese werden im Zählerschrank (durch Elektriker) bzw. als Steckdosen-Zwischenstecker installiert
-              und kommunizieren direkt mit dem Speicher-Gateway.
+              <a href={getAmazonDirectUrl('B0965J4HT5', 'Shelly Plus 1PM')} target="_blank" rel="sponsored noopener noreferrer" className="text-amber-700 font-bold hover:underline">auf Amazon *</a>
+              ) empfohlen. Diese erfassen den Hausverbrauch und ermöglichen eine bedarfsgerechte Einspeisung.
             </p>
           </div>
         </section>

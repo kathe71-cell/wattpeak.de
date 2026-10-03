@@ -5,16 +5,19 @@ import TrustBox from '../components/TrustBox';
 import { Scale, Battery } from 'lucide-react';
 import { useDocumentMeta } from '../utils/seo';
 
+import { BATTERY_REGULATION_MILESTONES, BATTERY_PASSPORT_MANDATORY_FIELDS } from '../data/batteryPassportData';
+
 export default function BatteriepassPage() {
   useDocumentMeta({
-    title: 'EU-Batteriepass & Speicher-Diagnostik · Wattpeak',
-    description: 'EU-Batteriepass (Verordnung 2023/1542), SOH-Alterungsdiagnostik und Zyklenfestigkeit von LiFePO4-Heim- und Balkonspeichern.',
+    title: 'EU-Batteriepass (VO 2023/1542) & Speicher-Diagnostik · wattpeak.de',
+    description: 'EU-Batteriepass Pflicht ab 18.02.2027 für stationäre Batteriespeicher > 2 kWh gem. Verordnung (EU) 2023/1542, SOH-Alterungsdiagnostik und Zyklenfestigkeit.',
     canonicalPath: '/batteriepass',
     structuredData: {
       '@context': 'https://schema.org',
       '@type': 'Article',
-      headline: 'EU-Batteriepass & Speicher-Diagnostik',
+      headline: 'EU-Batteriepass (VO 2023/1542) & Speicher-Diagnostik für Photovoltaik',
       url: 'https://www.wattpeak.de/batteriepass',
+      dateModified: '2026-10-01',
     },
   });
   // SOH Calculator inputs
@@ -46,23 +49,23 @@ export default function BatteriepassPage() {
           <div className="max-w-3xl space-y-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-950 font-mono text-xs font-bold border border-emerald-300">
               <Scale className="w-3.5 h-3.5 text-emerald-800" />
-              Verordnung (EU) 2023/1542
+              Verordnung (EU) 2023/1542 · Art. 77
             </div>
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-950 tracking-tight leading-tight">
               EU-Batteriepass:<br />
               <span className="text-amber-500">Transparenz für PV- &amp; Heimspeicher.</span>
             </h1>
             <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-medium">
-              Ab 2027 müssen stationäre Batteriespeicher und Traktionsbatterien mit mehr als 2&nbsp;kWh Kapazität 
-              einen fälschungssicheren digitalen Produktpass mit QR-Code tragen. Erfahren Sie alles über Kennzeichnungspflichten, 
-              CO2-Footprint und Batteriezustand (SOH).
+              Ab 18. Februar 2027 müssen stationäre Batteriespeicher mit mehr als 2&nbsp;kWh Kapazität 
+              einen fälschungssicheren digitalen Produktpass mit QR-Code tragen (Verordnung EU 2023/1542). 
+              Erfahren Sie alle regulatorischen Meilensteine, CO2-Footprint-Vorgaben und Diagnosedaten zum Batteriezustand (SOH).
             </p>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-8 pt-8 border-t border-slate-100 text-xs font-mono">
             <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
-              <span className="text-slate-500 uppercase">Geltung ab</span>
-              <div className="text-slate-950 font-black text-lg mt-0.5">Februar 2027</div>
+              <span className="text-slate-500 uppercase">Pass-Pflicht ab</span>
+              <div className="text-slate-950 font-black text-lg mt-0.5">18.02.2027</div>
             </div>
             <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
               <span className="text-slate-500 uppercase">Schwellenwert</span>
@@ -211,36 +214,68 @@ export default function BatteriepassPage() {
           </div>
         </section>
 
+        {/* Regulatorische Meilensteine EU-Batterieverordnung */}
+        <section className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          <div className="px-6 py-5 border-b border-slate-100">
+            <h2 className="text-xl font-black text-slate-950">
+              Verbindliche Fristen der Verordnung (EU) 2023/1542
+            </h2>
+            <p className="text-xs text-slate-500 font-mono mt-1">
+              Gesetzlicher Zeitplan für Heimspeicher, Industriebatterien und digitale Kennzeichnung
+            </p>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs text-left">
+              <thead className="bg-slate-50 text-slate-700 font-bold uppercase font-mono border-b border-slate-200">
+                <tr>
+                  <th className="px-6 py-3">Datum</th>
+                  <th className="px-6 py-3">Meilenstein</th>
+                  <th className="px-6 py-3">Rechtsgrundlage</th>
+                  <th className="px-6 py-3">Geltungsbereich</th>
+                  <th className="px-6 py-3">Status</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 font-sans">
+                {BATTERY_REGULATION_MILESTONES.map((item) => (
+                  <tr key={item.effectiveDate} className="hover:bg-slate-50">
+                    <td className="px-6 py-4 font-mono font-bold text-slate-900">{item.effectiveDate}</td>
+                    <td className="px-6 py-4">
+                      <div className="font-bold text-slate-950">{item.label}</div>
+                      <div className="text-slate-500 text-[11px] mt-0.5">{item.description}</div>
+                    </td>
+                    <td className="px-6 py-4 font-mono text-slate-600">{item.legalArticle}</td>
+                    <td className="px-6 py-4 text-slate-700">{item.scope}</td>
+                    <td className="px-6 py-4">
+                      {item.status === 'IN_FORCE' && (
+                        <span className="bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded text-[10px]">In Kraft</span>
+                      )}
+                      {item.status === 'UPCOMING' && (
+                        <span className="bg-amber-100 text-amber-900 font-bold px-2 py-0.5 rounded text-[10px]">Bevorstehend</span>
+                      )}
+                      {item.status === 'FUTURE' && (
+                        <span className="bg-slate-100 text-slate-700 font-bold px-2 py-0.5 rounded text-[10px]">Zukünftig</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
         {/* 6 Mandatory Data Fields of EU Battery Passport */}
         <section className="space-y-4">
           <h2 className="text-xl font-black text-slate-950">
-            Die 6 Kernbestandteile des digitalen Batteriepasses
+            Die 6 Pflichtbestandteile des digitalen Batteriepasses
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-            <div className="bg-white p-4 rounded-xl border border-slate-200">
-              <span className="font-mono font-bold text-amber-700 block mb-1">1. CO2-Fußabdruck</span>
-              Deklaration der Treibhausgasemissionen pro kWh über den gesamten Lebenszyklus (Rohstoffabbau, Zellfertigung, Transport).
-            </div>
-            <div className="bg-white p-4 rounded-xl border border-slate-200">
-              <span className="font-mono font-bold text-amber-700 block mb-1">2. Rohstoff-Rezyklatquoten</span>
-              Mindestanteile an recyceltem Kobalt, Blei, Lithium und Nickel (stufenweise verbindlich ab 2031).
-            </div>
-            <div className="bg-white p-4 rounded-xl border border-slate-200">
-              <span className="font-mono font-bold text-amber-700 block mb-1">3. Leistungs- &amp; Haltbarkeitswerte</span>
-              Zertifizierte Angaben zu Nennkapazität, Innenwiderstand, Leistungsabfall und erwarteter Zyklenzahl.
-            </div>
-            <div className="bg-white p-4 rounded-xl border border-slate-200">
-              <span className="font-mono font-bold text-amber-700 block mb-1">4. BMS-Echtzeitdaten</span>
-              Schnittstelle für Diagnosegeräte zur Bestimmung des aktuellen SOH und SOC für Zweitnutzung (Second Life).
-            </div>
-            <div className="bg-white p-4 rounded-xl border border-slate-200">
-              <span className="font-mono font-bold text-amber-700 block mb-1">5. Sorgfaltspflichten (Due Diligence)</span>
-              Nachweis sozialer und ökologischer Standards beim Abbau kritischer Rohstoffe in Drittländern.
-            </div>
-            <div className="bg-white p-4 rounded-xl border border-slate-200">
-              <span className="font-mono font-bold text-amber-700 block mb-1">6. Demontage &amp; Recycling</span>
-              Sicherheitsanweisungen für Recyclingbetriebe zur sortenreinen Trennung der Aktivmaterialien.
-            </div>
+            {BATTERY_PASSPORT_MANDATORY_FIELDS.map((field) => (
+              <div key={field.id} className="bg-white p-4 rounded-xl border border-slate-200">
+                <span className="font-mono font-bold text-amber-700 block mb-1">{field.title}</span>
+                <p className="text-slate-600 mb-2 leading-relaxed">{field.description}</p>
+                <span className="text-[10px] font-mono text-slate-400">{field.legalBasis}</span>
+              </div>
+            ))}
           </div>
         </section>
 

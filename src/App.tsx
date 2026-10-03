@@ -20,6 +20,7 @@ import Datenschutz from './pages/Datenschutz';
 import EinspeiseverguetungPage from './pages/EinspeiseverguetungPage';
 import BalkonkraftwerkSpeicherPage from './pages/BalkonkraftwerkSpeicherPage';
 import WechselrichterVergleichPage from './pages/WechselrichterVergleichPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 function GlobalWidgets() {
   const location = useLocation();
@@ -90,7 +91,8 @@ export function AppRoutes() {
 
         <Route path="/impressum" element={<Impressum />} />
         <Route path="/datenschutz" element={<Datenschutz />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/404" element={<NotFoundPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
   );

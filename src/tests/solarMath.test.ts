@@ -134,8 +134,9 @@ describe('WattPeak Unified Solar Calculation Engine', () => {
     });
 
     it('sollte für Dachanlagen die korrekten EEG-Vergütungsstufen anwenden', () => {
-      expect(getDefaultFeedInTariff(8.0, 'rooftop', 'eeg_partial')).toBeCloseTo(0.0803, 4);
-      expect(getDefaultFeedInTariff(15.0, 'rooftop', 'eeg_partial')).toBeCloseTo(0.0695, 4);
+      // Bundesnetzagentur Vergütungssätze ab 01.08.2026: 7,70 ct/kWh (<=10 kWp) und 6,66 ct/kWh (10-40 kWp)
+      expect(getDefaultFeedInTariff(8.0, 'rooftop', 'eeg_partial')).toBeCloseTo(0.0770, 4);
+      expect(getDefaultFeedInTariff(15.0, 'rooftop', 'eeg_partial')).toBeCloseTo(0.0666, 4);
     });
 
     it('sollte Überbelegung bei Balkonkraftwerken (z.B. 1.76 kWp an 800 W AC) mit Inverter-Clipping berücksichtigen', () => {

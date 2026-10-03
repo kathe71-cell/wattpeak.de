@@ -1,4 +1,5 @@
 {
+  "cleanUrls": true,
   "headers": [
     {
       "source": "/sitemap.xml",
@@ -36,10 +37,25 @@
       ]
     }
   ],
-  "rewrites": [
-    {
-      "source": "/((?!ads\\.txt|robots\\.txt|sitemap\\.xml|feed\\.xml|llms\\.txt|.*\\.svg|.*\\.png|.*\\.ico).*)",
-      "destination": "/index.html"
-    }
+  "redirects": [
+    { "source": "/anlagenvergleich", "destination": "/anlagen-vergleich", "permanent": true },
+    { "source": "/system-decoder", "destination": "/anlagen-vergleich", "permanent": true },
+    { "source": "/decoder", "destination": "/anlagen-vergleich", "permanent": true },
+    { "source": "/katalog", "destination": "/hardware-katalog", "permanent": true },
+    { "source": "/hardware", "destination": "/hardware-katalog", "permanent": true },
+    { "source": "/rechner", "destination": "/ertragsrechner", "permanent": true },
+    { "source": "/pvdachziegel", "destination": "/solardachziegel", "permanent": true },
+    { "source": "/pvziegel", "destination": "/solardachziegel", "permanent": true },
+    { "source": "/pvkomplettset", "destination": "/komplettsets", "permanent": true },
+    { "source": "/pv-komplettset", "destination": "/komplettsets", "permanent": true },
+    { "source": "/solarkomplettset", "destination": "/komplettsets", "permanent": true },
+    { "source": "/balkonsolarset", "destination": "/komplettsets", "permanent": true },
+    { "source": "/solarebaupflicht", "destination": "/solarpflicht", "permanent": true },
+    { "source": "/solarspitzengesetz", "destination": "/solarpflicht", "permanent": true },
+    { "source": "/solarreform", "destination": "/solarpflicht", "permanent": true },
+    { "source": "/solarfoerderprogramm", "destination": "/solarpflicht", "permanent": true },
+    { "source": "/balkonspeicher", "destination": "/balkonkraftwerk-speicher", "permanent": true },
+    { "source": "/wechselrichter", "destination": "/wechselrichter-vergleich", "permanent": true },
+    { "source": "/mikrowechselrichter", "destination": "/wechselrichter-vergleich", "permanent": true }
   ]
 }

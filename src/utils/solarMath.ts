@@ -119,19 +119,17 @@ export const CELL_TECH_PROPERTIES: Record<string, {
   }
 };
 
+import { getEegTariffEurPerKwh } from '../data/eeg-rates';
+
 /**
  * Gesetzliche EEG-Einspeisevergütung in EUR/kWh
- * Quelle: Bundesnetzagentur, Vergütungssätze für PV-Anlagen (Stand: 2025/2026)
+ * Quelle: Bundesnetzagentur, Vergütungssätze für PV-Anlagen (Stand: August–Dezember 2026 gem. § 49 EEG)
  */
 export function getDefaultFeedInTariff(kwp: number, systemType: SystemType, remunerationType?: FeedInRemunerationType): number {
   if (systemType === 'balcony' && (!remunerationType || remunerationType === 'uncompensated')) {
-    return 0.00; // Unentgeltliche Einspeisung nach Solarpaket I
+    return 0.00; // Unentgeltliche Einspeisung nach § 8 Abs. 5a EEG (Solarpaket I)
   }
-  // Teileinspeisung: 8,03 ct/kWh bis 10 kWp; 6,95 ct/kWh ab 10 kWp bis 40 kWp
-  if (kwp <= 10) {
-    return 0.0803;
-  }
-  return 0.0695;
+  return getEegTariffEurPerKwh(kwp, remunerationType || 'eeg_partial');
 }
 
 export interface SolarParams {

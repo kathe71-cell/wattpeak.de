@@ -171,7 +171,7 @@ export default function WechselrichterVergleichPage() {
     },
     {
       q: 'Ist ein Wechselrichter mit VDE-AR-N 4105 für Balkonkraftwerke Pflicht?',
-      a: 'Ja. Seit Solarpaket I (2023) müssen alle Stecker-Solargeräte bis 800 W einen Wechselrichter mit integriertem Netz- und Anlagenschutz (NA-Schutz) nach VDE-AR-N 4105 enthalten. Ältere Geräte ohne integriertes Relais sind nicht mehr normkonform.',
+      a: 'Ja. Für den Netzanschluss in Deutschland ist ein Konformitätsnachweis nach VDE-AR-N 4105:2026-03 (Erzeugungsanlagen am Niederspannungsnetz) zwingend erforderlich. Dieser garantiert den integrierten Netz- und Anlagenschutz (NA-Schutz mit redundanter Abschaltung in unter 200 ms). Ältere Zertifikate nach VDE-AR-N 4105:2018-11 stellen den historischen Zulassungsstand dar.',
     },
   ];
 
@@ -250,7 +250,7 @@ export default function WechselrichterVergleichPage() {
         <section className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
           <div className="px-6 py-5 border-b border-slate-100">
             <h2 className="text-xl font-black text-slate-950">Empfehlungen: Mikrowechselrichter für Balkonkraftwerke</h2>
-            <p className="text-sm text-slate-500 mt-1">800 W Modelle mit VDE-AR-N 4105 Zertifizierung und integriertem NA-Schutz</p>
+            <p className="text-sm text-slate-500 mt-1">800 VA Modelle mit Konformitätsnachweis nach VDE-AR-N 4105:2026-03 und integriertem NA-Schutz</p>
           </div>
           <div className="divide-y divide-slate-100">
             {PRODUKTE.map((p) => (
@@ -276,7 +276,7 @@ export default function WechselrichterVergleichPage() {
                 <a
                   href={getAmazonDirectUrl(p.asin, p.searchQuery)}
                   target="_blank"
-                  rel="noopener noreferrer nofollow"
+                  rel="sponsored noopener noreferrer"
                   className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 bg-amber-500 text-slate-950 font-bold rounded-xl hover:bg-amber-400 transition-colors text-sm"
                 >
                   Amazon * <ExternalLink className="w-4 h-4" />

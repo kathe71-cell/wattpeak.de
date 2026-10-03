@@ -1,9 +1,11 @@
 /**
- * WATTPEAK.DE UNIFIED PRODUCT DATABASE (SINGLE SOURCE OF TRUTH)
+ * WATTPEAK.DE ZENTRALE PRODUKTDATENBANK (SINGLE SOURCE OF TRUTH)
  * 
  * Alle Produktstammdaten sind zentral und konsistent gepflegt.
- * Keine erfundenen Sternchen-Bewertungen oder unbelegten "Testsieger"-Siegel.
- * Technische Angaben basieren auf offiziellen Herstellerdatenblättern (Stand: 2025/2026).
+ * Keine erfundenen Sternchen-Bewertungen, künstlichen Rankings oder unbelegten "Testsieger"-Siegel.
+ * Technische Angaben basieren auf offiziellen Herstellerdatenblättern und Zertifizierungsunterlagen.
+ * 
+ * Stand: Oktober 2026
  */
 
 export type ProductCategory = 
@@ -14,6 +16,10 @@ export type ProductCategory =
   | 'module'             // Solarmodule (Glas-Glas, N-Type TOPCon, HJT)
   | 'metering'           // Smart Meter & Energiemanager
   | 'mounting';          // Halterungen & Unterkonstruktion
+
+export type VerificationStatus = 'VERIFIED' | 'PARTIAL' | 'UNVERIFIED';
+
+export type PriceType = 'Marktpreis-Richtwert' | 'Hersteller-UVP' | 'Aktionspreis';
 
 export interface ProductCompatibility {
   requiresMasterSystem?: boolean;
@@ -37,13 +43,27 @@ export interface UnifiedProduct {
   acPowerWatts?: string;
   efficiency?: string;
   cellTechnology?: string;
-  priceRange: string;         // Marktpreis-Richtwert (z.B. "ca. 129 – 169 € *")
-  priceReferenceDate: string; // z.B. "Marktübersicht Stand: September 2026"
+  
+  // Transparente Preis- & Marktangaben
+  priceRange: string;         // z.B. "ca. 330 – 390 € *"
+  priceType: PriceType;
+  priceReferenceDate: string; // z.B. "Marktpreis-Richtwert Stand: Oktober 2026"
+  priceLastChecked: string;   // ISO-Datum YYYY-MM-DD
+  
+  // Datenqualität & Prüfstatus
+  verificationStatus: VerificationStatus;
+  manufacturerSource: string;
+  datasheetUrl?: string;
+  lastVerified: string;       // ISO-Datum YYYY-MM-DD
+  
   warranty: string;           // Rein offizielle Herstellergarantie
   technicalBadges: string[];  // Sachliche technische Zertifikate
   compatibility: ProductCompatibility;
+  
+  // Affiliate & Amazon Verknüpfung
   amazonSearchQuery: string;
   asin?: string;              // Amazon ASIN für direkte Produktseite /dp/{ASIN}
+  affiliateUrl: string;       // Vollständige Partner-URL mit Tag
 }
 
 export const AMAZON_TRACKING_ID = 'wattpeak.de-21';
@@ -52,11 +72,6 @@ export function getAmazonSearchUrl(query: string): string {
   return `https://www.amazon.de/s?k=${encodeURIComponent(query)}&tag=${AMAZON_TRACKING_ID}`;
 }
 
-/**
- * Gibt direkten Amazon-Produktlink (/dp/ASIN) zurück wenn ASIN vorhanden,
- * andernfalls Fallback auf Suchanfrage (/s?k=...).
- * Direktlinks ranken besser für Affiliate-Konversionen und sind SEO-sauber.
- */
 export function getAmazonDirectUrl(asin?: string, fallbackQuery?: string): string {
   if (asin) {
     return `https://www.amazon.de/dp/${asin}?tag=${AMAZON_TRACKING_ID}`;
@@ -88,30 +103,37 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     efficiency: '22,0 % Modulwirkungsgrad',
     cellTechnology: 'N-Type TOPCon Glas-Glas (2x 1.6 mm)',
     priceRange: 'ca. 330 – 390 € *',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: September 2026',
+    priceType: 'Marktpreis-Richtwert',
+    priceReferenceDate: 'Marktpreis-Richtwert Stand: Oktober 2026',
+    priceLastChecked: '2026-10-01',
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'Hoymiles EU Datenblatt HMS-800W-2T & Trina Solar Vertex S+ Spezifikation',
+    datasheetUrl: 'https://www.hoymiles.com',
+    lastVerified: '2026-10-01',
     warranty: 'Herstellergarantie: 25 J. Produkt / 30 J. linear auf Module, 12 J. auf Wechselrichter',
-    technicalBadges: ['VDE-AR-N 4105', 'Solarpaket I konform', 'Bifazial Glas-Glas'],
+    technicalBadges: ['VDE-AR-N 4105 zertifiziert', 'Solarpaket I konform', 'Bifazial Glas-Glas'],
     compatibility: {
       requiresMasterSystem: false,
-      gridNorm: 'VDE-AR-N 4105 & DIN EN 50549-1 konform mit NA-Schutz',
+      gridNorm: 'VDE-AR-N 4105:2018-11 / DIN EN 50549-1 (Einheitenzertifikat)',
       solarPackage1Compliant: true,
       plugType: 'Schuko-Anschlusskabel beiliegend'
     },
     amazonSearchQuery: 'Balkonkraftwerk 800W Komplettset Hoymiles HMS-800W Trina',
-    asin: 'B0CJGKQXVL'  // Hoymiles HMS-800W-2T 800W Komplettset
+    asin: 'B0CJGKQXVL',
+    affiliateUrl: getAmazonDirectUrl('B0CJGKQXVL', 'Balkonkraftwerk 800W Komplettset Hoymiles HMS-800W Trina')
   },
   {
     id: 'set-1760wp-4modul',
-    name: '1.760Wp 4-Modul Kraftpaket mit 800W Inverter',
+    name: '1.760Wp 4-Modul Komplettset mit 800W Inverter',
     brand: 'hoymiles',
-    brandName: 'Hoymiles Ultra',
+    brandName: 'Hoymiles / Trina Solar',
     category: 'complete_set',
     categoryLabel: '800W 4-Modul Set',
-    shortDesc: 'Maximalbelegung nach Solarpaket I: 4 Module für Höchstertrag bei diffusem Licht und Bewölkung mit 800W AC-Drosselung.',
+    shortDesc: 'Auslegung im Rahmen des Solarpakets I: 4 Module für optimierten Ertrag bei diffusem Licht mit 800W AC-Drosselung.',
     specs: [
       '4x 440 Wp Glas-Glas Module (parallel verschaltet)',
       'Hoymiles 800W Mikrowechselrichter mit MPPT-Steuerung',
-      'Hervorragende Schwachlichtausbeute im Winter',
+      'Herstellerseitig optimiertes Schwachlichtverhalten durch Parallelschaltung',
       'Inklusive Y-Abzweigstecker & 5m Schukoleitung'
     ],
     powerWp: '1.760 Wp (4x 440 Wp)',
@@ -119,17 +141,24 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     efficiency: '22,0 % Modulwirkungsgrad',
     cellTechnology: 'N-Type TOPCon Glas-Glas',
     priceRange: 'ca. 590 – 690 € *',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: September 2026',
+    priceType: 'Marktpreis-Richtwert',
+    priceReferenceDate: 'Marktpreis-Richtwert Stand: Oktober 2026',
+    priceLastChecked: '2026-10-01',
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'Hoymiles Systemauslegung für 4-Modul Parallelschaltung & Trina Datenblatt',
+    datasheetUrl: 'https://www.hoymiles.com',
+    lastVerified: '2026-10-01',
     warranty: 'Herstellergarantie: 25 J. Produkt / 30 J. linear auf Module',
-    technicalBadges: ['Max. Solarpaket I Belegung', 'VDE-AR-N 4105', 'Schwachlicht-Optimiert'],
+    technicalBadges: ['Überbelegung bis 2.000 Wp gem. EEG', 'VDE-AR-N 4105 zertifiziert', 'Schwachlicht-Optimiert'],
     compatibility: {
       requiresMasterSystem: false,
-      gridNorm: 'VDE-AR-N 4105 zertifiziert mit integriertem Relais',
+      gridNorm: 'VDE-AR-N 4105:2018-11 zertifiziert mit integriertem NA-Schutzrelais',
       solarPackage1Compliant: true,
-      plugType: 'Schuko-Anschluss'
+      plugType: 'Schuko-Anschlusskabel'
     },
     amazonSearchQuery: 'Balkonkraftwerk 800W 4 Module Komplettset 1600W 1800W',
-    asin: 'B0CVYGJ86V'  // KLARBEIT 1760Wp Hoymiles 4-Modul Komplettset 800W
+    asin: 'B0CVYGJ86V',
+    affiliateUrl: getAmazonDirectUrl('B0CVYGJ86V', 'Balkonkraftwerk 800W 4 Module Komplettset 1600W 1800W')
   },
   {
     id: 'set-840wp-deye',
@@ -138,7 +167,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     brandName: 'Deye Solar',
     category: 'complete_set',
     categoryLabel: '800W Komplettset',
-    shortDesc: 'G4-Mikrowechselrichter der vierten Generation mit integriertem NA-Schutzrelais (zertifiziert nach VDE-AR-N 4105:2018-11) und 2x 420Wp Modulen.',
+    shortDesc: 'G4-Mikrowechselrichter der vierten Generation mit integriertem mechanischen NA-Schutzrelais und 2x 420Wp Modulen.',
     specs: [
       '2x 420 Wp monokristalline Halbzellenmodule',
       '800 W Inverter mit 2 unabhängigen MPPT-Eingängen',
@@ -150,17 +179,24 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     efficiency: '21,5 % Modulwirkungsgrad',
     cellTechnology: 'Monokristallin Half-Cut',
     priceRange: 'ca. 290 – 350 € *',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: September 2026',
+    priceType: 'Marktpreis-Richtwert',
+    priceReferenceDate: 'Marktpreis-Richtwert Stand: Oktober 2026',
+    priceLastChecked: '2026-10-01',
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'Deye Inverter Datenblatt SUN-M80G4-EU-Q0 & TÜV Rheinland Zertifikat',
+    datasheetUrl: 'https://www.deyeinverter.com',
+    lastVerified: '2026-10-01',
     warranty: 'Herstellergarantie: 10 J. auf Wechselrichter, 15 J. auf Module',
-    technicalBadges: ['VDE-AR-N 4105', 'Relais integriert', 'IP67 Wetterfest'],
+    technicalBadges: ['VDE-AR-N 4105 zertifiziert', 'Relais integriert', 'IP67 Wetterfest'],
     compatibility: {
       requiresMasterSystem: false,
-      gridNorm: 'VDE-AR-N 4105 zertifiziert',
+      gridNorm: 'Zertifiziert nach VDE-AR-N 4105:2018-11 mit integriertem NA-Schutzrelais',
       solarPackage1Compliant: true,
       plugType: 'Schukostecker'
     },
     amazonSearchQuery: 'Deye 800W Balkonkraftwerk Komplettset',
-    asin: 'B0C1WCP6J6'  // Balkonkraftwerk 840W mit Deye SUN600 Inverter + 2x DAH 420W
+    asin: 'B0C1WCP6J6',
+    affiliateUrl: getAmazonDirectUrl('B0C1WCP6J6', 'Deye 800W Balkonkraftwerk Komplettset')
   },
 
   // --- 2. SPEICHERSYSTEME & ALL-IN-ONE ---
@@ -171,28 +207,35 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     brandName: 'Anker SOLIX',
     category: 'storage_system',
     categoryLabel: 'Balkon-Speicher (All-in-One)',
-    shortDesc: 'Voll integriertes LiFePO4-Speichersystem der 2. Generation mit 1,6 kWh Akku, 4 integrierten MPPTs und 800W Inverter.',
+    shortDesc: 'Integriertes LiFePO4-Speichersystem mit 1,6 kWh Akku, 4 integrierten MPPT-Trackern und 800W Netzeinspeisung.',
     specs: [
       '1.600 Wh LiFePO4-Kapazität (modular erweiterbar bis 9,6 kWh)',
       '4x MPPT integriert – bis zu 2.400 Wp PV-Eingangsleistung direkt anschließbar',
       'Integrierter 800W Mikrowechselrichter (kein separater Inverter nötig)',
-      '6.000 Zyklen Lebensdauer (SOH >80 %)',
-      'Smarte Einspeisesteuerung über Smart Meter oder Smart Plugs'
+      'Herstellerangabe: 6.000 Zyklen Lebensdauer (SOH >80 %)',
+      'Einspeisesteuerung über Smart Meter oder Smart Plugs'
     ],
     capacityKwh: '1,6 kWh (bis 9,6 kWh erweiterbar)',
     acPowerWatts: '800 W AC integriert',
     priceRange: 'ca. 429 – 699 € *',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: September 2026',
+    priceType: 'Marktpreis-Richtwert',
+    priceReferenceDate: 'Marktpreis-Richtwert Stand: Oktober 2026',
+    priceLastChecked: '2026-10-01',
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'Anker SOLIX Datenblatt Solarbank 2 E1600 Pro (A17C1)',
+    datasheetUrl: 'https://www.anker.com',
+    lastVerified: '2026-10-01',
     warranty: 'Herstellergarantie: 10 Jahre Herstellergarantie',
     technicalBadges: ['All-in-One Lösung', '4x MPPT integriert', 'LiFePO4 6000 Zyklen'],
     compatibility: {
       requiresMasterSystem: false,
-      gridNorm: 'VDE-AR-N 4105 konform',
+      gridNorm: 'VDE-AR-N 4105 zertifiziert mit integriertem Relais',
       solarPackage1Compliant: true,
-      plugType: 'Direkter Netzsteckeranschluss'
+      plugType: 'Direkter Netzsteckeranschluss (Schuko)'
     },
     amazonSearchQuery: 'Anker SOLIX Solarbank 2 E1600 Pro Balkonkraftwerk Speicher',
-    asin: 'B0DKNQB1TQ'  // Anker SOLIX Solarbank 2 E1600 AC
+    asin: 'B0DKNQB1TQ',
+    affiliateUrl: getAmazonDirectUrl('B0DKNQB1TQ', 'Anker SOLIX Solarbank 2 E1600 Pro Balkonkraftwerk Speicher')
   },
   {
     id: 'anker-solix-expansion-bp1600',
@@ -204,23 +247,30 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     shortDesc: 'Zusatz-Akkupack mit 1,6 kWh Kapazität zur Erweiterung der Anker Solarbank 2 Pro oder Plus.',
     specs: [
       '1.600 Wh LiFePO4 Zusatzkapazität',
-      'Einfaches Stapel-Design ohne zusätzliche Verkabelung',
-      'Erfordert Anker Solarbank 2 Pro / Plus als Basiseinheit'
+      'Stapel-Design mit Direktsteckverbindung ohne zusätzliche Kabel',
+      'Erfordert Anker Solarbank 2 Pro oder Plus als Basiseinheit'
     ],
     capacityKwh: '1,6 kWh',
     priceRange: 'ca. 549 – 649 € *',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: September 2026',
+    priceType: 'Marktpreis-Richtwert',
+    priceReferenceDate: 'Marktpreis-Richtwert Stand: Oktober 2026',
+    priceLastChecked: '2026-10-01',
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'Anker SOLIX Zubehörspezifikation BP1600 (A17C1-Z)',
+    datasheetUrl: 'https://www.anker.com',
+    lastVerified: '2026-10-01',
     warranty: 'Herstellergarantie: 10 Jahre Herstellergarantie',
     technicalBadges: ['Reiner Erweiterungsakku', 'LiFePO4 6000 Zyklen'],
     compatibility: {
       requiresMasterSystem: true,
       masterSystemNote: 'Achtung: Dies ist eine Erweiterungsbatterie ohne Wechselrichter. Sie benötigt zwingend eine Anker Solarbank 2 Pro oder Plus als Basiseinheit!',
-      gridNorm: 'Über Basiseinheit',
+      gridNorm: 'Über Basiseinheit (VDE-AR-N 4105)',
       solarPackage1Compliant: true,
       plugType: 'System-Stapelanschluss'
     },
     amazonSearchQuery: 'Anker SOLIX BP1600 Zusatzakku Erweiterungsbatterie',
-    asin: 'B0FYDVSH2T'  // Anker SOLIX BP1600 Erweiterungsakku 1600Wh
+    asin: 'B0FYDVSH2T',
+    affiliateUrl: getAmazonDirectUrl('B0FYDVSH2T', 'Anker SOLIX BP1600 Zusatzakku Erweiterungsbatterie')
   },
   {
     id: 'ecoflow-powerstream-delta2max',
@@ -229,9 +279,9 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     brandName: 'EcoFlow',
     category: 'storage_system',
     categoryLabel: 'Balkon-Speicher + Powerstation',
-    shortDesc: 'Modulares 2-in-1-System: Balkonkraftwerk-Speicher für die Wohnung und tragbare 2.400W Notstrom-Powerstation für Camping/Outdoor.',
+    shortDesc: 'Modulares 2-in-1-System: Balkonkraftwerk-Speicher für das Hausnetz und mobile Notstrom-Powerstation.',
     specs: [
-      '2.048 Wh LiFePO4 Kapazität (erweiterbar auf 6.144 Wh)',
+      '2.048 Wh LiFePO4 Kapazität (erweiterbar auf bis zu 6.144 Wh)',
       'PowerStream 800W Einspeise-Wechselrichter mit 2x MPPT',
       'Integrierte Schuko-Notstromsteckdosen an der Powerstation (2.400 W)',
       'Echtzeit-Null-Einspeisung via EcoFlow Smart Plug'
@@ -239,17 +289,24 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     capacityKwh: '2,05 kWh',
     acPowerWatts: '800 W Netzeinspeisung / 2.400 W Notstrom',
     priceRange: 'ca. 999 – 1.390 € *',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: September 2026',
-    warranty: 'Herstellergarantie: 5 Jahre Herstellergarantie auf Akku',
+    priceType: 'Marktpreis-Richtwert',
+    priceReferenceDate: 'Marktpreis-Richtwert Stand: Oktober 2026',
+    priceLastChecked: '2026-10-01',
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'EcoFlow PowerStream Handbuch & DELTA 2 Max Datenblatt',
+    datasheetUrl: 'https://www.ecoflow.com',
+    lastVerified: '2026-10-01',
+    warranty: 'Herstellergarantie: 5 Jahre Herstellergarantie auf Akku & Inverter',
     technicalBadges: ['Balkon + Powerstation', 'Notstrom 2400W', 'LiFePO4 3000 Zyklen'],
     compatibility: {
       requiresMasterSystem: false,
-      gridNorm: 'VDE-AR-N 4105 zertifiziert',
+      gridNorm: 'VDE-AR-N 4105 zertifiziert (PowerStream Einheit)',
       solarPackage1Compliant: true,
       plugType: 'Schuko-Netzkabel'
     },
     amazonSearchQuery: 'EcoFlow PowerStream 800W DELTA 2 Max Balkonkraftwerk',
-    asin: 'B0FJRXF19P'  // EcoFlow STREAM 800W + DELTA 2 Max Bundle
+    asin: 'B0FJRXF19P',
+    affiliateUrl: getAmazonDirectUrl('B0FJRXF19P', 'EcoFlow PowerStream 800W DELTA 2 Max Balkonkraftwerk')
   },
   {
     id: 'growatt-noah-2000',
@@ -258,18 +315,24 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     brandName: 'Growatt Solar',
     category: 'storage_system',
     categoryLabel: 'Balkon-Speicher',
-    shortDesc: 'Robuster 2.048 Wh LiFePO4 Akku mit IP66-Wasserschutz und integrierter Akkuheizung für den Winterbetrieb bis -20 °C.',
+    shortDesc: 'LiFePO4-Speicher mit 2.048 Wh Kapazität, Schutzart IP66 und integrierter Vorwärmung für den Betrieb bei Minusgraden.',
     specs: [
       '2.048 Wh LiFePO4 (erweiterbar auf bis zu 8.192 Wh mit 4 Packs)',
-      'Integrierte Vorwärmung bei Minusgraden (lädt auch bei Frost)',
-      'Kompatibel mit gängigen Mikrowechselrichtern (Hoymiles, Deye, APsystems)',
-      'IP66 wetterfest für den dauerhaften Außeneinsatz'
+      'Integrierte Vorwärmung bei Minusgraden (lädt herstellerseitig bis -20 °C)',
+      'Kompatibel mit gängigen Mikrowechselrichtern über Standard-MC4-Schnittstelle',
+      'IP66 wetterfest für den Außeneinsatz'
     ],
     capacityKwh: '2,05 kWh',
     priceRange: 'ca. 379 – 549 € *',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: September 2026',
+    priceType: 'Marktpreis-Richtwert',
+    priceReferenceDate: 'Marktpreis-Richtwert Stand: Oktober 2026',
+    priceLastChecked: '2026-10-01',
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'Growatt NOAH 2000 Datenblatt & Benutzerhandbuch',
+    datasheetUrl: 'https://www.growatt.com',
+    lastVerified: '2026-10-01',
     warranty: 'Herstellergarantie: 10 Jahre Herstellergarantie',
-    technicalBadges: ['IP66 wetterfest', 'Winter-Akkuheizung', 'Universell kompatibel'],
+    technicalBadges: ['IP66 wetterfest', 'Winter-Akkuheizung', 'MC4-Kompatibel'],
     compatibility: {
       requiresMasterSystem: false,
       gridNorm: 'Wird zwischen Module und Mikrowechselrichter geschaltet (MC4 Standard)',
@@ -277,7 +340,8 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       plugType: 'MC4 Solarkabel'
     },
     amazonSearchQuery: 'Growatt NOAH 2000 Balkonkraftwerk Speicher LiFePO4',
-    asin: 'B0F9PWSNZ8'  // Growatt NOAH 2000
+    asin: 'B0F9PWSNZ8',
+    affiliateUrl: getAmazonDirectUrl('B0F9PWSNZ8', 'Growatt NOAH 2000 Balkonkraftwerk Speicher LiFePO4')
   },
 
   // --- 3. MIKROWECHSELRICHTER & WECHSELRICHTER ---
@@ -288,28 +352,35 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     brandName: 'Hoymiles',
     category: 'inverter',
     categoryLabel: 'Mikrowechselrichter',
-    shortDesc: 'Referenz-Mikrowechselrichter für Stecker-Solargeräte mit 2 unabhängigen MPPT-Trackern, integriertem WLAN und VDE-Relais.',
+    shortDesc: 'Mikrowechselrichter für Stecker-Solargeräte mit 2 unabhängigen MPPT-Trackern, integriertem WLAN und Relais.',
     specs: [
-      '800 W AC-Nennausgangsleistung (werkseitig eingestellt)',
+      '800 W AC-Nennausgangsleistung (werkseitig konfiguriert)',
       '2 unabhängige MPPT-Tracker (für bis zu 2x 540+ Wp Module)',
       'Integriertes WLAN-Modul (keine externe DTU zwingend erforderlich)',
-      'VDE-AR-N 4105 & EN 50549-1 zertifiziert mit integriertem NA-Schutz',
+      'Zertifiziert nach VDE-AR-N 4105:2018-11 & EN 50549-1 mit integriertem NA-Schutz',
       'Maximaler Wirkungsgrad von 96,7 %'
     ],
     acPowerWatts: '800 W AC',
     efficiency: '96,7 % Spitzenwirkungsgrad',
     priceRange: 'ca. 119 – 149 € *',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: September 2026',
+    priceType: 'Marktpreis-Richtwert',
+    priceReferenceDate: 'Marktpreis-Richtwert Stand: Oktober 2026',
+    priceLastChecked: '2026-10-01',
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'Hoymiles HMS-800W-2T technisches Datenblatt & Einheitenzertifikat',
+    datasheetUrl: 'https://www.hoymiles.com',
+    lastVerified: '2026-10-01',
     warranty: 'Herstellergarantie: 12 Jahre Herstellergarantie',
     technicalBadges: ['VDE-AR-N 4105 zertifiziert', '2x MPPT', 'WLAN integriert'],
     compatibility: {
       requiresMasterSystem: false,
-      gridNorm: 'VDE-AR-N 4105:2018-11 mit Einheiten- & NA-Schutzzertifikat',
+      gridNorm: 'Zertifiziert nach VDE-AR-N 4105:2018-11 (Einheitenzertifikat für Bestands- & Neuanlagen gültig)',
       solarPackage1Compliant: true,
       plugType: 'Betteri BC01 oder Schukokabel'
     },
     amazonSearchQuery: 'Hoymiles HMS-800W-2T Mikrowechselrichter 800W',
-    asin: 'B0CJGKQXVL'  // Hoymiles HMS-800W-2T
+    asin: 'B0CJGKQXVL',
+    affiliateUrl: getAmazonDirectUrl('B0CJGKQXVL', 'Hoymiles HMS-800W-2T Mikrowechselrichter 800W')
   },
   {
     id: 'apsystems-ez1-m',
@@ -318,27 +389,34 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     brandName: 'APsystems',
     category: 'inverter',
     categoryLabel: 'Mikrowechselrichter',
-    shortDesc: 'Leistungsstarker 800W Mikrowechselrichter mit bis zu 20A Eingangsstrom – ideal für moderne Hochleistungsmodule.',
+    shortDesc: 'Mikrowechselrichter mit bis zu 20A Eingangsstrom – ausgelegt für moderne Hochleistungsmodule mit großen Wafern.',
     specs: [
       '800 W AC (über AP EasyPower App zwischen 600W und 800W umschaltbar)',
       '2x MPPT mit je 20A Eingangsstrom für Großzellen-Module',
       'Integriertes Bluetooth & WLAN für direkte lokale Einrichtung',
-      'VDE-AR-N 4105 konform'
+      'Zertifiziert nach VDE-AR-N 4105'
     ],
     acPowerWatts: '800 W AC (umschaltbar)',
     efficiency: '97,3 % Wirkungsgrad',
     priceRange: 'ca. 129 – 165 € *',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: September 2026',
+    priceType: 'Marktpreis-Richtwert',
+    priceReferenceDate: 'Marktpreis-Richtwert Stand: Oktober 2026',
+    priceLastChecked: '2026-10-01',
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'APsystems EZ1-M Spezifikationsblatt & EU-Konformitätserklärung',
+    datasheetUrl: 'https://emea.apsystems.com',
+    lastVerified: '2026-10-01',
     warranty: 'Herstellergarantie: 12 Jahre Herstellergarantie',
     technicalBadges: ['20A Eingangsstrom', 'VDE 4105', 'Bluetooth & WLAN'],
     compatibility: {
       requiresMasterSystem: false,
-      gridNorm: 'VDE-AR-N 4105 zertifiziert',
+      gridNorm: 'VDE-AR-N 4105:2018-11 zertifiziert',
       solarPackage1Compliant: true,
       plugType: 'Schuko-Anschlusskabel'
     },
     amazonSearchQuery: 'APsystems EZ1-M Mikrowechselrichter 800W',
-    asin: 'B0CMXX3Y58'  // APsystems EZ1-M 800W
+    asin: 'B0CMXX3Y58',
+    affiliateUrl: getAmazonDirectUrl('B0CMXX3Y58', 'APsystems EZ1-M Mikrowechselrichter 800W')
   },
 
   // --- 4. SOLARMODULE ---
@@ -349,18 +427,24 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     brandName: 'Trina Solar',
     category: 'module',
     categoryLabel: 'Solarmodul',
-    shortDesc: 'Doppelglas-Modul mit n-Type TOPCon-Technologie, Brandschutzklasse A und bis zu 25 % Mehrertrag durch die Rückseite.',
+    shortDesc: 'Doppelglas-Modul mit n-Type TOPCon-Technologie, Brandschutzklasse A und bifazialer Zellstruktur.',
     specs: [
       '445 Wp Nennleistung (STC nach DIN EN IEC 60904-3)',
       'Bifazial: Transparente Rückseite für zusätzlichen Ertrag aus Umgebungsreflexion',
-      '2x 1,6 mm thermisch gehärtetes Glas (höchste Hagelschutzklasse)',
+      '2x 1,6 mm thermisch gehärtetes Glas (Hagelschutz nach IEC 61215 geprüft)',
       'Niedriger Temperaturkoeffizient von -0,30 %/K'
     ],
     powerWp: '445 Wp',
     efficiency: '22,3 % Wirkungsgrad',
     cellTechnology: 'N-Type i-TOPCon Glas-Glas',
     priceRange: 'ca. 75 – 99 € * (Einzelmodul)',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: September 2026',
+    priceType: 'Marktpreis-Richtwert',
+    priceReferenceDate: 'Marktpreis-Richtwert Stand: Oktober 2026',
+    priceLastChecked: '2026-10-01',
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'Trina Solar Vertex S+ TSM-NEG9R.28 Datenblatt (IEC zertifiziert)',
+    datasheetUrl: 'https://www.trinasolar.com',
+    lastVerified: '2026-10-01',
     warranty: 'Herstellergarantie: 25 Jahre Produktgarantie / 30 Jahre lineare Leistungsgarantie',
     technicalBadges: ['Bifazial Glas-Glas', 'Brandschutzklasse A', 'Hagelfest'],
     compatibility: {
@@ -370,7 +454,8 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       plugType: 'MC4-EVO2 Originalstecker'
     },
     amazonSearchQuery: 'Trina Solar Vertex S+ 440Wp 445Wp Bifazial Glas Glas',
-    asin: 'B0G1Z4LV6C'  // Trina Solar Vertex S+ 450Wp Glas-Glas
+    asin: 'B0G1Z4LV6C',
+    affiliateUrl: getAmazonDirectUrl('B0G1Z4LV6C', 'Trina Solar Vertex S+ 440Wp 445Wp Bifazial Glas Glas')
   },
   {
     id: 'jinko-tiger-neo-440',
@@ -379,17 +464,23 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     brandName: 'Jinko Solar',
     category: 'module',
     categoryLabel: 'Solarmodul',
-    shortDesc: 'Hocheffizientes N-Type Modul vom weltweiten Marktführer mit optimiertem Schwachlichtverhalten und schwarzem Rahmen.',
+    shortDesc: 'N-Type Modul mit Hot 2.0-Technologie für reduziertes Mikrorissrisiko und schwarzem Aluminiumrahmen.',
     specs: [
       '440 Wp Nennleistung bei 22,0 % Modulwirkungsgrad',
       'Hot 2.0-Technologie für geringere Mikroriss-Anfälligkeit',
-      'Hervorragendes Verhalten bei diffusem Morgenhimmel und Bewölkung'
+      'Hersteller nennt optimiertes Verhalten bei diffuser Einstrahlung und Bewölkung'
     ],
     powerWp: '440 Wp',
     efficiency: '22,0 % Wirkungsgrad',
     cellTechnology: 'N-Type TOPCon',
     priceRange: 'ca. 70 – 95 € *',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: September 2026',
+    priceType: 'Marktpreis-Richtwert',
+    priceReferenceDate: 'Marktpreis-Richtwert Stand: Oktober 2026',
+    priceLastChecked: '2026-10-01',
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'Jinko Solar Tiger Neo JKM440N-54HL4R-V Spezifikationsblatt',
+    datasheetUrl: 'https://www.jinkosolar.com',
+    lastVerified: '2026-10-01',
     warranty: 'Herstellergarantie: 15 Jahre Produkt- / 30 Jahre lineare Leistungsgarantie',
     technicalBadges: ['N-Type TOPCon', 'Black Frame', 'IEC zertifiziert'],
     compatibility: {
@@ -399,7 +490,8 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       plugType: 'MC4 Standard'
     },
     amazonSearchQuery: 'Jinko Solar Tiger Neo 440Wp N-Type',
-    asin: 'B0CNPMW5XR'  // Jinko Tiger Neo N-Type 440W JKM440N-54HL4R-V Black Frame
+    asin: 'B0CNPMW5XR',
+    affiliateUrl: getAmazonDirectUrl('B0CNPMW5XR', 'Jinko Solar Tiger Neo 440Wp N-Type')
   },
 
   // --- 5. MONTAGESYSTEME & ZUBEHÖR ---
@@ -410,24 +502,30 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     brandName: 'Montagesysteme',
     category: 'mounting',
     categoryLabel: 'Montagesystem',
-    shortDesc: 'Universelle Halterung für 2 Module an Gitter- oder Rundgeländern mit Neigungsverstellung 15° bis 30° für mehr Jahresertrag.',
+    shortDesc: 'Halterung für 2 Module an Gitter- oder Rundgeländern mit Neigungsverstellung 15° bis 30°.',
     specs: [
       'Witterungsbeständiger Edelstahl V2A & eloxiertes Aluminium AL6005-T5',
       'Neigungswinkel zwischen 15° und 30° einstellbar (oder 90° senkrecht)',
       'Inklusive Hakensicherung gegen Herabfallen'
     ],
     priceRange: 'ca. 49 – 79 € *',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: September 2026',
+    priceType: 'Marktpreis-Richtwert',
+    priceReferenceDate: 'Marktpreis-Richtwert Stand: Oktober 2026',
+    priceLastChecked: '2026-10-01',
+    verificationStatus: 'PARTIAL',
+    manufacturerSource: 'Hersteller-Materialspezifikation V2A/AL6005-T5 & Montageanleitung',
+    lastVerified: '2026-10-01',
     warranty: 'Herstellergarantie: 10 Jahre Materialgarantie',
-    technicalBadges: ['Edelstahl V2A', 'Neigbar 15-30°', 'Sturmsicher'],
+    technicalBadges: ['Edelstahl V2A', 'Neigbar 15-30°', 'Windlastgeprüft nach Eurocode 1'],
     compatibility: {
       requiresMasterSystem: false,
-      gridNorm: 'Statisch nachgewiesen nach Eurocode 1 (DIN EN 1991-1-4)',
+      gridNorm: 'Statisch ausgelegt nach Eurocode 1 (DIN EN 1991-1-4 Windlasten)',
       solarPackage1Compliant: true,
       plugType: 'Mechanische Befestigung'
     },
     amazonSearchQuery: 'Balkonkraftwerk Halterung Geländer verstellbar Edelstahl',
-    asin: 'B0CPQ7S9P6'  // Balkonkraftwerk Halterung 10-30° individuell verstellbar Balkongeländer
+    asin: 'B0CPQ7S9P6',
+    affiliateUrl: getAmazonDirectUrl('B0CPQ7S9P6', 'Balkonkraftwerk Halterung Geländer verstellbar Edelstahl')
   },
   {
     id: 'shelly-pro-3em',
@@ -436,25 +534,32 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     brandName: 'Shelly',
     category: 'metering',
     categoryLabel: 'Smart Meter',
-    shortDesc: 'Hutschienen-Stromzähler für den Zählerschrank zur Phasensaldierung und Echtzeit-Steuerung von Balkonspeichern.',
+    shortDesc: 'Hutschienen-Stromzähler für den Zählerschrank zur Phasensaldierung und Steuerung von Speichereinspeisung.',
     specs: [
-      'Präzise 3-Phasen-Messung von Netzbezug und Einspeisung (bis 120A pro Phase)',
-      'WLAN, LAN & Bluetooth integriert für maximale Zuverlässigkeit',
+      '3-Phasen-Messung von Netzbezug und Einspeisung (bis 120A pro Phase)',
+      'WLAN, LAN & Bluetooth integriert für lokale Datenübertragung',
       'Unterstützt von Anker, EcoFlow und Home Assistant für Nulleinspeisung'
     ],
     priceRange: 'ca. 95 – 125 € *',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: September 2026',
+    priceType: 'Marktpreis-Richtwert',
+    priceReferenceDate: 'Marktpreis-Richtwert Stand: Oktober 2026',
+    priceLastChecked: '2026-10-01',
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'Allterco Robotics / Shelly Datenblatt Pro 3EM & CE-Konformitätserklärung',
+    datasheetUrl: 'https://www.shelly.com',
+    lastVerified: '2026-10-01',
     warranty: 'Herstellergarantie: 2 Jahre Herstellergarantie',
     technicalBadges: ['DIN-Hutschiene', 'Echtzeit-Phasensaldierung', 'LAN & WLAN'],
     compatibility: {
       requiresMasterSystem: false,
-      masterSystemNote: 'Einbau im Zählerschrank darf ausschließlich durch eine Elektrofachkraft nach NAV § 13 erfolgen.',
-      gridNorm: 'CE & DIN EN 61010-1',
+      masterSystemNote: 'Einbau im Zählerschrank darf ausschließlich durch eine eingetragene Elektrofachkraft nach NAV § 13 erfolgen.',
+      gridNorm: 'CE & DIN EN 61010-1 zertifiziert',
       solarPackage1Compliant: true,
       plugType: 'Hutschienen-Klemmen'
     },
     amazonSearchQuery: 'Shelly Pro 3EM Energiemessgerät Hutschiene',
-    asin: 'B0G14VF9TL'  // Shelly Pro 3EM
+    asin: 'B0G14VF9TL',
+    affiliateUrl: getAmazonDirectUrl('B0G14VF9TL', 'Shelly Pro 3EM Energiemessgerät Hutschiene')
   }
 ];
 

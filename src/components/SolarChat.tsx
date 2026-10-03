@@ -241,7 +241,7 @@ export default function SolarChat() {
                       <a
                         href={getAmazonSearchUrl(m.recommendation.query)}
                         target="_blank"
-                        rel="noopener noreferrer"
+                        rel="sponsored noopener noreferrer"
                         className="inline-flex items-center gap-1.5 bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-[11px] px-3 py-1.5 rounded-lg transition shadow-xs cursor-pointer"
                       >
                         <ShoppingBag className="w-3.5 h-3.5" />
