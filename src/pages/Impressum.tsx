@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { Scale, Mail, Phone, MapPin } from 'lucide-react';
+import { Scale, Mail, MapPin } from 'lucide-react';
 import { useDocumentMeta } from '../utils/seo';
 
 export default function Impressum() {
@@ -42,13 +42,6 @@ export default function Impressum() {
                 <span>E-Mail: </span>
                 <a href="mailto:jens@kathe.org" className="text-amber-700 hover:underline font-bold">
                   jens@kathe.org
-                </a>
-              </div>
-              <div className="flex items-center gap-2 text-slate-700">
-                <Phone className="w-4 h-4 text-slate-400" />
-                <span>Telefon: </span>
-                <a href="tel:+4917866526230" className="text-amber-700 hover:underline font-bold">
-                  +49 178 6652623
                 </a>
               </div>
             </div>
