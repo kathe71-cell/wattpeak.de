@@ -1,3 +1,5 @@
+import { ProductSchema } from "./SeoSchema";
+
 import React, { useState } from 'react';
 import { Search, Filter, ShoppingCart, Check, Scale, X, ArrowRight, AlertTriangle, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import { UNIFIED_PRODUCTS, UnifiedProduct, ProductCategory, getAmazonDirectUrl } from '../data/products';
@@ -151,6 +153,13 @@ export default function SolarComparisonCatalog() {
                   isCompared ? 'border-amber-500 ring-2 ring-amber-500/30' : 'border-slate-200'
                 }`}
               >
+                <ProductSchema 
+                  name={prod.name} 
+                  description={prod.shortDesc} 
+                  image={"https://wattpeak.de/og-image.png"} 
+                  price={prod.priceRange.replace(/[^0-9]/g, "") || "0"} 
+                  url={getAmazonDirectUrl(prod.id) || "https://wattpeak.de"} 
+                />
                 <div>
                   {/* Category & Status Strip */}
                   <div className="flex items-center justify-between gap-2 mb-3">

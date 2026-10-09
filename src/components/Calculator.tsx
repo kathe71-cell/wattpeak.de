@@ -616,6 +616,31 @@ export default function SolarCalculator({ isEmbed = false }: CalculatorProps) {
               </div>
             </div>
 
+            
+            {/* Silo-Structure Contextual Hardware Link */}
+            {systemType === "balcony" && (
+              <div className="mt-4 mb-6 p-4 bg-amber-50 rounded-2xl border border-amber-300 flex items-center justify-between gap-4 group">
+                <div>
+                  <h5 className="text-sm font-black text-amber-950">Passendes 800W-Set gesucht?</h5>
+                  <p className="text-xs text-amber-800 mt-1">Vergleiche 800W Komplettsets und Speicher, die genau zu diesem Ertrag passen.</p>
+                </div>
+                <a href="/hardware-katalog" className="shrink-0 bg-amber-500 hover:bg-amber-400 text-amber-950 font-bold px-4 py-2 rounded-xl text-xs transition">
+                  Zum Hardware-Katalog →
+                </a>
+              </div>
+            )}
+            {systemType === "rooftop" && (
+              <div className="mt-4 mb-6 p-4 bg-slate-900 rounded-2xl border border-slate-800 flex items-center justify-between gap-4 group">
+                <div>
+                  <h5 className="text-sm font-black text-white">Dachanlage konfigurieren?</h5>
+                  <p className="text-xs text-slate-400 mt-1">Finde die passenden Wechselrichter und Speicher für deine Hausanlage.</p>
+                </div>
+                <a href="/hardware-katalog" className="shrink-0 bg-amber-500 hover:bg-amber-400 text-amber-950 font-bold px-4 py-2 rounded-xl text-xs transition">
+                  System-Hardware prüfen →
+                </a>
+              </div>
+            )}
+
             {/* Detailed Energy Flow Balance (Closed Equations) */}
             <div className="space-y-3 pt-2 border-t border-slate-100 text-xs">
               <h4 className="font-extrabold text-slate-900 uppercase tracking-wider text-[11px] font-mono">

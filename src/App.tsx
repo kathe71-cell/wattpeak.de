@@ -1,3 +1,4 @@
+import ProjektuebernahmePage from "./pages/ProjektuebernahmePage.tsx";
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import VercelAnalytics from './components/VercelAnalytics';
@@ -93,7 +94,8 @@ export function AppRoutes() {
         <Route path="/datenschutz" element={<Datenschutz />} />
         <Route path="/404" element={<NotFoundPage />} />
         <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+        <Route path="/projektuebernahme" element={<ProjektuebernahmePage />} />
+</Routes>
     </>
   );
 }

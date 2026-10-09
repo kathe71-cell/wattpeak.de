@@ -116,3 +116,28 @@ for (const [url, meta] of Object.entries(ROUTES)) {
 }
 
 console.log('Static Site Prerendering complete!');
+
+// Generate Sitemap dynamically
+const sitemapUrlset = Object.keys(ROUTES)
+  .filter(url => url !== '/404' && url !== '/rechner-embed')
+  .map(url => {
+    let loc = `https://wattpeak.de${url === '/' ? '' : url}`;
+    let priority = url === '/' ? '1.0' : url.includes('balkon') || url.includes('ertrag') ? '0.95' : '0.8';
+    let freq = 'weekly';
+    const today = new Date().toISOString().split('T')[0];
+    return `  <url>
+    <loc>${loc}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>${freq}</changefreq>
+    <priority>${priority}</priority>
+  </url>`;
+  }).join('\n');
+
+const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${sitemapUrlset}
+</urlset>`;
+
+fs.writeFileSync(toAbsolute('dist/sitemap.xml'), sitemapXml);
+fs.writeFileSync(toAbsolute('public/sitemap.xml'), sitemapXml);
+console.log('Generated dynamic sitemap.xml with current date.');
