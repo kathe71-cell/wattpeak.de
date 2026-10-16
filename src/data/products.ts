@@ -233,9 +233,9 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       solarPackage1Compliant: true,
       plugType: 'Direkter Netzsteckeranschluss (Schuko)'
     },
-    amazonSearchQuery: 'Anker SOLIX Solarbank 2 E1600 Pro Balkonkraftwerk Speicher',
+    amazonSearchQuery: 'Anker SOLIX Solarbank 2 E1600 Plus Balkonkraftwerk Speicher',
     asin: 'B0DKNQB1TQ',
-    affiliateUrl: getAmazonDirectUrl('B0DKNQB1TQ', 'Anker SOLIX Solarbank 2 E1600 Pro Balkonkraftwerk Speicher')
+    affiliateUrl: getAmazonDirectUrl('B0DKNQB1TQ', 'Anker SOLIX Solarbank 2 E1600 Plus Balkonkraftwerk Speicher')
   },
   {
     id: 'anker-solix-expansion-bp1600',

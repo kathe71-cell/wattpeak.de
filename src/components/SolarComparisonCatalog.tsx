@@ -469,6 +469,9 @@ export default function SolarComparisonCatalog() {
           * Werbelink / Partnerlink: Als Amazon-Partner verdiene ich an qualifizierten Verkäufen. Unverbindlicher Marktpreis-Richtwert (Stand: Oktober 2026). Kein aktueller Amazon-Angebotspreis. Tatsächliche Händlerpreise können abweichen.
         </div>
         <div>
+          Die direkte Produktverfügbarkeit wurde zum dokumentierten Prüfzeitpunkt kontrolliert. Amazon-Bestände können sich jederzeit ändern. Suchlinks ermöglichen die Suche nach aktuellen Angeboten, garantieren jedoch keine Verfügbarkeit.
+        </div>
+        <div>
           Für Photovoltaikanlagen und wesentliche Komponenten gilt gem. § 12 Abs. 3 UStG unter den gesetzlichen Voraussetzungen für private Betreiber auf Wohngebäuden der Nullsteuersatz (0 % MwSt.).
         </div>
       </div>
