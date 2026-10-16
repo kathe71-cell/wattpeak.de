@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useSearchParams, useLocation } from 'react-router-dom';
 import { 
   Battery,
@@ -32,6 +32,8 @@ export default function SolarCalculator({ isEmbed = false }: CalculatorProps) {
     mount?: MountingType;
     tilt?: number;
     region?: RegionZone;
+    locationId?: string;
+    customInvestmentEur?: number;
   } | null;
 
   // Modals & Drawers state
@@ -127,8 +129,26 @@ export default function SolarCalculator({ isEmbed = false }: CalculatorProps) {
   });
 
   const [customInvestmentEur, setCustomInvestmentEur] = useState<number | undefined>(() => {
-    return initialFromUrl?.params.customInvestmentEur;
+    if (typeof initialFromUrl?.params.customInvestmentEur === 'number') return initialFromUrl.params.customInvestmentEur;
+    if (typeof navState?.customInvestmentEur === 'number') return navState.customInvestmentEur;
+    const inv = searchParams.get('inv');
+    return inv ? parseFloat(inv) : undefined;
   });
+
+  // Keep state synchronized if navigation with new state or parameters occurs
+  useEffect(() => {
+    if (navState) {
+      if (typeof navState.kwp === 'number') setKwp(navState.kwp);
+      if (typeof navState.storage === 'number') setStorageKwh(navState.storage);
+      if (typeof navState.customInvestmentEur === 'number') setCustomInvestmentEur(navState.customInvestmentEur);
+      if (typeof navState.demand === 'number') setAnnualConsumption(navState.demand);
+      if (navState.systemType) setSystemType(navState.systemType);
+      if (navState.region) setRegion(navState.region);
+      if (navState.locationId) setLocationId(navState.locationId);
+      if (navState.mount) setMountingType(navState.mount);
+      if (typeof navState.tilt === 'number') setTilt(navState.tilt);
+    }
+  }, [navState]);
 
   // Update defaults when location preset changes
   const handleLocationPresetChange = (locId: string) => {
@@ -698,12 +718,30 @@ export default function SolarCalculator({ isEmbed = false }: CalculatorProps) {
             <div className="bg-slate-900 text-white p-5 rounded-2xl space-y-4">
               <div className="flex justify-between items-baseline">
                 <div>
-                  <span className="text-[10px] font-mono uppercase text-slate-400">Geschätzte Investition</span>
+                  <span className="text-[10px] font-mono uppercase text-slate-400">
+                    {result.economy.isInvestmentCustom ? 'Übernommener Angebotspreis' : 'Geschätzte Investition'}
+                  </span>
                   <div className="text-xl font-black font-mono mt-0.5 text-white">
-                    ca. {result.economy.estimatedInvestmentEur.toLocaleString('de-DE')} € *
+                    {result.economy.isInvestmentCustom ? '' : 'ca. '}{result.economy.estimatedInvestmentEur.toLocaleString('de-DE')} € *
                   </div>
-                  {result.economy.isInvestmentCustom && (
-                    <span className="text-[10px] text-amber-400 font-mono">Eigener Angebotspreis</span>
+                  {result.economy.isInvestmentCustom ? (
+                    <div className="flex items-center gap-2 mt-1">
+                      <span className="text-[10px] bg-amber-400/20 text-amber-300 font-mono px-1.5 py-0.5 rounded border border-amber-400/30">
+                        Eigener Angebotspreis aktiv
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setCustomInvestmentEur(undefined)}
+                        className="text-[10px] text-slate-400 hover:text-white underline cursor-pointer"
+                        title="Auf typische Marktschätzung zurücksetzen"
+                      >
+                        Auf Marktwert zurücksetzen
+                      </button>
+                    </div>
+                  ) : (
+                    <span className="text-[10px] text-slate-400 font-mono block mt-0.5">
+                      Marktschätzung (EEG 2026 / BSW-Referenz)
+                    </span>
                   )}
                 </div>
                 <div className="text-right">
@@ -711,6 +749,9 @@ export default function SolarCalculator({ isEmbed = false }: CalculatorProps) {
                   <div className="text-lg font-black font-mono mt-0.5 text-amber-400">
                     {result.economy.estimatedPaybackYears ? `ca. ${result.economy.estimatedPaybackYears} Jahre` : '> 25 Jahre'}
                   </div>
+                  <span className="text-[9px] text-slate-400 font-mono block mt-0.5">
+                    {result.economy.isInvestmentCustom ? 'basiert auf Angebot' : 'statisches Modell'}
+                  </span>
                 </div>
               </div>
 

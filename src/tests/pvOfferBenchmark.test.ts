@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { evaluatePvOffer, OfferPlausibilityInput } from '../utils/offerEvaluation';
+import { calculateSolarYield } from '../utils/solarMath';
 
 describe('PV-Angebots-Check Logic & 3-Tier Classification (Quality Gate Scenarios A-J)', () => {
 
@@ -271,4 +272,97 @@ describe('PV-Angebots-Check Logic & 3-Tier Classification (Quality Gate Scenario
       expect(res.storageDimensionNote).toContain('Lastprofil');
     });
   });
+
+  describe('P0 Regression: Angebotspreisübergabe an die Unified Math Engine', () => {
+    it('übernimmt 9,6 kWp und 24.000 € Angebotspreis exakt und kalibriert die Amortisationsdauer neu', () => {
+      // 1. Benchmark-Schritt
+      const offer = evaluatePvOffer({
+        kwp: 9.6,
+        storageKwh: 7.5,
+        totalOfferPriceEur: 24000
+      });
+      expect(offer.safeKwp).toBe(9.6);
+      expect(offer.safePriceEur).toBe(24000);
+      expect(offer.rawPricePerKwp).toBe(2500);
+
+      // 2. Ertragsrechner-Berechnung mit Standard-Marktpreis (ohne customInvestmentEur)
+      const standardCalc = calculateSolarYield({
+        systemType: 'rooftop',
+        kwp: 9.6,
+        region: 'mitte',
+        tilt: 35,
+        azimuth: 0,
+        cellType: 'topcon',
+        storageKwh: 7.5,
+        annualConsumption: 4200,
+        electricityPrice: 0.36
+      });
+      expect(standardCalc.economy.isInvestmentCustom).toBe(false);
+      expect(standardCalc.economy.estimatedInvestmentEur).toBeLessThan(20000); // Typisch ~17.006 €
+      expect(standardCalc.economy.estimatedPaybackYears).toBe(11.9);
+
+      // 3. Ertragsrechner-Berechnung nach Übergabe aus PV-Angebots-Check (mit customInvestmentEur)
+      const customCalc = calculateSolarYield({
+        systemType: 'rooftop',
+        kwp: offer.safeKwp,
+        region: 'mitte',
+        tilt: 35,
+        azimuth: 0,
+        cellType: 'topcon',
+        storageKwh: offer.safeStorageKwh,
+        customInvestmentEur: offer.safePriceEur,
+        annualConsumption: 4200,
+        electricityPrice: 0.36
+      });
+      expect(customCalc.economy.isInvestmentCustom).toBe(true);
+      expect(customCalc.economy.estimatedInvestmentEur).toBe(24000);
+      // Amortisation = 24.000 € / Nettoertrag (1.356 €/a nach 1% Betriebskosten) = 17.7 Jahre
+      expect(customCalc.economy.estimatedPaybackYears).toBe(17.7);
+      expect(customCalc.economy.estimatedPaybackYears).toBeGreaterThan(standardCalc.economy.estimatedPaybackYears!);
+    });
+
+    it('funktioniert auch bei Dachanlage ohne Speicher (z. B. 10 kWp, 14.500 €)', () => {
+      const offerNoStorage = evaluatePvOffer({
+        kwp: 10,
+        storageKwh: 0,
+        totalOfferPriceEur: 14500
+      });
+      const calcNoStorage = calculateSolarYield({
+        systemType: 'rooftop',
+        kwp: offerNoStorage.safeKwp,
+        region: 'mitte',
+        tilt: 35,
+        azimuth: 0,
+        cellType: 'topcon',
+        storageKwh: offerNoStorage.safeStorageKwh,
+        customInvestmentEur: offerNoStorage.safePriceEur,
+        annualConsumption: 4200,
+        electricityPrice: 0.36
+      });
+
+      expect(calcNoStorage.economy.isInvestmentCustom).toBe(true);
+      expect(calcNoStorage.economy.estimatedInvestmentEur).toBe(14500);
+      // Amortisation entspricht 14.500 / Jahresnettoersparnis
+      const expectedYears = Number((14500 / calcNoStorage.economy.annualNetBenefitEur).toFixed(1));
+      expect(calcNoStorage.economy.estimatedPaybackYears).toBe(expectedYears);
+    });
+
+    it('fällt zuverlässig auf Marktschätzung zurück wenn kein Angebotspreis übergeben wird', () => {
+      const calcDefault = calculateSolarYield({
+        systemType: 'rooftop',
+        kwp: 9.6,
+        region: 'mitte',
+        tilt: 35,
+        azimuth: 0,
+        cellType: 'topcon',
+        storageKwh: 7.5,
+        annualConsumption: 4200,
+        electricityPrice: 0.36,
+        customInvestmentEur: undefined
+      });
+      expect(calcDefault.economy.isInvestmentCustom).toBe(false);
+      expect(calcDefault.economy.estimatedInvestmentEur).toBe(17006);
+    });
+  });
 });
+

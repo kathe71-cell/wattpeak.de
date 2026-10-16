@@ -40,10 +40,10 @@ export default function Header() {
             WATTPEAK
           </span>
           <span className="hidden md:inline text-slate-500">|</span>
-          <span className="hidden md:inline text-slate-400">Unabhängige PV-Berechnung &amp; Angebotsbewertung</span>
+          <span className="hidden md:inline text-slate-400">Unabhängige PV-Berechnungen und Angebotsprüfung</span>
         </div>
         <div className="flex items-center gap-4 text-slate-400">
-          <span>Ohne Registrierung &middot; Werbefrei</span>
+          <span>Kostenlos &middot; Ohne Registrierung</span>
         </div>
       </div>
 

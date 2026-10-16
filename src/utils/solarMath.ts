@@ -291,15 +291,17 @@ export function calculateSolarYield(params: SolarParams): SolarCalculationResult
 
   // 2. Geometrischer Einstrahlungs-Korrekturfaktor (Neigung & Azimut)
   // Validiert gegen PVGIS-5 SARAH2 Referenzprofile für Deutschland
-  const radTilt = (params.tilt * Math.PI) / 180;
-  const radAzimuth = (params.azimuth * Math.PI) / 180;
+  const effectiveTilt = typeof params.tilt === 'number' ? params.tilt : 35;
+  const effectiveAzimuth = typeof params.azimuth === 'number' ? params.azimuth : 0;
+  const radTilt = (effectiveTilt * Math.PI) / 180;
+  const radAzimuth = (effectiveAzimuth * Math.PI) / 180;
   const optTilt = 33 * (Math.PI / 180);
 
   const tiltFactor = Math.cos(radTilt - optTilt);
   const azimuthFactor = Math.cos(radAzimuth * 0.75); // Azimutdämpfung
   let orientationFactor = 1.0 + (0.145 * tiltFactor) * (0.85 + 0.15 * azimuthFactor);
 
-  if (params.tilt >= 80) {
+  if (effectiveTilt >= 80) {
     // Vertikale Fassade / Balkon (Sommer niedrigere Einstrahlung, Winter flachere Sonne)
     orientationFactor = 0.70 + (0.12 * azimuthFactor);
   } else if (params.tilt <= 8) {
