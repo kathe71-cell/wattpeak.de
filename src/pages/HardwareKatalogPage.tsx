@@ -8,20 +8,27 @@ import LegalFaq from '../components/LegalFaq';
 import { ShoppingBag } from 'lucide-react';
 import { useDocumentMeta } from '../utils/seo';
 
+import { UNIFIED_PRODUCTS } from '../data/products';
+
+import { CollectionPageSchema } from '../components/SeoSchema';
+
 export default function HardwareKatalogPage() {
   useDocumentMeta({
     title: 'Solar-Hardware & Speicherkatalog · Wattpeak',
     description: 'Unabhängiger Katalog für Mikrowechselrichter, 800W Komplettsets, LiFePO4-Speichersysteme und Montagesets mit geprüften Herstellerdaten.',
     canonicalPath: '/hardware-katalog',
-    structuredData: {
-      '@context': 'https://schema.org',
-      '@type': 'CollectionPage',
-      name: 'Wattpeak Hardware- & Speicherkatalog',
-      url: 'https://www.wattpeak.de/hardware-katalog',
-    },
   });
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col justify-between">
+      <CollectionPageSchema
+        name="Wattpeak Hardware- & Speicherkatalog"
+        description="Unabhängige redaktionelle Marktübersicht und technische Spezifikationen für Photovoltaik-Komponenten, Balkonkraftwerke, Mikrowechselrichter und LiFePO4-Speicher."
+        url="https://wattpeak.de/hardware-katalog"
+        items={UNIFIED_PRODUCTS.map((prod, index) => ({
+          position: index + 1,
+          name: prod.name
+        }))}
+      />
       <Header />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-12 w-full">

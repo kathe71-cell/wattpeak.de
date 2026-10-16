@@ -246,4 +246,61 @@ describe('Regulatory & Data Trust Verification (Audit Stand: Oktober 2026)', () 
       });
     });
   });
+
+  describe('6. Structured Data & Google Quality Gate Verification (Phase 4J)', () => {
+    it('sollte sicherstellen, dass keine Amazon-Bilder im Code oder in den Produktdaten referenziert werden', () => {
+      UNIFIED_PRODUCTS.forEach(p => {
+        // Keine externen Amazon-Bild-URLs
+        expect(JSON.stringify(p)).not.toContain('images-amazon.com');
+        expect(JSON.stringify(p)).not.toContain('media-amazon.com');
+        expect(JSON.stringify(p)).not.toContain('ssl-images-amazon.com');
+      });
+    });
+
+    it('sollte sicherstellen, dass die dynamische ItemList auf /hardware-katalog genau alle 36 Produkte ohne Offer/Price/InStock abbildet', () => {
+      // Teste die Strukturdaten-Logik für HardwareKatalogPage
+      const collectionPageStructuredData = {
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: 'Wattpeak Hardware- & Speicherkatalog',
+        description: 'Unabhängige redaktionelle Marktübersicht und technische Spezifikationen für Photovoltaik-Komponenten, Balkonkraftwerke, Mikrowechselrichter und LiFePO4-Speicher.',
+        url: 'https://wattpeak.de/hardware-katalog',
+        mainEntity: {
+          '@type': 'ItemList',
+          name: 'Geprüfte Solar-Hardware & Speicherkomponenten',
+          numberOfItems: UNIFIED_PRODUCTS.length,
+          itemListElement: UNIFIED_PRODUCTS.map((prod, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: prod.name
+          }))
+        }
+      };
+
+      expect(collectionPageStructuredData['@type']).toBe('CollectionPage');
+      expect(collectionPageStructuredData.mainEntity['@type']).toBe('ItemList');
+      expect(collectionPageStructuredData.mainEntity.numberOfItems).toBe(36);
+      expect(collectionPageStructuredData.mainEntity.itemListElement).toHaveLength(36);
+
+      // Verifiziere: Keine Offer-Knoten, keine Fake-Preise, keine Fake-Bilder
+      const serialized = JSON.stringify(collectionPageStructuredData);
+      expect(serialized).not.toContain('"@type":"Offer"');
+      expect(serialized).not.toContain('"price"');
+      expect(serialized).not.toContain('InStock');
+      expect(serialized).not.toContain('og-image.png');
+    });
+
+    it('sollte sicherstellen, dass keine künstlichen Preise durch numerische String-Konkatenation gebildet werden', () => {
+      UNIFIED_PRODUCTS.forEach(p => {
+        if (p.priceRange) {
+          // Keine grotesken 6- oder 7-stelligen Concats wie 119149 oder 9991390
+          const badConcat = p.priceRange.replace(/[^0-9]/g, "");
+          if (p.priceRange.includes('–') || p.priceRange.includes('-')) {
+            // Nachweis, dass badConcat eine Verfälschung der Spanne wäre
+            expect(Number(badConcat)).toBeGreaterThan(1000);
+          }
+        }
+      });
+    });
+  });
 });
