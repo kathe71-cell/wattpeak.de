@@ -305,8 +305,8 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       plugType: 'Schuko-Netzkabel'
     },
     amazonSearchQuery: 'EcoFlow PowerStream 800W DELTA 2 Max Balkonkraftwerk',
-    asin: 'B0FJRXF19P',
-    affiliateUrl: getAmazonDirectUrl('B0FJRXF19P', 'EcoFlow PowerStream 800W DELTA 2 Max Balkonkraftwerk')
+    asin: undefined,
+    affiliateUrl: getAmazonDirectUrl(undefined, 'EcoFlow PowerStream 800W DELTA 2 Max Balkonkraftwerk')
   },
   {
     id: 'growatt-noah-2000',
