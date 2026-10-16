@@ -13,16 +13,16 @@ export default function SolarComparisonCatalog() {
   const [comparedProductIds, setComparedProductIds] = useState<string[]>([]);
   const [showComparisonModal, setShowComparisonModal] = useState<boolean>(false);
 
-  const categories: { id: ProductCategory | 'all'; label: string }[] = [
+  // 6 übersichtliche Hauptkategorien für optimale Nutzerführung
+  const categories = [
     { id: 'all', label: 'Alle Komponenten' },
-    { id: 'complete_set', label: '800W Komplettsets' },
-    { id: 'storage_system', label: 'Balkon- & Heimspeicher' },
-    { id: 'storage_expansion', label: 'Zusatzbatterien' },
+    { id: 'speicher', label: 'Balkonspeicher' },
+    { id: 'sets', label: 'Komplettsets' },
     { id: 'inverter', label: 'Mikrowechselrichter' },
     { id: 'module', label: 'Solarmodule' },
-    { id: 'metering', label: 'Smart Metering' },
-    { id: 'mounting', label: 'Montagesysteme' },
-  ];
+    { id: 'metering', label: 'Energiemanagement' },
+    { id: 'mounting', label: 'Montage & Zubehör' },
+  ] as const;
 
   // Distinct brand list
   const brands = Array.from(new Set(UNIFIED_PRODUCTS.map((p) => p.brand))).sort();
@@ -39,8 +39,19 @@ export default function SolarComparisonCatalog() {
     }
   };
 
+  const matchesCategoryFilter = (prodCat: ProductCategory, activeCat: string): boolean => {
+    if (activeCat === 'all') return true;
+    if (activeCat === 'speicher') return prodCat === 'storage_system' || prodCat === 'storage_expansion';
+    if (activeCat === 'sets') return prodCat === 'complete_set';
+    if (activeCat === 'inverter') return prodCat === 'inverter';
+    if (activeCat === 'module') return prodCat === 'module';
+    if (activeCat === 'metering') return prodCat === 'energy_management' || prodCat === 'metering';
+    if (activeCat === 'mounting') return prodCat === 'mounting';
+    return true;
+  };
+
   const filtered = UNIFIED_PRODUCTS.filter((item) => {
-    const matchesCategory = activeCategory === 'all' || item.category === activeCategory;
+    const matchesCategory = matchesCategoryFilter(item.category, activeCategory);
     const matchesBrand = activeBrand === 'all' || item.brand === activeBrand;
     const query = searchQuery.trim().toLowerCase();
     const matchesSearch = query === '' || 
@@ -95,7 +106,7 @@ export default function SolarComparisonCatalog() {
             {categories.map((cat) => {
               const count = cat.id === 'all' 
                 ? UNIFIED_PRODUCTS.length 
-                : UNIFIED_PRODUCTS.filter(c => c.category === cat.id).length;
+                : UNIFIED_PRODUCTS.filter(c => matchesCategoryFilter(c.category, cat.id)).length;
               return (
                 <button
                   key={cat.id}
@@ -157,7 +168,7 @@ export default function SolarComparisonCatalog() {
                   name={prod.name} 
                   description={prod.shortDesc} 
                   image={"https://wattpeak.de/og-image.png"} 
-                  price={prod.priceRange.replace(/[^0-9]/g, "") || "0"} 
+                  price={prod.priceRange ? prod.priceRange.replace(/[^0-9]/g, "") : "0"} 
                   url={getAmazonDirectUrl(prod.asin, prod.amazonSearchQuery) || "https://wattpeak.de"} 
                 />
                 <div>
@@ -258,12 +269,25 @@ export default function SolarComparisonCatalog() {
                 {/* Price & Amazon Search Link */}
                 <div className="pt-4 border-t border-slate-100 flex flex-col gap-3">
                   <div>
-                    <span className="text-[10px] text-slate-400 block font-mono uppercase tracking-wider">
-                      {prod.priceReferenceDate}
-                    </span>
-                    <span className="text-xl font-black text-slate-950 font-mono whitespace-nowrap">
-                      {prod.priceRange}
-                    </span>
+                    {prod.priceRange ? (
+                      <>
+                        <span className="text-[10px] text-slate-400 block font-mono uppercase tracking-wider">
+                          {prod.priceReferenceDate}
+                        </span>
+                        <span className="text-xl font-black text-slate-950 font-mono whitespace-nowrap">
+                          {prod.priceRange}
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="text-[10px] text-slate-400 block font-mono uppercase tracking-wider">
+                          Tagespreis &amp; Verfügbarkeit
+                        </span>
+                        <span className="text-sm font-extrabold text-slate-700 font-mono">
+                          Aktuellen Preis bei Amazon prüfen
+                        </span>
+                      </>
+                    )}
                   </div>
 
                   <a
@@ -387,7 +411,9 @@ export default function SolarComparisonCatalog() {
                   <tr>
                     <td className="p-3 bg-slate-50 text-slate-500 font-bold">Marktpreis-Richtwert</td>
                     {comparedProducts.map((p) => (
-                      <td key={p.id} className="p-3 text-base font-black text-slate-950">{p.priceRange}</td>
+                      <td key={p.id} className="p-3 text-sm font-black text-slate-950">
+                        {p.priceRange || 'Bei Amazon prüfen'}
+                      </td>
                     ))}
                   </tr>
                   <tr>
@@ -441,6 +467,9 @@ export default function SolarComparisonCatalog() {
       <div className="text-center text-xs text-slate-500 pt-3 font-mono max-w-4xl mx-auto leading-relaxed space-y-1.5">
         <div>
           * Werbelink / Partnerlink: Als Amazon-Partner verdiene ich an qualifizierten Verkäufen. Unverbindlicher Marktpreis-Richtwert (Stand: Oktober 2026). Kein aktueller Amazon-Angebotspreis. Tatsächliche Händlerpreise können abweichen.
+        </div>
+        <div>
+          Die direkte Produktverfügbarkeit wurde zum dokumentierten Prüfzeitpunkt kontrolliert. Amazon-Bestände können sich jederzeit ändern. Suchlinks ermöglichen die Suche nach aktuellen Angeboten, garantieren jedoch keine Verfügbarkeit.
         </div>
         <div>
           Für Photovoltaikanlagen und wesentliche Komponenten gilt gem. § 12 Abs. 3 UStG unter den gesetzlichen Voraussetzungen für private Betreiber auf Wohngebäuden der Nullsteuersatz (0 % MwSt.).

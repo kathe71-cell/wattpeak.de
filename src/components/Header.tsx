@@ -32,21 +32,6 @@ export default function Header() {
 
   return (
     <header className="bg-white/95 backdrop-blur-md border-b border-slate-200/90 sticky top-0 z-50 transition-all">
-      {/* Sub-header Information Bar */}
-      <div className="bg-slate-950 text-slate-300 text-[11px] font-mono py-1 px-4 sm:px-6 lg:px-8 border-b border-slate-850 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <span className="flex items-center gap-1.5 text-amber-400 font-bold">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
-            WATTPEAK
-          </span>
-          <span className="hidden md:inline text-slate-500">|</span>
-          <span className="hidden md:inline text-slate-400">Unabhängige PV-Berechnungen und Angebotsprüfung</span>
-        </div>
-        <div className="flex items-center gap-4 text-slate-400">
-          <span>Kostenlos &middot; Ohne Registrierung</span>
-        </div>
-      </div>
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
         {/* Brand Logo */}
         <Link 

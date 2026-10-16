@@ -59,13 +59,10 @@ export default function WattpeakLogo({
           <span className={`${textSize} font-black tracking-tight text-slate-950 font-sans leading-none`}>
             wattpeak<span className="text-amber-500">.de</span>
           </span>
-          <span className="hidden sm:inline-block px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider bg-slate-900 text-amber-400 border border-slate-800">
-            ENGINEERING
-          </span>
         </div>
         {showClaim && (
-          <span className="text-[11px] font-semibold text-slate-500 tracking-normal mt-0.5 font-sans">
-            Photovoltaik unabhängig entscheiden
+          <span className="text-[11px] font-medium text-slate-500 tracking-normal mt-0.5 font-sans">
+            Photovoltaik. Unabhängig berechnet.
           </span>
         )}
       </div>

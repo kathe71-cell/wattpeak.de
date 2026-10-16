@@ -60,14 +60,26 @@ describe('Regulatory & Data Trust Verification (Audit Stand: Oktober 2026)', () 
   });
 
   describe('3. Product Catalog & Data Trust', () => {
+    it('sollte genau 36 qualitativ verifizierte Produkte mit eindeutigen IDs umfassen', () => {
+      expect(UNIFIED_PRODUCTS).toHaveLength(36);
+      const ids = UNIFIED_PRODUCTS.map(p => p.id);
+      const uniqueIds = new Set(ids);
+      expect(uniqueIds.size).toBe(36);
+    });
+
     it('sollte für alle Produkte einen Verifizierungsstatus und ein Prüfdatum besitzen', () => {
       UNIFIED_PRODUCTS.forEach(product => {
         expect(['VERIFIED', 'PARTIAL', 'UNVERIFIED']).toContain(product.verificationStatus);
         expect(product.lastVerified).toBe('2026-10-01');
-        expect(product.priceLastChecked).toBe('2026-10-01');
-        expect(product.priceType).toBe('Marktpreis-Richtwert');
-        expect(product.priceRange).toContain('€');
         expect(product.manufacturerSource.length).toBeGreaterThan(3);
+
+        // Optionale Preisspannen: Wenn vorhanden, müssen sie valide sein
+        if (product.priceRange) {
+          expect(product.priceLastChecked).toBe('2026-10-01');
+          expect(product.priceType).toBe('Marktpreis-Richtwert');
+          expect(product.priceRange).toContain('€');
+          expect(product.priceReferenceDate).toContain('Unverbindlicher Marktpreis-Richtwert');
+        }
       });
     });
 
@@ -95,19 +107,106 @@ describe('Regulatory & Data Trust Verification (Audit Stand: Oktober 2026)', () 
       });
     });
 
-    it('sollte für Produkte mit direkter ASIN eine gültige 10-stellige Alphanumerik besitzen', () => {
+    it('sollte sicherstellen, dass keine doppelten Produkt-IDs existieren', () => {
+      const ids = UNIFIED_PRODUCTS.map(p => p.id);
+      const uniqueIds = new Set(ids);
+      expect(uniqueIds.size).toBe(ids.length);
+    });
+
+    it('sollte für Produkte mit direkter ASIN eine formal gültige 10-stellige Alphanumerik besitzen und bekannte gesperrte/nicht lieferbare ASINs ausschließen', () => {
+      const knownUnavailableAsins = ['B0CVYGJ86V', 'B0G1Z4LV6C', 'B0CPQ7S9P6', 'B0FYDVSH2T', 'B0CNPMW5XR', 'B0C1WCP6J6'];
+      const activeAsinProducts = UNIFIED_PRODUCTS.filter(p => p.asin !== undefined);
+      
+      // Mindestens ein Produkt hat eine direkte ASIN, aber keine statische Fixierung auf genau 11
+      expect(activeAsinProducts.length).toBeGreaterThan(0);
+
+      activeAsinProducts.forEach(product => {
+        expect(product.asin).toBeDefined();
+        expect(product.asin).toMatch(/^[A-Z0-9]{10}$/);
+        expect(knownUnavailableAsins).not.toContain(product.asin);
+      });
+    });
+
+    it('sollte für jedes Produkt ohne ASIN einen aussagekräftigen, nicht-generischen Suchbegriff als Fallback besitzen', () => {
       UNIFIED_PRODUCTS.forEach(product => {
+        expect(product.amazonSearchQuery).toBeDefined();
+        expect(product.amazonSearchQuery.trim().length).toBeGreaterThan(10);
+        expect(product.amazonSearchQuery.toLowerCase()).not.toBe('solaranlage');
+        expect(product.amazonSearchQuery.toLowerCase()).not.toBe('speicher');
+        expect(product.amazonSearchQuery.toLowerCase()).not.toBe('balkonkraftwerk');
+      });
+    });
+
+    it('sollte sicherstellen, dass alle Affiliate-URLs wohlgeformt sind und kein undefined im Pfad enthalten', () => {
+      UNIFIED_PRODUCTS.forEach(product => {
+        expect(product.affiliateUrl).not.toContain('/dp/undefined');
+        expect(product.affiliateUrl).not.toContain('k=undefined');
         if (product.asin) {
-          expect(product.asin).toMatch(/^[A-Z0-9]{10}$/);
+          expect(product.affiliateUrl).toBe(`https://www.amazon.de/dp/${product.asin}?tag=wattpeak.de-21`);
+        } else {
+          expect(product.affiliateUrl).toContain('https://www.amazon.de/s?k=');
         }
       });
     });
 
-    it('sollte für jedes Produkt eine aussagekräftige Amazon-Suchabfrage als Fallback besitzen', () => {
-      UNIFIED_PRODUCTS.forEach(product => {
-        expect(product.amazonSearchQuery.length).toBeGreaterThan(10);
-        expect(product.priceReferenceDate).toContain('Unverbindlicher Marktpreis-Richtwert');
+    it('sollte genau 36 eindeutige Produkte mit vollständiger und fachlich korrekter Kategorie-Klassifizierung enthalten', () => {
+      expect(UNIFIED_PRODUCTS).toHaveLength(36);
+      
+      const allowedInternalTypes = [
+        'complete_set',
+        'inverter',
+        'storage_system',
+        'storage_expansion',
+        'module',
+        'energy_management',
+        'metering',
+        'mounting'
+      ];
+
+      UNIFIED_PRODUCTS.forEach(p => {
+        expect(allowedInternalTypes).toContain(p.category);
+        expect(p.categoryLabel).toBeDefined();
+        expect(p.categoryLabel.trim().length).toBeGreaterThan(0);
       });
+
+      // Keine Smart Meter oder Smart Plugs als mounting / cable_accessory fehlklassifiziert
+      const smartDevices = UNIFIED_PRODUCTS.filter(p => 
+        p.id.includes('shelly') || p.id.includes('smart-meter') || p.id.includes('plug')
+      );
+      smartDevices.forEach(dev => {
+        expect(['energy_management', 'metering']).toContain(dev.category);
+        expect(dev.category).not.toBe('mounting');
+      });
+    });
+
+    it('sollte genau 6 sichtbare Hauptkategorien besitzen und alle 36 Produkte lückenlos abdecken', () => {
+      // 6 sichtbare Hauptkategorien
+      const visibleCategoryIds = ['speicher', 'sets', 'inverter', 'module', 'metering', 'mounting'];
+      expect(visibleCategoryIds).toHaveLength(6);
+
+      const filterCategory = (catId: string) => {
+        if (catId === 'all') return UNIFIED_PRODUCTS;
+        if (catId === 'speicher') return UNIFIED_PRODUCTS.filter(p => p.category === 'storage_system' || p.category === 'storage_expansion');
+        if (catId === 'sets') return UNIFIED_PRODUCTS.filter(p => p.category === 'complete_set');
+        if (catId === 'inverter') return UNIFIED_PRODUCTS.filter(p => p.category === 'inverter');
+        if (catId === 'module') return UNIFIED_PRODUCTS.filter(p => p.category === 'module');
+        if (catId === 'metering') return UNIFIED_PRODUCTS.filter(p => p.category === 'energy_management' || p.category === 'metering');
+        if (catId === 'mounting') return UNIFIED_PRODUCTS.filter(p => p.category === 'mounting');
+        return [];
+      };
+
+      // Jede Hauptkategorie liefert Produkte
+      visibleCategoryIds.forEach(catId => {
+        const matches = filterCategory(catId);
+        expect(matches.length).toBeGreaterThan(0);
+      });
+
+      // Summe aller gefilterten Hauptkategorien ergibt genau 36 Produkte (disjunkte Zerlegung)
+      const sumFiltered = visibleCategoryIds.reduce((sum, catId) => sum + filterCategory(catId).length, 0);
+      expect(sumFiltered).toBe(36);
+
+      // Filter "all" liefert alle 36 Produkte
+      expect(filterCategory('all')).toHaveLength(36);
     });
   });
 

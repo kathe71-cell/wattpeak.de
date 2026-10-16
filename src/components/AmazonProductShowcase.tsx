@@ -95,8 +95,13 @@ export default function AmazonProductShowcase() {
         ))}
       </div>
 
-      <div className="text-center text-[10px] text-slate-500 font-mono">
-        * Werbelink / Partnerlink: Als Amazon-Partner verdiene ich an qualifizierten Verkäufen. Unverbindlicher Marktpreis-Richtwert (Stand: Oktober 2026). Kein aktueller Amazon-Angebotspreis. Tatsächliche Händlerpreise können abweichen.
+      <div className="text-center text-[10px] text-slate-500 font-mono space-y-1">
+        <div>
+          * Werbelink / Partnerlink: Als Amazon-Partner verdiene ich an qualifizierten Verkäufen. Unverbindlicher Marktpreis-Richtwert (Stand: Oktober 2026). Kein aktueller Amazon-Angebotspreis. Tatsächliche Händlerpreise können abweichen.
+        </div>
+        <div>
+          Die direkte Produktverfügbarkeit wurde zum dokumentierten Prüfzeitpunkt kontrolliert. Amazon-Bestände können sich jederzeit ändern. Suchlinks ermöglichen die Suche nach aktuellen Angeboten, garantieren jedoch keine Verfügbarkeit.
+        </div>
       </div>
     </section>
   );

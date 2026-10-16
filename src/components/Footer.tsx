@@ -52,8 +52,8 @@ export default function Footer() {
                 <span className="text-2xl font-black tracking-tight text-white font-sans leading-none">
                   wattpeak<span className="text-amber-500">.de</span>
                 </span>
-                <span className="text-[11px] font-semibold text-slate-400 tracking-normal mt-0.5 font-sans">
-                  Photovoltaik unabhängig entscheiden
+                <span className="text-[11px] font-medium text-slate-400 tracking-normal mt-0.5 font-sans">
+                  Photovoltaik. Unabhängig berechnet.
                 </span>
               </div>
             </Link>
