@@ -148,6 +148,66 @@ describe('Regulatory & Data Trust Verification (Audit Stand: Oktober 2026)', () 
         }
       });
     });
+
+    it('sollte genau 36 eindeutige Produkte mit vollständiger und fachlich korrekter Kategorie-Klassifizierung enthalten', () => {
+      expect(UNIFIED_PRODUCTS).toHaveLength(36);
+      
+      const allowedInternalTypes = [
+        'complete_set',
+        'inverter',
+        'storage_system',
+        'storage_expansion',
+        'module',
+        'energy_management',
+        'metering',
+        'mounting'
+      ];
+
+      UNIFIED_PRODUCTS.forEach(p => {
+        expect(allowedInternalTypes).toContain(p.category);
+        expect(p.categoryLabel).toBeDefined();
+        expect(p.categoryLabel.trim().length).toBeGreaterThan(0);
+      });
+
+      // Keine Smart Meter oder Smart Plugs als mounting / cable_accessory fehlklassifiziert
+      const smartDevices = UNIFIED_PRODUCTS.filter(p => 
+        p.id.includes('shelly') || p.id.includes('smart-meter') || p.id.includes('plug')
+      );
+      smartDevices.forEach(dev => {
+        expect(['energy_management', 'metering']).toContain(dev.category);
+        expect(dev.category).not.toBe('mounting');
+      });
+    });
+
+    it('sollte genau 6 sichtbare Hauptkategorien besitzen und alle 36 Produkte lückenlos abdecken', () => {
+      // 6 sichtbare Hauptkategorien
+      const visibleCategoryIds = ['speicher', 'sets', 'inverter', 'module', 'metering', 'mounting'];
+      expect(visibleCategoryIds).toHaveLength(6);
+
+      const filterCategory = (catId: string) => {
+        if (catId === 'all') return UNIFIED_PRODUCTS;
+        if (catId === 'speicher') return UNIFIED_PRODUCTS.filter(p => p.category === 'storage_system' || p.category === 'storage_expansion');
+        if (catId === 'sets') return UNIFIED_PRODUCTS.filter(p => p.category === 'complete_set');
+        if (catId === 'inverter') return UNIFIED_PRODUCTS.filter(p => p.category === 'inverter');
+        if (catId === 'module') return UNIFIED_PRODUCTS.filter(p => p.category === 'module');
+        if (catId === 'metering') return UNIFIED_PRODUCTS.filter(p => p.category === 'energy_management' || p.category === 'metering');
+        if (catId === 'mounting') return UNIFIED_PRODUCTS.filter(p => p.category === 'mounting');
+        return [];
+      };
+
+      // Jede Hauptkategorie liefert Produkte
+      visibleCategoryIds.forEach(catId => {
+        const matches = filterCategory(catId);
+        expect(matches.length).toBeGreaterThan(0);
+      });
+
+      // Summe aller gefilterten Hauptkategorien ergibt genau 36 Produkte (disjunkte Zerlegung)
+      const sumFiltered = visibleCategoryIds.reduce((sum, catId) => sum + filterCategory(catId).length, 0);
+      expect(sumFiltered).toBe(36);
+
+      // Filter "all" liefert alle 36 Produkte
+      expect(filterCategory('all')).toHaveLength(36);
+    });
   });
 
   describe('4. Solarpflicht & EU-Batteriepass', () => {

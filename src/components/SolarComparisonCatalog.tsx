@@ -45,7 +45,7 @@ export default function SolarComparisonCatalog() {
     if (activeCat === 'sets') return prodCat === 'complete_set';
     if (activeCat === 'inverter') return prodCat === 'inverter';
     if (activeCat === 'module') return prodCat === 'module';
-    if (activeCat === 'metering') return prodCat === 'metering';
+    if (activeCat === 'metering') return prodCat === 'energy_management' || prodCat === 'metering';
     if (activeCat === 'mounting') return prodCat === 'mounting';
     return true;
   };

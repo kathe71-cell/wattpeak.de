@@ -8,14 +8,40 @@
  * Stand: Oktober 2026
  */
 
+/**
+ * INTERNE PRODUKTTYPEN (DATENBANK-EBENE):
+ * Diese Typen spiegeln die technische Beschaffenheit der Hardwarekomponenten wider.
+ * Die Anzahl interner Produkttypen (7) weicht bewusst von den 6 sichtbaren Hauptkategorien ab.
+ */
 export type ProductCategory = 
   | 'complete_set'       // Steckerfertige Komplettsets (Balkonkraftwerk)
   | 'inverter'           // Mikrowechselrichter & Hybridwechselrichter
   | 'storage_system'     // Vollständige All-in-One Speichersysteme (inkl. Inverter/Hub)
   | 'storage_expansion'  // Reine Zusatzbatterien (Erfordert Basissystem / Controller)
   | 'module'             // Solarmodule (Glas-Glas, N-Type TOPCon, HJT)
-  | 'metering'           // Smart Meter & Energiemanager
-  | 'mounting';          // Halterungen & Unterkonstruktion
+  | 'energy_management'  // Smart Meter, Smart Plugs & Energiemanager
+  | 'metering'           // Alias/Kompatibilitätstyp für energy_management
+  | 'mounting';          // Halterungen, Unterkonstruktion & Verkabelung
+
+/**
+ * SICHTBARE HAUPTKATEGORIEN (FRONTEND / FILTER-EBENE):
+ * Genau 6 sichtbare Hardware-Hauptkategorien für den Nutzer:
+ * 1. Balkonspeicher (bündelt storage_system + storage_expansion)
+ * 2. Komplettsets (complete_set)
+ * 3. Mikrowechselrichter (inverter)
+ * 4. Solarmodule (module)
+ * 5. Energiemanagement (energy_management / metering)
+ * 6. Montage & Zubehör (mounting)
+ * ("Alle Komponenten" ist ein übergeordneter Filter, keine eigene Produktkategorie)
+ */
+export const VISIBLE_MAIN_CATEGORIES = [
+  { id: 'speicher', label: 'Balkonspeicher', internalTypes: ['storage_system', 'storage_expansion'] },
+  { id: 'sets', label: 'Komplettsets', internalTypes: ['complete_set'] },
+  { id: 'inverter', label: 'Mikrowechselrichter', internalTypes: ['inverter'] },
+  { id: 'module', label: 'Solarmodule', internalTypes: ['module'] },
+  { id: 'metering', label: 'Energiemanagement', internalTypes: ['energy_management', 'metering'] },
+  { id: 'mounting', label: 'Montage & Zubehör', internalTypes: ['mounting'] },
+] as const;
 
 export type VerificationStatus = 'VERIFIED' | 'PARTIAL' | 'UNVERIFIED';
 
@@ -532,7 +558,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     name: 'Shelly Pro 3EM Drehstrom-Energiemessgerät',
     brand: 'shelly',
     brandName: 'Shelly',
-    category: 'metering',
+    category: 'energy_management',
     categoryLabel: 'Smart Meter',
     shortDesc: 'Hutschienen-Stromzähler für den Zählerschrank zur Phasensaldierung und Steuerung von Speichereinspeisung.',
     specs: [
@@ -894,7 +920,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     name: 'Shelly Plus 1PM WLAN & Bluetooth Relais (16A)',
     brand: 'shelly',
     brandName: 'Shelly',
-    category: 'metering',
+    category: 'energy_management',
     categoryLabel: 'Smart Metering',
     shortDesc: 'Unterputz-Schaltrelais mit präziser Leistungsmessung zur Erfassung der Einspeisung von Balkonkraftwerken.',
     specs: [
@@ -925,7 +951,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     name: 'EcoFlow Smart Plug WLAN Zwischenstecker',
     brand: 'ecoflow',
     brandName: 'EcoFlow',
-    category: 'metering',
+    category: 'energy_management',
     categoryLabel: 'Smart Plug',
     shortDesc: 'Intelligente Zwischensteckdose zur Verbrauchsmessung und automatischen Nulleinspeise-Steuerung für EcoFlow PowerStream.',
     specs: [
@@ -956,7 +982,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     name: 'Shelly Plus Plug S Smarte WLAN-Steckdose (12A)',
     brand: 'shelly',
     brandName: 'Shelly',
-    category: 'metering',
+    category: 'energy_management',
     categoryLabel: 'Smart Plug',
     shortDesc: 'Zwischensteckdose mit mehrfarbigem LED-Ring zur Verbrauchsanzeige und exakter Strommessung für Stecker-Solargeräte.',
     specs: [
@@ -985,7 +1011,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     name: 'Anker SOLIX Smart Meter (3-Phasen Zähler)',
     brand: 'anker',
     brandName: 'Anker SOLIX',
-    category: 'metering',
+    category: 'energy_management',
     categoryLabel: 'Smart Metering',
     shortDesc: 'Dreiphasiger Hutschienenzähler mit Klappstromwandlern für phasengenaue Nulleinspeisung der Anker Solarbank 2.',
     specs: [
@@ -1016,7 +1042,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     name: 'Zendure Satelliten-Steckdose Smart Plug',
     brand: 'zendure',
     brandName: 'Zendure',
-    category: 'metering',
+    category: 'energy_management',
     categoryLabel: 'Smart Plug',
     shortDesc: 'Smarter Zwischenstecker zur Kommunikation mit Zendure SolarFlow Systemen für bedarfsgesteuerte Einspeisung.',
     specs: [
@@ -1297,5 +1323,6 @@ export const PRODUCTS_BY_CATEGORY = {
   storage_expansion: UNIFIED_PRODUCTS.filter(p => p.category === 'storage_expansion'),
   module: UNIFIED_PRODUCTS.filter(p => p.category === 'module'),
   mounting: UNIFIED_PRODUCTS.filter(p => p.category === 'mounting'),
-  metering: UNIFIED_PRODUCTS.filter(p => p.category === 'metering'),
+  energy_management: UNIFIED_PRODUCTS.filter(p => p.category === 'energy_management' || p.category === 'metering'),
+  metering: UNIFIED_PRODUCTS.filter(p => p.category === 'energy_management' || p.category === 'metering'),
 };
