@@ -542,20 +542,20 @@ export default function Home() {
       </main>
 
       {/* STICKY MOBILE BOTTOM BAR - ENGINEERING CLEAN 2.0 SEGMENTED CONTROL */}
-      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-950/95 backdrop-blur-lg border-t border-slate-800 px-3 py-2 flex items-center justify-between gap-2 shadow-2xl no-print">
+      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-950/95 backdrop-blur-lg border-t border-slate-800 px-2 xs:px-3 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] flex items-center justify-between gap-1.5 xs:gap-2 shadow-2xl no-print">
         <Link
           to="/ertragsrechner"
-          className="flex-1 flex items-center justify-center gap-2 bg-slate-900 border border-slate-750 text-white font-extrabold h-11 rounded-xl text-xs active:scale-95 transition"
+          className="flex-1 min-w-0 flex items-center justify-center gap-1.5 xs:gap-2 bg-slate-900 border border-slate-750 text-white font-extrabold h-11 px-2 rounded-xl text-[11px] xs:text-xs active:scale-95 transition"
         >
-          <Calculator className="w-3.5 h-3.5 text-amber-400" />
-          <span>Ertragsrechner</span>
+          <Calculator className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+          <span className="truncate">Rechner</span>
         </Link>
         <a
           href="#angebotscheck"
-          className="flex-1 flex items-center justify-center gap-2 bg-amber-500 text-slate-950 font-black h-11 rounded-xl text-xs active:scale-95 shadow-md transition"
+          className="flex-1 min-w-0 flex items-center justify-center gap-1.5 xs:gap-2 bg-amber-500 text-slate-950 font-black h-11 px-2 rounded-xl text-[11px] xs:text-xs active:scale-95 shadow-md transition"
         >
-          <FileCheck className="w-3.5 h-3.5 text-slate-950" />
-          <span>Angebots-Check</span>
+          <FileCheck className="w-3.5 h-3.5 text-slate-950 shrink-0" />
+          <span className="truncate">Angebots-Check</span>
         </a>
       </div>
 

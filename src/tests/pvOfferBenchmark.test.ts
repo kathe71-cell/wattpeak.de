@@ -364,5 +364,200 @@ describe('PV-Angebots-Check Logic & 3-Tier Classification (Quality Gate Scenario
       expect(calcDefault.economy.estimatedInvestmentEur).toBe(17006);
     });
   });
+
+  describe('Speicher-Mehrwert & Kostenallokation Testsuite (Szenarien A bis H)', () => {
+    // Szenario A: Marktpreismodell mit Speicher (9,6 kWp, 7,5 kWh, 4.200 kWh)
+    it('Szenario A: Marktpreismodell weist Bruttoersparnis (432 €), Rücklagen (39 €) und Netto (393 €) exakt aus', () => {
+      const res = calculateSolarYield({
+        systemType: 'rooftop',
+        kwp: 9.6,
+        region: 'mitte',
+        tilt: 35,
+        azimuth: 0,
+        cellType: 'topcon',
+        storageKwh: 7.5,
+        annualConsumption: 4200,
+        electricityPrice: 0.36
+      });
+
+      expect(res.storageDelta.costAllocationStatus).toBe('market_mode');
+      expect(res.storageDelta.additionalAnnualSavingsEur).toBe(432);
+      expect(res.storageDelta.storageOperatingCostEur).toBe(39);
+      expect(res.storageDelta.additionalNetBenefitEur).toBe(393);
+      expect(res.storageDelta.storageSpecificCostEur).toBe(3950);
+      expect(res.storageDelta.storagePaybackYears).toBe(10.1);
+    });
+
+    // Szenario B: Individueller Gesamtangebotspreis mit Speicher (ohne Einzelpreis)
+    it('Szenario B: Individueller Gesamtangebotspreis fingiert keine Kostenaufteilung (Netto = null, Brutto = 432 €)', () => {
+      const res = calculateSolarYield({
+        systemType: 'rooftop',
+        kwp: 9.6,
+        region: 'mitte',
+        tilt: 35,
+        azimuth: 0,
+        cellType: 'topcon',
+        storageKwh: 7.5,
+        annualConsumption: 4200,
+        electricityPrice: 0.36,
+        customInvestmentEur: 24000
+      });
+
+      expect(res.economy.isInvestmentCustom).toBe(true);
+      expect(res.economy.estimatedInvestmentEur).toBe(24000);
+      expect(res.storageDelta.costAllocationStatus).toBe('package_price_unallocated');
+      // Brutto-Stromkostenvorteil bleibt physikalisch exakt erhalten
+      expect(res.storageDelta.additionalAnnualSavingsEur).toBe(432);
+      // Keine fiktiven Netto-Speichervorteile oder Rücklagen erfunden
+      expect(res.storageDelta.additionalNetBenefitEur).toBeNull();
+      expect(res.storageDelta.storageOperatingCostEur).toBeNull();
+      expect(res.storageDelta.storageSpecificCostEur).toBeNull();
+      expect(res.storageDelta.storagePaybackYears).toBeNull();
+      // Gesamtanlage amortisiert sich korrekt auf Basis des Gesamtpreises
+      expect(res.economy.estimatedPaybackYears).toBe(17.7);
+    });
+
+    // Szenario C: Individueller Angebotspreis ohne Speicher (0 kWh)
+    it('Szenario C: Individueller Angebotspreis ohne Speicher weist kein Speicher-Delta aus', () => {
+      const res = calculateSolarYield({
+        systemType: 'rooftop',
+        kwp: 9.6,
+        region: 'mitte',
+        tilt: 35,
+        azimuth: 0,
+        cellType: 'topcon',
+        storageKwh: 0,
+        annualConsumption: 4200,
+        electricityPrice: 0.36,
+        customInvestmentEur: 14000
+      });
+
+      expect(res.storageDelta.hasStorage).toBe(false);
+      expect(res.storageDelta.additionalAnnualSavingsEur).toBe(0);
+      expect(res.storageDelta.additionalNetBenefitEur).toBeNull();
+      expect(res.economy.isInvestmentCustom).toBe(true);
+      expect(res.economy.estimatedInvestmentEur).toBe(14000);
+    });
+
+    // Szenario D: Bekannter separater Speicherpreis im Angebot
+    it('Szenario D: Bekannter separater Speicherpreis berechnet Netto-Vorteil und Speicher-Amortisation präzise', () => {
+      const res = calculateSolarYield({
+        systemType: 'rooftop',
+        kwp: 9.6,
+        region: 'mitte',
+        tilt: 35,
+        azimuth: 0,
+        cellType: 'topcon',
+        storageKwh: 7.5,
+        annualConsumption: 4200,
+        electricityPrice: 0.36,
+        customInvestmentEur: 24000,
+        customStoragePriceEur: 4500 // Explizite Speicherposition
+      });
+
+      expect(res.storageDelta.costAllocationStatus).toBe('custom_storage_specified');
+      expect(res.storageDelta.storageSpecificCostEur).toBe(4500);
+      expect(res.storageDelta.additionalAnnualSavingsEur).toBe(432);
+      // Betriebskosten/Rücklagen 1 % von 4.500 € = 45 €/a
+      expect(res.storageDelta.storageOperatingCostEur).toBe(45);
+      // Netto = 432 € - 45 € = 387 €/a
+      expect(res.storageDelta.additionalNetBenefitEur).toBe(387);
+      // Speicheramortisation: 4.500 € / 387 € = 11.6 Jahre
+      expect(res.storageDelta.storagePaybackYears).toBe(11.6);
+    });
+
+    // Szenario E: Fehlender separater Speicherpreis
+    it('Szenario E: Fehlender separater Speicherpreis bei Gesamtpreis setzt Netto auf nicht isolierbar', () => {
+      const res = calculateSolarYield({
+        systemType: 'rooftop',
+        kwp: 10,
+        region: 'mitte',
+        tilt: 35,
+        azimuth: 0,
+        cellType: 'topcon',
+        storageKwh: 10,
+        annualConsumption: 5000,
+        electricityPrice: 0.36,
+        customInvestmentEur: 21000,
+        customStoragePriceEur: undefined // Kein separater Speicherpreis bekannt
+      });
+
+      expect(res.storageDelta.costAllocationStatus).toBe('package_price_unallocated');
+      expect(res.storageDelta.additionalNetBenefitEur).toBeNull();
+      expect(res.storageDelta.additionalAnnualSavingsEur).toBeGreaterThan(0);
+    });
+
+    // Szenario F & G: Wechsel zwischen Marktpreis und individuellem Angebotspreis sowie Zurücksetzen
+    it('Szenario F & G: Umschalten zwischen Marktpreis und Angebotspreis bleibt mathematisch exakt', () => {
+      const baseParams = {
+        systemType: 'rooftop' as const,
+        kwp: 9.6,
+        region: 'mitte' as const,
+        tilt: 35,
+        azimuth: 0,
+        cellType: 'topcon' as const,
+        storageKwh: 7.5,
+        annualConsumption: 4200,
+        electricityPrice: 0.36
+      };
+
+      // 1. Marktpreis
+      const marketRes = calculateSolarYield({ ...baseParams });
+      expect(marketRes.storageDelta.costAllocationStatus).toBe('market_mode');
+      expect(marketRes.storageDelta.additionalNetBenefitEur).toBe(393);
+      expect(marketRes.economy.estimatedInvestmentEur).toBe(17006);
+
+      // 2. Wechsel auf Angebotspreis 24.000 €
+      const customRes = calculateSolarYield({ ...baseParams, customInvestmentEur: 24000 });
+      expect(customRes.storageDelta.costAllocationStatus).toBe('package_price_unallocated');
+      expect(customRes.storageDelta.additionalNetBenefitEur).toBeNull();
+      expect(customRes.economy.estimatedInvestmentEur).toBe(24000);
+      expect(customRes.economy.estimatedPaybackYears).toBe(17.7);
+
+      // 3. Zurücksetzen auf undefined
+      const resetRes = calculateSolarYield({ ...baseParams, customInvestmentEur: undefined });
+      expect(resetRes.storageDelta.costAllocationStatus).toBe('market_mode');
+      expect(resetRes.storageDelta.additionalNetBenefitEur).toBe(393);
+      expect(resetRes.economy.estimatedInvestmentEur).toBe(17006);
+      expect(resetRes.economy.estimatedPaybackYears).toBe(11.9);
+    });
+
+    // Szenario H: Wiederholte Übernahme aus PV-Angebots-Check
+    it('Szenario H: Wiederholte Übergabe aus PV-Angebots-Check liefert reproduzierbare, unverfälschte Werte', () => {
+      const offer1 = evaluatePvOffer({ kwp: 9.6, storageKwh: 7.5, totalOfferPriceEur: 24000 });
+      const calc1 = calculateSolarYield({
+        systemType: 'rooftop',
+        kwp: offer1.safeKwp,
+        region: 'mitte',
+        tilt: 35,
+        azimuth: 0,
+        cellType: 'topcon',
+        storageKwh: offer1.safeStorageKwh,
+        customInvestmentEur: offer1.safePriceEur,
+        annualConsumption: 4200,
+        electricityPrice: 0.36
+      });
+
+      const offer2 = evaluatePvOffer({ kwp: 9.6, storageKwh: 7.5, totalOfferPriceEur: 18000 });
+      const calc2 = calculateSolarYield({
+        systemType: 'rooftop',
+        kwp: offer2.safeKwp,
+        region: 'mitte',
+        tilt: 35,
+        azimuth: 0,
+        cellType: 'topcon',
+        storageKwh: offer2.safeStorageKwh,
+        customInvestmentEur: offer2.safePriceEur,
+        annualConsumption: 4200,
+        electricityPrice: 0.36
+      });
+
+      expect(calc1.economy.estimatedInvestmentEur).toBe(24000);
+      expect(calc1.economy.estimatedPaybackYears).toBe(17.7);
+      expect(calc2.economy.estimatedInvestmentEur).toBe(18000);
+      expect(calc2.economy.estimatedPaybackYears).toBe(12.7);
+    });
+  });
 });
+
 

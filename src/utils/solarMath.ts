@@ -152,6 +152,7 @@ export interface SolarParams {
   feedInRemunerationType?: FeedInRemunerationType;
   feedInTariff?: number; // EUR/kWh
   customInvestmentEur?: number; // Optional manuelle Angebotskosten
+  customStoragePriceEur?: number; // Optional separat ausgewiesener Speicherpreis im Angebot
   operatingCostRatePercent?: number; // Jährliche Betriebs-/Wartungskosten (Standard 1.0 %)
   inverterReserveAnnualEur?: number; // Rücklage für WR-Ersatz (Standard 0)
 }
@@ -166,7 +167,6 @@ export interface EnergyBalance {
   feedInKwh: number;                        // Netzeinspeisung E_feed = E_gen - E_dir - E_char
   gridPurchaseKwh: number;                  // Netzbezug E_grid = E_demand - E_self_used
   annualDemandKwh: number;                  // Strombedarf E_demand
-  
   // Eindeutig definierte Quoten gemäß Energiebilanz:
   usableSelfConsumptionRatePercent: number; // Nutzbarer Anteil am PV-Ertrag: E_self_used / E_gen * 100
   generationUtilizationRatePercent: number; // PV-Nutzungsgrad inkl. Speicherverlusten: (E_dir + E_char) / E_gen * 100
@@ -192,11 +192,12 @@ export interface StorageDeltaEvaluation {
   storageKwh: number;
   additionalSelfUsedKwh: number;       // Mehrverbrauch durch Speicher ggü. ohne Speicher
   additionalAnnualSavingsEur: number;  // Brutto-Stromkostenersparnis + Einspeisedifferenz
-  additionalNetBenefitEur: number;     // Netto-Mehrwert nach laufenden Kosten/Rücklagen des Speichers
-  storageOperatingCostEur: number;     // Jährliche Betriebskosten/Rücklagenanteil für den Speicher
-  storageSpecificCostEur: number;      // Reiner Aufpreis für den Speicher
+  additionalNetBenefitEur: number | null;     // Netto-Mehrwert nach laufenden Kosten/Rücklagen des Speichers (null falls Speicherkosten nicht isolierbar)
+  storageOperatingCostEur: number | null;     // Jährliche Betriebskosten/Rücklagenanteil für den Speicher (null falls nicht isolierbar)
+  storageSpecificCostEur: number | null;      // Reiner Aufpreis für den Speicher (null falls Gesamtkosten ohne Aufteilung)
   storagePaybackYears: number | null;  // Amortisation des Speichers allein
   annualStorageCycles: number;         // Berechnete Vollzyklen pro Jahr
+  costAllocationStatus: 'market_mode' | 'custom_storage_specified' | 'package_price_unallocated';
 }
 
 export interface SolarCalculationResult {
@@ -514,27 +515,50 @@ export function calculateSolarYield(params: SolarParams): SolarCalculationResult
   // 13. Isolierter Mehrwert des Speichers (Storage Delta)
   const additionalAnnualSavingsEur = grossStorageDeltaEur;
   
-  // Reiner Speicher-Investitionsanteil
-  let storageSpecificCostEur = 0;
+  // Bestimmung der speicherspezifischen Investition und Betriebskosten:
+  // Unterscheidung:
+  // - market_mode: Kein individueller Gesamtpreis übergeben. Kosten werden über empirische Marktmodelle aufgeteilt.
+  // - custom_storage_specified: Individueller Speicherpreis wurde separat angegeben (z.B. bei Nachrüstung oder Positionsangabe).
+  // - package_price_unallocated: Individueller Gesamtangebotspreis ohne Positionsaufteilung. Speicherkosten nicht isolierbar.
+  let costAllocationStatus: 'market_mode' | 'custom_storage_specified' | 'package_price_unallocated' = 'market_mode';
+  let storageSpecificCostEur: number | null = null;
+  let storageOperatingCostEur: number | null = null;
+  let additionalNetBenefitEur: number | null = null;
+  let storagePaybackYears: number | null = null;
+
   if (storageCapacity > 0) {
     if (isRetrofit) {
+      costAllocationStatus = 'custom_storage_specified';
       storageSpecificCostEur = estimatedInvestmentEur;
+      storageOperatingCostEur = annualOperatingCostEur;
+      additionalNetBenefitEur = Math.max(0, additionalAnnualSavingsEur - storageOperatingCostEur);
+    } else if (params.customStoragePriceEur && params.customStoragePriceEur > 0) {
+      // Explizit ausgewiesener Speicherpreis im Angebot
+      costAllocationStatus = 'custom_storage_specified';
+      storageSpecificCostEur = Math.round(params.customStoragePriceEur);
+      storageOperatingCostEur = Math.round(storageSpecificCostEur * opCostRate);
+      additionalNetBenefitEur = Math.max(0, additionalAnnualSavingsEur - storageOperatingCostEur);
+    } else if (params.customInvestmentEur && params.customInvestmentEur > 0) {
+      // Individueller Gesamtangebotspreis ohne Speicher-Einzelpreis:
+      // Fachlich darf keine fiktive Kostenaufteilung erfunden werden.
+      costAllocationStatus = 'package_price_unallocated';
+      storageSpecificCostEur = null;
+      storageOperatingCostEur = null;
+      additionalNetBenefitEur = null;
     } else {
-      const baseInvestWithoutStorage = estimateMarketInvestmentEur({ ...params, storageKwh: 0 });
+      // Marktpreismodell (Standard): Belastbare Standard-Kostenaufteilung
+      costAllocationStatus = 'market_mode';
+      const baseInvestWithoutStorage = estimateMarketInvestmentEur({ ...params, storageKwh: 0, customInvestmentEur: undefined });
       storageSpecificCostEur = Math.max(0, estimatedInvestmentEur - baseInvestWithoutStorage);
+      storageOperatingCostEur = Math.max(0, annualOperatingCostEur - withoutStorageResult.annualOperatingCostEur);
+      additionalNetBenefitEur = Math.max(0, additionalAnnualSavingsEur - storageOperatingCostEur);
     }
-  }
 
-  // Jährliche Betriebskosten/Rücklagen für den Speicher (Differenz der Gesamtkosten)
-  const storageOperatingCostEur = Math.max(0, annualOperatingCostEur - withoutStorageResult.annualOperatingCostEur);
-  // Netto-Vorteil des Speichers nach Abzug der Speicher-Betriebskosten
-  const additionalNetBenefitEur = Math.max(0, additionalAnnualSavingsEur - storageOperatingCostEur);
-
-  let storagePaybackYears: number | null = null;
-  if (additionalNetBenefitEur > 0 && storageSpecificCostEur > 0) {
-    const rawStorageYears = storageSpecificCostEur / additionalNetBenefitEur;
-    if (rawStorageYears <= 25) {
-      storagePaybackYears = Number(rawStorageYears.toFixed(1));
+    if (additionalNetBenefitEur !== null && storageSpecificCostEur !== null && additionalNetBenefitEur > 0 && storageSpecificCostEur > 0) {
+      const rawStorageYears = storageSpecificCostEur / additionalNetBenefitEur;
+      if (rawStorageYears <= 25) {
+        storagePaybackYears = Number(rawStorageYears.toFixed(1));
+      }
     }
   }
 
@@ -547,7 +571,8 @@ export function calculateSolarYield(params: SolarParams): SolarCalculationResult
     storageOperatingCostEur,
     storageSpecificCostEur,
     storagePaybackYears,
-    annualStorageCycles
+    annualStorageCycles,
+    costAllocationStatus
   };
 
   return {

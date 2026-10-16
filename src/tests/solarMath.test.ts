@@ -344,7 +344,7 @@ describe('WattPeak Unified Solar Calculation Engine', () => {
 
       // Die Differenz von 39 €/a (432 € - 393 €) entspricht exakt den jährlichen Betriebskosten/Rücklagen des Speichers
       expect(res.storageDelta.storageOperatingCostEur).toBe(39);
-      expect(res.storageDelta.additionalAnnualSavingsEur - res.storageDelta.storageOperatingCostEur).toBe(res.storageDelta.additionalNetBenefitEur);
+      expect(res.storageDelta.additionalAnnualSavingsEur - (res.storageDelta.storageOperatingCostEur ?? 0)).toBe(res.storageDelta.additionalNetBenefitEur);
     });
   });
 

@@ -788,17 +788,30 @@ export default function SolarCalculator({ isEmbed = false }: CalculatorProps) {
                   </div>
                   <div className="bg-white p-2.5 rounded-xl border border-emerald-200/60 col-span-2 sm:col-span-1">
                     <span className="text-slate-500 block text-[9px] uppercase">Netto-Mehrwert / Jahr</span>
-                    <strong className="text-emerald-900 text-sm">+{result.storageDelta.additionalNetBenefitEur.toLocaleString('de-DE')} €/a</strong>
+                    {result.storageDelta.costAllocationStatus === 'package_price_unallocated' ? (
+                      <span className="text-slate-600 font-sans font-bold text-xs block mt-0.5" title="Im Gesamtangebotspreis nicht isoliert ausgewiesen">
+                        Nicht isolierbar *
+                      </span>
+                    ) : (
+                      <strong className="text-emerald-900 text-sm">+{result.storageDelta.additionalNetBenefitEur?.toLocaleString('de-DE')} €/a</strong>
+                    )}
                   </div>
                 </div>
                 <div className="text-[10px] text-slate-600 leading-relaxed pt-0.5 space-y-1">
                   <div>
                     Autarkie steigt von {result.withoutStorageBenchmark.autarkyRatePercent.toLocaleString('de-DE')} % (ohne Speicher) auf {result.balance.autarkyRatePercent.toLocaleString('de-DE')} % (mit Speicher).
                   </div>
-                  {result.storageDelta.storageOperatingCostEur > 0 && (
-                    <div className="text-slate-500 font-mono text-[9px]">
-                      * Netto-Mehrwert berücksichtigt ca. {result.storageDelta.storageOperatingCostEur.toLocaleString('de-DE')} €/a kalkulatorische Betriebs- und Ersatzrücklagen für den Speicher (Differenz: {result.economy.annualNetBenefitEur.toLocaleString('de-DE')} € mit Speicher vs. {result.withoutStorageBenchmark.annualNetBenefitEur.toLocaleString('de-DE')} € ohne Speicher).
+                  {result.storageDelta.costAllocationStatus === 'package_price_unallocated' ? (
+                    <div className="text-slate-600 bg-amber-50/80 p-2.5 rounded-xl border border-amber-200/80 font-sans text-[11px] leading-relaxed mt-1">
+                      <strong className="text-amber-950 block mb-0.5 font-bold">Hinweis zur Speicherwirtschaftlichkeit:</strong>
+                      Der eingegebene Gesamtangebotspreis ({result.economy.estimatedInvestmentEur.toLocaleString('de-DE')} €) enthält keine gesonderte Preisaufteilung zwischen PV-Generator und Speicher. Ein rein rechnerischer Netto-Speichervorteil wird daher nicht fingiert. Der physikalische Brutto-Stromkostenvorteil durch den Speicher beträgt <strong>+{result.storageDelta.additionalAnnualSavingsEur.toLocaleString('de-DE')} €/Jahr</strong>.
                     </div>
+                  ) : (
+                    result.storageDelta.storageOperatingCostEur !== null && result.storageDelta.storageOperatingCostEur > 0 && (
+                      <div className="text-slate-500 font-mono text-[9px]">
+                        * Netto-Mehrwert berücksichtigt ca. {result.storageDelta.storageOperatingCostEur.toLocaleString('de-DE')} €/a kalkulatorische Betriebs- und Ersatzrücklagen für den Speicher (Differenz: {result.economy.annualNetBenefitEur.toLocaleString('de-DE')} € mit Speicher vs. {result.withoutStorageBenchmark.annualNetBenefitEur.toLocaleString('de-DE')} € ohne Speicher).
+                      </div>
+                    )
                   )}
                 </div>
               </div>
