@@ -60,14 +60,26 @@ describe('Regulatory & Data Trust Verification (Audit Stand: Oktober 2026)', () 
   });
 
   describe('3. Product Catalog & Data Trust', () => {
+    it('sollte genau 36 qualitativ verifizierte Produkte mit eindeutigen IDs umfassen', () => {
+      expect(UNIFIED_PRODUCTS).toHaveLength(36);
+      const ids = UNIFIED_PRODUCTS.map(p => p.id);
+      const uniqueIds = new Set(ids);
+      expect(uniqueIds.size).toBe(36);
+    });
+
     it('sollte für alle Produkte einen Verifizierungsstatus und ein Prüfdatum besitzen', () => {
       UNIFIED_PRODUCTS.forEach(product => {
         expect(['VERIFIED', 'PARTIAL', 'UNVERIFIED']).toContain(product.verificationStatus);
         expect(product.lastVerified).toBe('2026-10-01');
-        expect(product.priceLastChecked).toBe('2026-10-01');
-        expect(product.priceType).toBe('Marktpreis-Richtwert');
-        expect(product.priceRange).toContain('€');
         expect(product.manufacturerSource.length).toBeGreaterThan(3);
+
+        // Optionale Preisspannen: Wenn vorhanden, müssen sie valide sein
+        if (product.priceRange) {
+          expect(product.priceLastChecked).toBe('2026-10-01');
+          expect(product.priceType).toBe('Marktpreis-Richtwert');
+          expect(product.priceRange).toContain('€');
+          expect(product.priceReferenceDate).toContain('Unverbindlicher Marktpreis-Richtwert');
+        }
       });
     });
 
@@ -106,7 +118,6 @@ describe('Regulatory & Data Trust Verification (Audit Stand: Oktober 2026)', () 
     it('sollte für jedes Produkt eine aussagekräftige Amazon-Suchabfrage als Fallback besitzen', () => {
       UNIFIED_PRODUCTS.forEach(product => {
         expect(product.amazonSearchQuery.length).toBeGreaterThan(10);
-        expect(product.priceReferenceDate).toContain('Unverbindlicher Marktpreis-Richtwert');
       });
     });
   });

@@ -23,15 +23,15 @@ interface SpeicherProdukt {
 const SPEICHER: SpeicherProdukt[] = [
   {
     id: 'anker-solix-solarbank2',
-    name: 'Anker SOLIX Solarbank 2 E1600 Pro',
+    name: 'Anker SOLIX Solarbank 2 Plus',
     kapazitaet: '1.600 Wh (bis 9,6 kWh erweiterbar)',
     wechselrichter: 'Integriert (800W AC)',
-    preis: 'ca. 799 – 1.099 €',
+    preis: 'ca. 429 – 699 €',
     highlights: [
-      '4 integrierte MPPTs — bis zu 2.400 Wp PV direkt anschließen',
+      '2 integrierte MPPTs — bis zu 1.200 Wp PV direkt anschließen',
       'All-in-One: kein separater Wechselrichter nötig',
-      '6.000 Zyklen LiFePO4 (10 Jahre Garantie)',
-      'Smarte Null-Einspeisung via Smart Plug',
+      '6.000 Zyklen LiFePO4 (10 Jahre Herstellergarantie)',
+      'Smarte Null-Einspeisung via Smart Plug oder Smart Meter',
       'Modular erweiterbar bis 9,6 kWh',
     ],
     nachteile: [
@@ -39,7 +39,7 @@ const SPEICHER: SpeicherProdukt[] = [
       'Proprietäre Erweiterungsakkus (nur Anker BP1600)',
     ],
     asin: 'B0DKNQB1TQ',
-    searchQuery: 'Anker SOLIX Solarbank 2 E1600 Pro Balkonkraftwerk Speicher',
+    searchQuery: 'Anker SOLIX Solarbank 2 Plus Balkonkraftwerk Speicher',
     badge: 'All-in-One Empfehlung',
     badgeColor: 'emerald',
   },
@@ -48,7 +48,7 @@ const SPEICHER: SpeicherProdukt[] = [
     name: 'Growatt NOAH 2000',
     kapazitaet: '2.048 Wh (bis 8,2 kWh erweiterbar)',
     wechselrichter: 'Extern (zwischen Modul & Inverter)',
-    preis: 'ca. 699 – 899 €',
+    preis: 'ca. 379 – 549 €',
     highlights: [
       'IP66 wetterfest — dauerhafter Außeneinsatz möglich',
       'Integrierte Akkuheizung für Winterbetrieb bis –20 °C',
@@ -68,7 +68,7 @@ const SPEICHER: SpeicherProdukt[] = [
     id: 'ecoflow-powerstream-delta2max',
     name: 'EcoFlow PowerStream 800W + DELTA 2 Max',
     kapazitaet: '2.048 Wh (bis 6,1 kWh erweiterbar)',
-    wechselrichter: 'PowerStream 800W (seperater Inverter)',
+    wechselrichter: 'PowerStream 800W (separater Inverter)',
     preis: 'ca. 999 – 1.390 €',
     highlights: [
       'Doppelfunktion: Balkonspeicher + Notstrom-Powerstation (2.400 W)',
@@ -79,7 +79,7 @@ const SPEICHER: SpeicherProdukt[] = [
       'Teuerste Option im Vergleich',
       'Powerstation ist kein wetterfestes Außengerät',
     ],
-    asin: 'B0FJRXF19P',
+    asin: undefined,
     searchQuery: 'EcoFlow PowerStream 800W DELTA 2 Max Balkonkraftwerk',
     badge: 'Notstrom inklusive',
     badgeColor: 'amber',

@@ -44,11 +44,11 @@ export interface UnifiedProduct {
   efficiency?: string;
   cellTechnology?: string;
   
-  // Transparente Preis- & Marktangaben
-  priceRange: string;         // z.B. "ca. 330 – 390 € *"
-  priceType: PriceType;
-  priceReferenceDate: string; // z.B. "Unverbindlicher Marktpreis-Richtwert (Stand: Oktober 2026)"
-  priceLastChecked: string;   // ISO-Datum YYYY-MM-DD
+  // Transparente Preis- & Marktangaben (optional, wenn kein unabhängiger Richtwert vorliegt)
+  priceRange?: string;         // z.B. "ca. 330 – 390 € *"
+  priceType?: PriceType;
+  priceReferenceDate?: string; // z.B. "Unverbindlicher Marktpreis-Richtwert (Stand: Oktober 2026)"
+  priceLastChecked?: string;   // ISO-Datum YYYY-MM-DD
   
   // Datenqualität & Prüfstatus
   verificationStatus: VerificationStatus;
@@ -560,6 +560,732 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     amazonSearchQuery: 'Shelly Pro 3EM Energiemessgerät Hutschiene',
     asin: 'B0G14VF9TL',
     affiliateUrl: getAmazonDirectUrl('B0G14VF9TL', 'Shelly Pro 3EM Energiemessgerät Hutschiene')
+  },
+
+  // --- 6. ERWEITERTE SPEICHERSYSTEME & ZUSATZAKKUS ---
+  {
+    id: 'anker-solix-solarbank-2-pro',
+    name: 'Anker SOLIX Solarbank 2 E1600 Pro Speicher',
+    brand: 'anker',
+    brandName: 'Anker SOLIX',
+    category: 'storage_system',
+    categoryLabel: 'Balkon-Speicher (All-in-One)',
+    shortDesc: 'All-in-One Speichersystem mit 1,6 kWh LiFePO4-Kapazität, 4 separaten MPPT-Eingängen (2.400 Wp) und 800W AC-Ausgang.',
+    specs: [
+      '1.600 Wh LiFePO4 Basiskapazität (modular erweiterbar bis 9,6 kWh)',
+      '4 unabhängige MPPT-Tracker für bis zu 2.400 Wp Modulleistung',
+      'Integrierter 800W Mikrowechselrichter & 1.000W Notstromsteckdose am Gerät',
+      'Herstellergarantie: 6.000 Ladezyklen (10 Jahre Herstellergarantie)'
+    ],
+    capacityKwh: '1,6 kWh (bis 9,6 kWh erweiterbar)',
+    acPowerWatts: '800 W AC Einspeisung / 1.000 W Notstrom',
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'Anker SOLIX Solarbank 2 Pro Datenblatt (A17C1 Pro)',
+    datasheetUrl: 'https://www.anker.com',
+    lastVerified: '2026-10-01',
+    warranty: 'Herstellergarantie: 10 Jahre Herstellergarantie',
+    technicalBadges: ['4x MPPT integriert', '2.400W Solareingang', 'LiFePO4 6000 Zyklen'],
+    compatibility: {
+      requiresMasterSystem: false,
+      gridNorm: 'VDE-AR-N 4105 zertifiziert mit integriertem Relais',
+      solarPackage1Compliant: true,
+      plugType: 'Schuko-Netzstecker'
+    },
+    amazonSearchQuery: 'Anker SOLIX Solarbank 2 Pro Balkonkraftwerk Speicher',
+    asin: undefined,
+    affiliateUrl: getAmazonDirectUrl(undefined, 'Anker SOLIX Solarbank 2 Pro Balkonkraftwerk Speicher')
+  },
+  {
+    id: 'zendure-solarflow-hyper-2000',
+    name: 'Zendure SolarFlow Hyper 2000 Bi-direktional',
+    brand: 'zendure',
+    brandName: 'Zendure',
+    category: 'storage_system',
+    categoryLabel: 'Balkon-Speicher (All-in-One)',
+    shortDesc: 'Bi-direktionaler Hybrid-Balkonspeicher mit bis zu 1.800W MPPT-Eingang und dynamischer Phasenregelung über ZenLink.',
+    specs: [
+      'Erfordert Zendure AB1000 oder AB2000 LiFePO4 Zusatzbatterien',
+      '4 integrierte MPPT-Eingänge (bis 1.800 Wp Solareingang)',
+      '1.200W AC-Lade-/Einspeiseleistung (auf 800W drosselbar)',
+      'ZenLink Multi-Set Vernetzung für mehrere Phasen'
+    ],
+    acPowerWatts: '800 W AC (Drosselbar gem. Solarpaket I)',
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'Zendure SolarFlow Hyper 2000 Technisches Datenblatt',
+    datasheetUrl: 'https://de.zendure.com',
+    lastVerified: '2026-10-01',
+    warranty: 'Herstellergarantie: 10 Jahre Herstellergarantie',
+    technicalBadges: ['Bi-direktional', '4x MPPT', 'ZenLink Multi-Set'],
+    compatibility: {
+      requiresMasterSystem: false,
+      gridNorm: 'VDE-AR-N 4105 zertifiziert',
+      solarPackage1Compliant: true,
+      plugType: 'Schukostecker'
+    },
+    amazonSearchQuery: 'Zendure SolarFlow Hyper 2000 Balkonkraftwerk Speicher',
+    asin: undefined,
+    affiliateUrl: getAmazonDirectUrl(undefined, 'Zendure SolarFlow Hyper 2000 Balkonkraftwerk Speicher')
+  },
+  {
+    id: 'zendure-solarflow-hub2000-set',
+    name: 'Zendure SolarFlow Hub 2000 mit AB2000 Speicher-Set',
+    brand: 'zendure',
+    brandName: 'Zendure',
+    category: 'storage_system',
+    categoryLabel: 'Balkon-Speicher',
+    shortDesc: 'Speichersystem mit PV-Hub 2000 und 1.920 Wh AB2000 LiFePO4 Akku zur Zwischenschaltung vor Mikrowechselrichtern.',
+    specs: [
+      '1.920 Wh LiFePO4 Kapazität (erweiterbar auf bis zu 7.680 Wh)',
+      '2x MPPT Eingänge (bis 1.800W PV-Eingang) mit MC4-Anschlüssen',
+      'Integrierte Selbsterwärmung der Batteriezellen für Winterbetrieb bis -20 °C',
+      'Kompatibel mit Hoymiles, APsystems, Deye und gängigen Mikrowechselrichtern'
+    ],
+    capacityKwh: '1,92 kWh (bis 7,68 kWh)',
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'Zendure SolarFlow Systemdokumentation & TÜV Zertifikat',
+    datasheetUrl: 'https://de.zendure.com',
+    lastVerified: '2026-10-01',
+    warranty: 'Herstellergarantie: 10 Jahre Herstellergarantie auf AB2000',
+    technicalBadges: ['Winterfest bis -20°C', 'MC4-Universal', 'LiFePO4 6000 Zyklen'],
+    compatibility: {
+      requiresMasterSystem: false,
+      gridNorm: 'Wird vor den Mikrowechselrichter geschaltet (MC4 Standard)',
+      solarPackage1Compliant: true,
+      plugType: 'MC4 Standardkabel'
+    },
+    amazonSearchQuery: 'Zendure SolarFlow Hub 2000 AB2000 Balkonkraftwerk Speicher',
+    asin: undefined,
+    affiliateUrl: getAmazonDirectUrl(undefined, 'Zendure SolarFlow Hub 2000 AB2000 Balkonkraftwerk Speicher')
+  },
+  {
+    id: 'zendure-ab2000-expansion',
+    name: 'Zendure Zusatz-Akku AB2000 (1.920 Wh)',
+    brand: 'zendure',
+    brandName: 'Zendure',
+    category: 'storage_expansion',
+    categoryLabel: 'Erweiterungs-Akku',
+    shortDesc: 'Erweiterungsbatterie mit 1.920 Wh LiFePO4 und integrierter Zellheizung für Zendure SolarFlow Hub 1200/2000 und Hyper 2000.',
+    specs: [
+      '1.920 Wh LiFePO4 Zusatzkapazität (stapelbar bis 4 Einheiten)',
+      'Integrierte Heizfolie für unterbrechungsfreies Laden bis -20 °C',
+      'Direkte Steckverbindung ohne Kabelsalat'
+    ],
+    capacityKwh: '1,92 kWh',
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'Zendure AB2000 Datenblatt & Prüfbericht',
+    datasheetUrl: 'https://de.zendure.com',
+    lastVerified: '2026-10-01',
+    warranty: 'Herstellergarantie: 10 Jahre Herstellergarantie',
+    technicalBadges: ['Zellheizung -20°C', 'LiFePO4 6000 Zyklen', 'IP65 Wetterfest'],
+    compatibility: {
+      requiresMasterSystem: true,
+      masterSystemNote: 'Reine Zusatzbatterie ohne eigenen Wechselrichter. Benötigt zwingend Zendure Hub 1200, Hub 2000 oder Hyper 2000!',
+      gridNorm: 'Über Basiseinheit',
+      solarPackage1Compliant: true,
+      plugType: 'Zendure Systemanschluss'
+    },
+    amazonSearchQuery: 'Zendure AB2000 Zusatzakku Erweiterungsbatterie',
+    asin: undefined,
+    affiliateUrl: getAmazonDirectUrl(undefined, 'Zendure AB2000 Zusatzakku Erweiterungsbatterie')
+  },
+  {
+    id: 'growatt-noah-zusatzmodul',
+    name: 'Growatt NOAH 2000 Stapel-Erweiterung (2.048 Wh)',
+    brand: 'growatt',
+    brandName: 'Growatt Solar',
+    category: 'storage_expansion',
+    categoryLabel: 'Erweiterungs-Akku',
+    shortDesc: 'Zusätzliches LiFePO4-Speichermodul zur Kapazitätserweiterung eines bestehenden Growatt NOAH 2000 Systems auf bis zu 8,19 kWh.',
+    specs: [
+      '2.048 Wh LiFePO4 Zusatzkapazität (bis zu 4 Module stapelbar)',
+      'Schutzart IP66 für dauerhafte Außenaufstellung',
+      'Integrierte Vorwärmung für kalte Wintertage bis -20 °C'
+    ],
+    capacityKwh: '2,05 kWh',
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'Growatt NOAH 2000 Systemhandbuch & Kaskadierungsanleitung',
+    datasheetUrl: 'https://www.growatt.com',
+    lastVerified: '2026-10-01',
+    warranty: 'Herstellergarantie: 10 Jahre Herstellergarantie',
+    technicalBadges: ['IP66 wetterfest', 'Winter-Akkuheizung', 'Stapelbar bis 8,2 kWh'],
+    compatibility: {
+      requiresMasterSystem: true,
+      masterSystemNote: 'Hinweis: Dies ist ein baugleiches NOAH 2000 Speicherelement zur System-Stapelung. Zur Einspeisung ins Hausnetz ist ein Mikrowechselrichter (z. B. Hoymiles oder APsystems) erforderlich.',
+      gridNorm: 'Über Mikrowechselrichter (VDE-AR-N 4105)',
+      solarPackage1Compliant: true,
+      plugType: 'System-Steckverbindung'
+    },
+    amazonSearchQuery: 'Growatt NOAH 2000 Batteriespeicher Zusatzmodul LiFePO4',
+    asin: undefined,
+    affiliateUrl: getAmazonDirectUrl(undefined, 'Growatt NOAH 2000 Batteriespeicher Zusatzmodul LiFePO4')
+  },
+  {
+    id: 'hoymiles-ms-a2-speicher',
+    name: 'Hoymiles MS-A2 AC-Speicher All-in-One (2,24 kWh)',
+    brand: 'hoymiles',
+    brandName: 'Hoymiles',
+    category: 'storage_system',
+    categoryLabel: 'Balkon-Speicher (All-in-One)',
+    shortDesc: 'AC-gekoppeltes All-in-One Speichersystem zur einfachen Nachrüstung an beliebigen bestehenden Balkonkraftwerken über die Steckdose.',
+    specs: [
+      '2.240 Wh LiFePO4 Kapazität (erweiterbar bis 4,48 kWh)',
+      'AC-gekoppelt: Keine PV-Kabel zum Speicher nötig (lädt direkt aus dem Hausnetz)',
+      '800W Einspeise- & Ladeleistung mit integriertem NA-Schutz nach VDE 4105',
+      'Integrierte USV-Notstromsteckdose mit <10ms Umschaltzeit'
+    ],
+    capacityKwh: '2,24 kWh',
+    acPowerWatts: '800 W AC',
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'Hoymiles MS-A2 Datenblatt & Benutzerhandbuch',
+    datasheetUrl: 'https://www.hoymiles.com',
+    lastVerified: '2026-10-01',
+    warranty: 'Herstellergarantie: 10 Jahre Herstellergarantie',
+    technicalBadges: ['AC-gekoppelt', 'USV Notstrom <10ms', 'Universelle Nachrüstung'],
+    compatibility: {
+      requiresMasterSystem: false,
+      gridNorm: 'VDE-AR-N 4105:2018-11 & DIN EN 50549-1 zertifiziert',
+      solarPackage1Compliant: true,
+      plugType: 'Schuko-Netzkabel beiliegend'
+    },
+    amazonSearchQuery: 'Hoymiles MS-A2 Balkonkraftwerk Speicher AC gekoppelt',
+    asin: undefined,
+    affiliateUrl: getAmazonDirectUrl(undefined, 'Hoymiles MS-A2 Balkonkraftwerk Speicher AC gekoppelt')
+  },
+
+  // --- 7. ERWEITERTE WECHSELRICHTER ---
+  {
+    id: 'deye-sun-m80g4-inverter',
+    name: 'Deye SUN-M80G4-EU-Q0 Mikrowechselrichter (Einzelgerät)',
+    brand: 'deye',
+    brandName: 'Deye Solar',
+    category: 'inverter',
+    categoryLabel: 'Mikrowechselrichter',
+    shortDesc: '800W Mikrowechselrichter der 4. Generation mit 2 unabhängigen MPPTs, integriertem WLAN und mechanischem NA-Relais.',
+    specs: [
+      '800 W AC Nennausgangsleistung',
+      '2 unabhängige MPPTs (für Module bis je 500+ Wp)',
+      'Integriertes Relais zertifiziert nach VDE-AR-N 4105',
+      'WLAN integriert für Deye Cloud Monitoring'
+    ],
+    acPowerWatts: '800 W AC',
+    efficiency: '96,5 % Wirkungsgrad',
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'Deye SUN-M80G4-EU-Q0 Datenblatt & Einheitenzertifikat',
+    datasheetUrl: 'https://www.deyeinverter.com',
+    lastVerified: '2026-10-01',
+    warranty: 'Herstellergarantie: 10 Jahre Herstellergarantie',
+    technicalBadges: ['VDE 4105 zertifiziert', '2x MPPT', 'NA-Relais integriert'],
+    compatibility: {
+      requiresMasterSystem: false,
+      gridNorm: 'VDE-AR-N 4105:2018-11 zertifiziert',
+      solarPackage1Compliant: true,
+      plugType: 'Betteri BC01 oder Schukokabel'
+    },
+    amazonSearchQuery: 'Deye SUN-M80G4-EU-Q0 Mikrowechselrichter 800W',
+    asin: undefined,
+    affiliateUrl: getAmazonDirectUrl(undefined, 'Deye SUN-M80G4-EU-Q0 Mikrowechselrichter 800W')
+  },
+  {
+    id: 'hoymiles-hms-1600-4t',
+    name: 'Hoymiles HMS-1600-4T Mikrowechselrichter (4 MPPT)',
+    brand: 'hoymiles',
+    brandName: 'Hoymiles',
+    category: 'inverter',
+    categoryLabel: 'Mikrowechselrichter',
+    shortDesc: 'Hochleistungs-Mikrowechselrichter mit 4 unabhängigen MPPTs für 4 Solarmodule — ideal für Ausrichtungen auf Ost/West und Süd.',
+    specs: [
+      '1.600 W Spitzenleistung (für Großanlagen oder drosselbar auf 800W)',
+      '4 unabhängige MPPT-Tracker (1 Tracker pro Solarmodul)',
+      'Sub-1G Funkübertragung (DTU-S erfordert)',
+      'Spitzenwirkungsgrad 96,7 %'
+    ],
+    acPowerWatts: '1.600 W AC (Drosselbar)',
+    efficiency: '96,7 % Wirkungsgrad',
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'Hoymiles HMS-1600-4T Technisches Datenblatt',
+    datasheetUrl: 'https://www.hoymiles.com',
+    lastVerified: '2026-10-01',
+    warranty: 'Herstellergarantie: 12 Jahre Herstellergarantie',
+    technicalBadges: ['4 separate MPPT', 'Für 4 Module', 'VDE 4105 zertifiziert'],
+    compatibility: {
+      requiresMasterSystem: false,
+      masterSystemNote: 'Hinweis: Für den ungedrosselten Betrieb als Stecker-Solargerät gilt in Deutschland die 800W-Grenze. Drosselung über Fachbetrieb oder DTU möglich.',
+      gridNorm: 'VDE-AR-N 4105:2018-11 & DIN EN 50549-1',
+      solarPackage1Compliant: true,
+      plugType: 'Betteri BC01 Anschluss'
+    },
+    amazonSearchQuery: 'Hoymiles HMS-1600-4T Mikrowechselrichter 4 MPPT',
+    asin: undefined,
+    affiliateUrl: getAmazonDirectUrl(undefined, 'Hoymiles HMS-1600-4T Mikrowechselrichter 4 MPPT')
+  },
+
+  // --- 8. ERWEITERTE KOMPLETTSETS ---
+  {
+    id: 'set-apsystems-ez1-trina',
+    name: '890Wp Komplettset mit APsystems EZ1-M (20A) & Trina Glas-Glas',
+    brand: 'apsystems',
+    brandName: 'APsystems / Trina Solar',
+    category: 'complete_set',
+    categoryLabel: '800W Komplettset',
+    shortDesc: 'Leistungsstarkes Stecker-Solargerät mit 2x 445Wp Trina Bifazialmodulen und dem 20A-fähigen APsystems EZ1-M Inverter.',
+    specs: [
+      '2x 445 Wp Trina Vertex S+ Bifazial Glas-Glas Module',
+      'APsystems EZ1-M Mikrowechselrichter (800W / 20A MPPTs)',
+      'Integriertes Bluetooth und WLAN für lokale Ertragskontrolle',
+      '5m Schuko-Anschlussleitung beiliegend'
+    ],
+    powerWp: '890 Wp (2x 445 Wp)',
+    acPowerWatts: '800 W AC',
+    efficiency: '22,3 % Modulwirkungsgrad',
+    cellTechnology: 'N-Type TOPCon Bifazial',
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'APsystems EZ1-M Konformität & Trina Solar Spezifikation',
+    datasheetUrl: 'https://emea.apsystems.com',
+    lastVerified: '2026-10-01',
+    warranty: 'Herstellergarantie: 25 J. Modul / 12 J. Inverter',
+    technicalBadges: ['20A Großzellen MPPT', 'VDE-AR-N 4105', 'Bifazial Glas-Glas'],
+    compatibility: {
+      requiresMasterSystem: false,
+      gridNorm: 'VDE-AR-N 4105:2018-11 zertifiziert',
+      solarPackage1Compliant: true,
+      plugType: 'Schuko-Anschlusskabel beiliegend'
+    },
+    amazonSearchQuery: 'Balkonkraftwerk 800W APsystems EZ1-M Trina Glas Glas Komplettset',
+    asin: undefined,
+    affiliateUrl: getAmazonDirectUrl(undefined, 'Balkonkraftwerk 800W APsystems EZ1-M Trina Glas Glas Komplettset')
+  },
+  {
+    id: 'set-anker-solix-all-in-one',
+    name: 'Anker SOLIX All-in-One Solarbank 2 Set (Paneele + Speicher)',
+    brand: 'anker',
+    brandName: 'Anker SOLIX',
+    category: 'complete_set',
+    categoryLabel: 'Balkonkraftwerk mit Speicher',
+    shortDesc: 'Vollständiges Komplettpaket aus 2x bifazialen Solarmodulen und der Anker Solarbank 2 mit integriertem Mikrowechselrichter.',
+    specs: [
+      '2x Hocheffizienz-Solarmodule (Glas-Glas bifazial)',
+      'Anker Solarbank 2 mit 1,6 kWh LiFePO4 Speicher & 800W Einspeisung',
+      'Plug & Play Direktanschluss an die Haushaltssteckdose',
+      'Anker App Monitoring in Echtzeit'
+    ],
+    powerWp: 'ca. 880 – 1.000 Wp',
+    capacityKwh: '1,6 kWh',
+    acPowerWatts: '800 W AC',
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'Anker SOLIX Balkonkraftwerk Komplettsystem Dokumentation',
+    datasheetUrl: 'https://www.anker.com',
+    lastVerified: '2026-10-01',
+    warranty: 'Herstellergarantie: 10 Jahre Herstellergarantie auf System',
+    technicalBadges: ['All-in-One Paket', 'LiFePO4 Speicher', 'Solarpaket I konform'],
+    compatibility: {
+      requiresMasterSystem: false,
+      gridNorm: 'VDE-AR-N 4105 zertifiziert mit integriertem Relais',
+      solarPackage1Compliant: true,
+      plugType: 'Schukostecker'
+    },
+    amazonSearchQuery: 'Anker SOLIX Balkonkraftwerk Komplettset mit Speicher 800W',
+    asin: undefined,
+    affiliateUrl: getAmazonDirectUrl(undefined, 'Anker SOLIX Balkonkraftwerk Komplettset mit Speicher 800W')
+  },
+
+  // --- 9. ERWEITERTE ENERGIEMESSTECHNIK & SMARTE STECKDOSEN ---
+  {
+    id: 'shelly-plus-1pm',
+    name: 'Shelly Plus 1PM WLAN & Bluetooth Relais (16A)',
+    brand: 'shelly',
+    brandName: 'Shelly',
+    category: 'metering',
+    categoryLabel: 'Smart Metering',
+    shortDesc: 'Unterputz-Schaltrelais mit präziser Leistungsmessung zur Erfassung der Einspeisung von Balkonkraftwerken.',
+    specs: [
+      'Misst Wirkleistung und kumulierten Energieertrag (bis 16A / 3.500W)',
+      'WLAN & Bluetooth integriert, keine separate Bridge erforderlich',
+      'Überlast-, Überspannungs- und Übertemperaturschutz integriert',
+      'Offene REST-API, MQTT und Home Assistant Unterstützung'
+    ],
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'Shelly Plus 1PM Datenblatt & CE Zertifikat',
+    datasheetUrl: 'https://www.shelly.com',
+    lastVerified: '2026-10-01',
+    warranty: 'Herstellergarantie: 2 Jahre Herstellergarantie',
+    technicalBadges: ['16A Leistungsmessung', 'WLAN & Bluetooth', 'CE zertifiziert'],
+    compatibility: {
+      requiresMasterSystem: false,
+      masterSystemNote: 'Einbau in Unterputzdose hinter Steckdose/Schalter durch elektrotechnisch unterwiesene Person empfohlen.',
+      gridNorm: 'CE & DIN EN 60669 konform',
+      solarPackage1Compliant: true,
+      plugType: 'Schraubklemmen'
+    },
+    amazonSearchQuery: 'Shelly Plus 1PM Relais Leistungsmessung Balkonkraftwerk',
+    asin: 'B0965J4HT5',
+    affiliateUrl: getAmazonDirectUrl('B0965J4HT5', 'Shelly Plus 1PM Relais Leistungsmessung Balkonkraftwerk')
+  },
+  {
+    id: 'ecoflow-smart-plug',
+    name: 'EcoFlow Smart Plug WLAN Zwischenstecker',
+    brand: 'ecoflow',
+    brandName: 'EcoFlow',
+    category: 'metering',
+    categoryLabel: 'Smart Plug',
+    shortDesc: 'Intelligente Zwischensteckdose zur Verbrauchsmessung und automatischen Nulleinspeise-Steuerung für EcoFlow PowerStream.',
+    specs: [
+      'Echtzeit-Verbrauchsmessung haushaltsüblicher Geräte',
+      'Funkübermittlung an den EcoFlow PowerStream zur dynamischen Leistungsanpassung',
+      'Max. Belastbarkeit 2.500 W (10A)',
+      'Schuko-Zwischenstecker für Plug & Play Montage'
+    ],
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'EcoFlow Smart Plug Benutzerhandbuch & Spezifikationsblatt',
+    datasheetUrl: 'https://www.ecoflow.com',
+    lastVerified: '2026-10-01',
+    warranty: 'Herstellergarantie: 2 Jahre Herstellergarantie',
+    technicalBadges: ['Nulleinspeise-Sensor', 'Plug & Play', 'Echtzeit-Messung'],
+    compatibility: {
+      requiresMasterSystem: false,
+      masterSystemNote: 'Optimiert für das EcoFlow PowerStream Speichersystem zur automatischen Deckung des aktuellen Bedarfs.',
+      gridNorm: 'CE konform',
+      solarPackage1Compliant: true,
+      plugType: 'Schuko Zwischenstecker'
+    },
+    amazonSearchQuery: 'EcoFlow Smart Plug Zwischenstecker PowerStream',
+    asin: 'B0C2CQLPP1',
+    affiliateUrl: getAmazonDirectUrl('B0C2CQLPP1', 'EcoFlow Smart Plug Zwischenstecker PowerStream')
+  },
+  {
+    id: 'shelly-plus-plug-s',
+    name: 'Shelly Plus Plug S Smarte WLAN-Steckdose (12A)',
+    brand: 'shelly',
+    brandName: 'Shelly',
+    category: 'metering',
+    categoryLabel: 'Smart Plug',
+    shortDesc: 'Zwischensteckdose mit mehrfarbigem LED-Ring zur Verbrauchsanzeige und exakter Strommessung für Stecker-Solargeräte.',
+    specs: [
+      'Misst Ertrag oder Verbrauch bis zu 2.500 W (12A Dauerlast)',
+      'Farbiger LED-Ring visualisiert aktuellen Leistungsfluss in Echtzeit',
+      'WLAN integriert für direkte Einbindung in Apps und Smarthome-Systeme'
+    ],
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'Shelly Plus Plug S Datenblatt & Handbuch',
+    datasheetUrl: 'https://www.shelly.com',
+    lastVerified: '2026-10-01',
+    warranty: 'Herstellergarantie: 2 Jahre Herstellergarantie',
+    technicalBadges: ['LED Leistungsanzeige', 'Plug & Play', '12A Belastbarkeit'],
+    compatibility: {
+      requiresMasterSystem: false,
+      gridNorm: 'CE konform',
+      solarPackage1Compliant: true,
+      plugType: 'Schuko Zwischenstecker'
+    },
+    amazonSearchQuery: 'Shelly Plus Plug S smarte Steckdose Leistungsmessung',
+    asin: undefined,
+    affiliateUrl: getAmazonDirectUrl(undefined, 'Shelly Plus Plug S smarte Steckdose Leistungsmessung')
+  },
+  {
+    id: 'anker-solix-smart-meter',
+    name: 'Anker SOLIX Smart Meter (3-Phasen Zähler)',
+    brand: 'anker',
+    brandName: 'Anker SOLIX',
+    category: 'metering',
+    categoryLabel: 'Smart Metering',
+    shortDesc: 'Dreiphasiger Hutschienenzähler mit Klappstromwandlern für phasengenaue Nulleinspeisung der Anker Solarbank 2.',
+    specs: [
+      'Phasensaldierende Echtzeitmessung über 3 Klapp-Stromwandler (CT)',
+      'Reaktionszeit < 3 Sekunden zur exakten Anpassung der Solarbank-Einspeisung',
+      'WLAN & RS485-Schnittstelle zur Einbindung in den Zählerschrank',
+      'DIN-Hutschienenmontage'
+    ],
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'Anker SOLIX Smart Meter Installationsanleitung (A17X7)',
+    datasheetUrl: 'https://www.anker.com',
+    lastVerified: '2026-10-01',
+    warranty: 'Herstellergarantie: 2 Jahre Herstellergarantie',
+    technicalBadges: ['Klappstromwandler', 'Nulleinspeisung <3s', 'DIN-Hutschiene'],
+    compatibility: {
+      requiresMasterSystem: false,
+      masterSystemNote: 'Einbau im Zählerschrank darf ausschließlich durch eine eingetragene Elektrofachkraft nach NAV § 13 erfolgen.',
+      gridNorm: 'CE & DIN EN 61010-1 zertifiziert',
+      solarPackage1Compliant: true,
+      plugType: 'Hutschienen-Klemmen'
+    },
+    amazonSearchQuery: 'Anker SOLIX Smart Meter Dreiphasen Zähler',
+    asin: undefined,
+    affiliateUrl: getAmazonDirectUrl(undefined, 'Anker SOLIX Smart Meter Dreiphasen Zähler')
+  },
+  {
+    id: 'zendure-satellite-plug',
+    name: 'Zendure Satelliten-Steckdose Smart Plug',
+    brand: 'zendure',
+    brandName: 'Zendure',
+    category: 'metering',
+    categoryLabel: 'Smart Plug',
+    shortDesc: 'Smarter Zwischenstecker zur Kommunikation mit Zendure SolarFlow Systemen für bedarfsgesteuerte Einspeisung.',
+    specs: [
+      'Erfasst den Momentanverbrauch einzelner Verbraucher (z. B. Kühlschrank)',
+      'Signalisiert dem SolarFlow Hub den exakten Leistungsbedarf',
+      'Schuko-Zwischenstecker mit Überlastschutz'
+    ],
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'Zendure Satellite Plug Spezifikation',
+    datasheetUrl: 'https://de.zendure.com',
+    lastVerified: '2026-10-01',
+    warranty: 'Herstellergarantie: 2 Jahre Herstellergarantie',
+    technicalBadges: ['SolarFlow Nulleinspeisung', 'Plug & Play', 'Echtzeit-Messung'],
+    compatibility: {
+      requiresMasterSystem: false,
+      masterSystemNote: 'Funktioniert nahtlos mit Zendure SolarFlow Hub 1200, Hub 2000 und Hyper 2000.',
+      gridNorm: 'CE konform',
+      solarPackage1Compliant: true,
+      plugType: 'Schuko Zwischenstecker'
+    },
+    amazonSearchQuery: 'Zendure Satellite Plug smarte Steckdose SolarFlow',
+    asin: undefined,
+    affiliateUrl: getAmazonDirectUrl(undefined, 'Zendure Satellite Plug smarte Steckdose SolarFlow')
+  },
+
+  // --- 10. ERWEITERTE MONTAGESYSTEME & ZUBEHÖR ---
+  {
+    id: 'halterung-flachdach-alu',
+    name: 'Flachdach- & Boden-Aufständerung Alu (10° – 30° einstellbar)',
+    brand: 'universal',
+    brandName: 'Montagesysteme',
+    category: 'mounting',
+    categoryLabel: 'Montagesystem',
+    shortDesc: 'Verstellbare Aufständerungsdreiecke aus witterungsbeständigem Aluminium für Flachdächer, Garagen, Terrassen und Garten.',
+    specs: [
+      'Aluminiumlegierung AL6005-T5 mit Edelstahl-Schraubverbindungen V2A',
+      'Neigungswinkel flexibel zwischen 10° und 30° justierbar für maximalen Ertrag',
+      'Geeignet für Standardmodule mit Rahmenhöhe 30mm und 35mm',
+      'Ballastierbar mit Gehwegplatten (keine Dachdurchdringung nötig)'
+    ],
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'Hersteller-Statischer Nachweis nach Eurocode 9 & Materialprüfbericht',
+    lastVerified: '2026-10-01',
+    warranty: 'Herstellergarantie: 10 Jahre Materialgarantie',
+    technicalBadges: ['Alu AL6005-T5', '10-30° verstellbar', 'Ballastierbar ohne Bohren'],
+    compatibility: {
+      requiresMasterSystem: false,
+      masterSystemNote: 'Auf Flachdächern und Garagen ist auf ausreichende Beschwerung (Ballastierung) gemäß örtlicher Windlastzone zu achten.',
+      gridNorm: 'Eurocode 9 (Aluminiumstrukturen)',
+      solarPackage1Compliant: true,
+      plugType: 'Mechanische Montage'
+    },
+    amazonSearchQuery: 'Balkonkraftwerk Flachdach Halterung verstellbar Aluminium Aufständerung',
+    asin: 'B0BX3KK21Y',
+    affiliateUrl: getAmazonDirectUrl('B0BX3KK21Y', 'Balkonkraftwerk Flachdach Halterung verstellbar Aluminium Aufständerung')
+  },
+  {
+    id: 'halterung-verstaerkt-0-90',
+    name: 'Verstärkte Universal-Aufständerung 0° – 90° (118 cm Profil)',
+    brand: 'universal',
+    brandName: 'Montagesysteme',
+    category: 'mounting',
+    categoryLabel: 'Montagesystem',
+    shortDesc: 'Schwerlast-Montagewinkel mit 118 cm Schienenlänge für große Solarmodule bis 550W an Wand, Boden oder Balkon.',
+    specs: [
+      'Verstärktes Aluminium-C-Profil für breite Solarmodule',
+      'Neigungswinkel von 0° (flach) bis 90° (senkrecht) stufenlos einstellbar',
+      'Inklusive Edelstahlschrauben und Modulklemmen'
+    ],
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'Materialzertifikat AL6005 & Belastungsprüfung',
+    lastVerified: '2026-10-01',
+    warranty: 'Herstellergarantie: 10 Jahre Materialgarantie',
+    technicalBadges: ['0-90° stufenlos', '118 cm Profil', 'Für Großmodule bis 550W'],
+    compatibility: {
+      requiresMasterSystem: false,
+      gridNorm: 'Eurocode 1 & Eurocode 9',
+      solarPackage1Compliant: true,
+      plugType: 'Mechanische Befestigung'
+    },
+    amazonSearchQuery: 'Verstärkte Solarpanel Halterung 118cm Alu Balkonkraftwerk 0-90 Grad',
+    asin: 'B0CWGPV28G',
+    affiliateUrl: getAmazonDirectUrl('B0CWGPV28G', 'Verstärkte Solarpanel Halterung 118cm Alu Balkonkraftwerk 0-90 Grad')
+  },
+  {
+    id: 'halterung-ziegeldach-set',
+    name: 'Ziegeldach-Montageset für 2 Solarmodule (Dachhaken 3-fach verstellbar)',
+    brand: 'universal',
+    brandName: 'Montagesysteme',
+    category: 'mounting',
+    categoryLabel: 'Montagesystem',
+    shortDesc: 'Komplettes Montagesystem für Schrägdächer mit Ziegeldeckung: 4x 3-fach verstellbare Edelstahl-Dachhaken und Aluschienen.',
+    specs: [
+      '4x Dachhaken aus Edelstahl 1.4016 / V2A (3-fach in Höhe und Schenkel verstellbar)',
+      '2x Aluminium-Montageschienen inklusive Schienenverbinder',
+      '4x Endklemmen und 2x Mittelklemmen für 30mm/35mm Modulrahmen',
+      'Inklusive Tellerkopf-Holzbauschrauben zur Verankerung im Dachsparren'
+    ],
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'Statische Typenprüfung Dachhaken & DIN EN 1991-1-3/4',
+    lastVerified: '2026-10-01',
+    warranty: 'Herstellergarantie: 10 Jahre Materialgarantie',
+    technicalBadges: ['Edelstahl Dachhaken', '3-fach verstellbar', 'Schrägdach Ziegel'],
+    compatibility: {
+      requiresMasterSystem: false,
+      masterSystemNote: 'Dachmontage erfordert handwerkliche Fachkenntnisse. Die statische Eignung des Dachstuhls und der Sparren ist vorab sicherzustellen.',
+      gridNorm: 'Statisch ausgelegt nach DIN EN 1991 (Wind- und Schneelasten)',
+      solarPackage1Compliant: true,
+      plugType: 'Dachsparren-Verschraubung'
+    },
+    amazonSearchQuery: 'Ziegeldach Montageset 2 Solarmodule Dachhaken verstellbar Aluminium',
+    asin: undefined,
+    affiliateUrl: getAmazonDirectUrl(undefined, 'Ziegeldach Montageset 2 Solarmodule Dachhaken verstellbar Aluminium')
+  },
+  {
+    id: 'kabel-betteri-bc01-5m',
+    name: 'Avoltik Betteri BC01 Anschlusskabel 5m (Schukostecker)',
+    brand: 'universal',
+    brandName: 'PV-Zubehör',
+    category: 'mounting',
+    categoryLabel: 'PV-Zubehör & Kabel',
+    shortDesc: 'Gummischlauchleitung H07RN-F 3G1,5 mm² mit original Betteri BC01 Buchse zum Anschluss von Mikrowechselrichtern an Schuko.',
+    specs: [
+      '5 Meter hochflexible Gummischlauchleitung H07RN-F 3G1,5 mm²',
+      'Original Betteri BC01 Buchse (IP68) passend für Hoymiles, Deye, APsystems und Envertech',
+      'Vollgummi-Schutzkontaktstecker IP44 für den Außenbereich',
+      'UV-, ozon- und witterungsbeständig nach VDE-Vorschrift'
+    ],
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'Hersteller-Konformitätserklärung & VDE-Prüfzertifikat Leitung',
+    lastVerified: '2026-10-01',
+    warranty: 'Herstellergarantie: 2 Jahre Herstellergarantie',
+    technicalBadges: ['H07RN-F 3G1,5mm²', 'Betteri BC01 IP68', 'VDE zertifiziert'],
+    compatibility: {
+      requiresMasterSystem: false,
+      gridNorm: 'VDE 0282-4 (H07RN-F) & DIN VDE 0620-1 (Schukostecker)',
+      solarPackage1Compliant: true,
+      plugType: 'Betteri BC01 zu Schuko'
+    },
+    amazonSearchQuery: 'Avoltik Betteri BC01 Anschlusskabel 5m Schuko Mikrowechselrichter',
+    asin: 'B0BK1683PR',
+    affiliateUrl: getAmazonDirectUrl('B0BK1683PR', 'Avoltik Betteri BC01 Anschlusskabel 5m Schuko Mikrowechselrichter')
+  },
+  {
+    id: 'kabel-mc4-verlaengerung-5m',
+    name: 'ENERNOVA MC4 Solar-Verlängerungskabel 5m (4 mm² TÜV)',
+    brand: 'universal',
+    brandName: 'PV-Zubehör',
+    category: 'mounting',
+    categoryLabel: 'PV-Zubehör & Kabel',
+    shortDesc: 'Paar vorkonfektionierte Solarkabel (Rot/Schwarz) mit original MC4-kompatiblen Steckern und Buchsen, zertifiziert nach EN 50618.',
+    specs: [
+      '2x 5m Solarkabel mit 4 mm² Leiterquerschnitt (H1Z2Z2-K)',
+      'TÜV-zertifiziert nach DIN EN 50618 für bis zu 1.500 V DC',
+      'Vollvergossene IP67 Steckverbinder mit Verriegelungsschutz',
+      'Temperaturbeständig von -40 °C bis +90 °C'
+    ],
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'TÜV Rheinland Zertifikat nach EN 50618 & ENERNOVA Datenblatt',
+    lastVerified: '2026-10-01',
+    warranty: 'Herstellergarantie: 2 Jahre Herstellergarantie',
+    technicalBadges: ['TÜV EN 50618', '4 mm² H1Z2Z2-K', 'IP67 Wasserdicht'],
+    compatibility: {
+      requiresMasterSystem: false,
+      gridNorm: 'DIN EN 50618 (Solarkabel) & IEC 62852 (Steckverbinder)',
+      solarPackage1Compliant: true,
+      plugType: 'MC4 Standard Stecker & Buchse'
+    },
+    amazonSearchQuery: 'Solarkabel 4mm2 MC4 Verlaengerungskabel 5m TUEV zertifiziert',
+    asin: 'B0CSZ2MB4C',
+    affiliateUrl: getAmazonDirectUrl('B0CSZ2MB4C', 'Solarkabel 4mm2 MC4 Verlaengerungskabel 5m TUEV zertifiziert')
+  },
+  {
+    id: 'stecker-mc4-y-abzweig',
+    name: 'MC4 Y-Abzweigstecker Set (1x M/2xF & 1x F/2xM)',
+    brand: 'universal',
+    brandName: 'PV-Zubehör',
+    category: 'mounting',
+    categoryLabel: 'PV-Zubehör & Kabel',
+    shortDesc: 'Y-Verteilerpaar zur elektrischen Parallelschaltung von zwei Solarmodulen an einem MPPT-Eingang des Mikrowechselrichters.',
+    specs: [
+      '1 Paar Y-Abzweigstecker (1 Stecker auf 2 Buchsen / 1 Buchse auf 2 Stecker)',
+      'Geeignet für Parallelschaltungen zur optimalen Ausnutzung von 800W Inverter-Eingängen',
+      'IP67 wetterfest mit Dichtungsring gegen Feuchtigkeitseintritt',
+      'Max. Strombelastbarkeit bis 30 A'
+    ],
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'Hersteller-Prüfbericht IP67 & CE Konformität',
+    lastVerified: '2026-10-01',
+    warranty: 'Herstellergarantie: 2 Jahre Herstellergarantie',
+    technicalBadges: ['Parallelschaltung', 'IP67 Wetterfest', 'Bis 30A Belastbar'],
+    compatibility: {
+      requiresMasterSystem: false,
+      masterSystemNote: 'Wichtiger Sicherheitshinweis: Bei der Parallelschaltung verdoppelt sich der Eingangsstrom (A). Prüfen Sie vorab, ob der Mikrowechselrichter für den resultierenden Kurzschlussstrom (Isc) der Module ausgelegt ist.',
+      gridNorm: 'IEC 62852 Steckverbinder-Norm',
+      solarPackage1Compliant: true,
+      plugType: 'MC4 Standard Abzweig'
+    },
+    amazonSearchQuery: 'MC4 Y Stecker Abzweigbuchsen Set Parallelschaltung Solarmodule',
+    asin: undefined,
+    affiliateUrl: getAmazonDirectUrl(undefined, 'MC4 Y Stecker Abzweigbuchsen Set Parallelschaltung Solarmodule')
+  },
+
+  // --- 11. ERWEITERTE SOLARMODULE ---
+  {
+    id: 'ja-solar-jam54d40-440',
+    name: 'JA Solar JAM54D40 440Wp Glas-Glas Bifazial Modul',
+    brand: 'jasolar',
+    brandName: 'JA Solar',
+    category: 'module',
+    categoryLabel: 'Solarmodul',
+    shortDesc: 'Bifaziales Doppelglas-Modul mit n-Type DeepBlue 4.0 Pro Zellen für optimierten Ertrag auch bei Schwachlicht.',
+    specs: [
+      '440 Wp Nennleistung bei 22,0 % Modulwirkungsgrad',
+      'Bifaziale Doppelglas-Technologie für zusätzliche Rückseitenerträge',
+      '1,6 mm + 1,6 mm gehärtetes Glas mit Anti-Reflex-Beschichtung',
+      'Niedriger Temperaturkoeffizient von -0,30 %/K'
+    ],
+    powerWp: '440 Wp',
+    efficiency: '22,0 % Wirkungsgrad',
+    cellTechnology: 'N-Type TOPCon Glas-Glas',
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'JA Solar JAM54D40 MB Datenblatt & TÜV Nord Zertifikat',
+    datasheetUrl: 'https://www.jasolar.com',
+    lastVerified: '2026-10-01',
+    warranty: 'Herstellergarantie: 25 Jahre Produkt- / 30 Jahre Leistungsgarantie',
+    technicalBadges: ['Bifazial Glas-Glas', 'N-Type TOPCon', 'TÜV zertifiziert'],
+    compatibility: {
+      requiresMasterSystem: false,
+      gridNorm: 'IEC 61215 / IEC 61730 zertifiziert',
+      solarPackage1Compliant: true,
+      plugType: 'MC4-EVO2 Originalanschluss'
+    },
+    amazonSearchQuery: 'JA Solar JAM54D40 440W Glas Glas Bifazial Solarmodul',
+    asin: undefined,
+    affiliateUrl: getAmazonDirectUrl(undefined, 'JA Solar JAM54D40 440W Glas Glas Bifazial Solarmodul')
+  },
+  {
+    id: 'longi-himo-x6-435',
+    name: 'LONGi Solar Hi-MO X6 Explorer 435Wp Full Black',
+    brand: 'longi',
+    brandName: 'LONGi Solar',
+    category: 'module',
+    categoryLabel: 'Solarmodul',
+    shortDesc: 'Premium Full-Black Solarmodul mit HPBC-Frontkontakt-freier Zelltechnologie für höchste Ästhetik am Balkon.',
+    specs: [
+      '435 Wp Nennleistung bei 22,3 % Wirkungsgrad',
+      'HPBC-Zelltechnologie ohne sichtbare Metallleiterbahnen auf der Frontseite',
+      'Edle homogene Full-Black Optik für sichtbare Balkongeländer und Fassaden',
+      'Hervorragendes Schwachlicht- und Hochtemperaturverhalten'
+    ],
+    powerWp: '435 Wp',
+    efficiency: '22,3 % Wirkungsgrad',
+    cellTechnology: 'HPBC Full-Black',
+    verificationStatus: 'VERIFIED',
+    manufacturerSource: 'LONGi Solar Hi-MO X6 Explorer Datenblatt & IEC Zertifikat',
+    datasheetUrl: 'https://www.longi.com',
+    lastVerified: '2026-10-01',
+    warranty: 'Herstellergarantie: 15 Jahre Produkt- / 25 Jahre lineare Leistungsgarantie',
+    technicalBadges: ['HPBC Full Black', 'Keine Frontgitter', '22,3 % Wirkungsgrad'],
+    compatibility: {
+      requiresMasterSystem: false,
+      gridNorm: 'IEC 61215 / IEC 61730',
+      solarPackage1Compliant: true,
+      plugType: 'MC4 Standard'
+    },
+    amazonSearchQuery: 'LONGi Solar Hi MO X6 435W Full Black Solarmodul',
+    asin: undefined,
+    affiliateUrl: getAmazonDirectUrl(undefined, 'LONGi Solar Hi MO X6 435W Full Black Solarmodul')
   }
 ];
 
