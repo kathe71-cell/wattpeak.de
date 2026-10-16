@@ -47,7 +47,7 @@ export interface UnifiedProduct {
   // Transparente Preis- & Marktangaben
   priceRange: string;         // z.B. "ca. 330 – 390 € *"
   priceType: PriceType;
-  priceReferenceDate: string; // z.B. "Marktpreis-Richtwert Stand: Oktober 2026"
+  priceReferenceDate: string; // z.B. "Unverbindlicher Marktpreis-Richtwert (Stand: Oktober 2026)"
   priceLastChecked: string;   // ISO-Datum YYYY-MM-DD
   
   // Datenqualität & Prüfstatus
@@ -104,7 +104,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     cellTechnology: 'N-Type TOPCon Glas-Glas (2x 1.6 mm)',
     priceRange: 'ca. 330 – 390 € *',
     priceType: 'Marktpreis-Richtwert',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: Oktober 2026',
+    priceReferenceDate: 'Unverbindlicher Marktpreis-Richtwert (Stand: Oktober 2026)',
     priceLastChecked: '2026-10-01',
     verificationStatus: 'VERIFIED',
     manufacturerSource: 'Hoymiles EU Datenblatt HMS-800W-2T & Trina Solar Vertex S+ Spezifikation',
@@ -142,7 +142,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     cellTechnology: 'N-Type TOPCon Glas-Glas',
     priceRange: 'ca. 590 – 690 € *',
     priceType: 'Marktpreis-Richtwert',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: Oktober 2026',
+    priceReferenceDate: 'Unverbindlicher Marktpreis-Richtwert (Stand: Oktober 2026)',
     priceLastChecked: '2026-10-01',
     verificationStatus: 'VERIFIED',
     manufacturerSource: 'Hoymiles Systemauslegung für 4-Modul Parallelschaltung & Trina Datenblatt',
@@ -180,7 +180,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     cellTechnology: 'Monokristallin Half-Cut',
     priceRange: 'ca. 290 – 350 € *',
     priceType: 'Marktpreis-Richtwert',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: Oktober 2026',
+    priceReferenceDate: 'Unverbindlicher Marktpreis-Richtwert (Stand: Oktober 2026)',
     priceLastChecked: '2026-10-01',
     verificationStatus: 'VERIFIED',
     manufacturerSource: 'Deye Inverter Datenblatt SUN-M80G4-EU-Q0 & TÜV Rheinland Zertifikat',
@@ -194,23 +194,23 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       solarPackage1Compliant: true,
       plugType: 'Schukostecker'
     },
-    amazonSearchQuery: 'Deye 800W Balkonkraftwerk Komplettset',
-    asin: 'B0C1WCP6J6',
-    affiliateUrl: getAmazonDirectUrl('B0C1WCP6J6', 'Deye 800W Balkonkraftwerk Komplettset')
+    amazonSearchQuery: 'Deye 800W Balkonkraftwerk Komplettset G4',
+    asin: undefined,
+    affiliateUrl: getAmazonDirectUrl(undefined, 'Deye 800W Balkonkraftwerk Komplettset G4')
   },
 
   // --- 2. SPEICHERSYSTEME & ALL-IN-ONE ---
   {
     id: 'anker-solix-solarbank-2',
-    name: 'Anker SOLIX Solarbank 2 E1600 Pro All-in-One',
+    name: 'Anker SOLIX Solarbank 2 Plus All-in-One Speicher',
     brand: 'anker',
     brandName: 'Anker SOLIX',
     category: 'storage_system',
     categoryLabel: 'Balkon-Speicher (All-in-One)',
-    shortDesc: 'Integriertes LiFePO4-Speichersystem mit 1,6 kWh Akku, 4 integrierten MPPT-Trackern und 800W Netzeinspeisung.',
+    shortDesc: 'Integriertes LiFePO4-Speichersystem mit 1,6 kWh Akku, 2 MPPT-Trackern (1.200W Solareingang) und 800W Netzeinspeisung.',
     specs: [
       '1.600 Wh LiFePO4-Kapazität (modular erweiterbar bis 9,6 kWh)',
-      '4x MPPT integriert – bis zu 2.400 Wp PV-Eingangsleistung direkt anschließbar',
+      '2x MPPT integriert – bis zu 1.200 Wp PV-Eingangsleistung direkt anschließbar',
       'Integrierter 800W Mikrowechselrichter (kein separater Inverter nötig)',
       'Herstellerangabe: 6.000 Zyklen Lebensdauer (SOH >80 %)',
       'Einspeisesteuerung über Smart Meter oder Smart Plugs'
@@ -219,14 +219,14 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     acPowerWatts: '800 W AC integriert',
     priceRange: 'ca. 429 – 699 € *',
     priceType: 'Marktpreis-Richtwert',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: Oktober 2026',
+    priceReferenceDate: 'Unverbindlicher Marktpreis-Richtwert (Stand: Oktober 2026)',
     priceLastChecked: '2026-10-01',
     verificationStatus: 'VERIFIED',
-    manufacturerSource: 'Anker SOLIX Datenblatt Solarbank 2 E1600 Pro (A17C1)',
+    manufacturerSource: 'Anker SOLIX Datenblatt Solarbank 2 E1600 Plus (A17C1)',
     datasheetUrl: 'https://www.anker.com',
     lastVerified: '2026-10-01',
     warranty: 'Herstellergarantie: 10 Jahre Herstellergarantie',
-    technicalBadges: ['All-in-One Lösung', '4x MPPT integriert', 'LiFePO4 6000 Zyklen'],
+    technicalBadges: ['All-in-One Lösung', '2x MPPT integriert', 'LiFePO4 6000 Zyklen'],
     compatibility: {
       requiresMasterSystem: false,
       gridNorm: 'VDE-AR-N 4105 zertifiziert mit integriertem Relais',
@@ -253,7 +253,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     capacityKwh: '1,6 kWh',
     priceRange: 'ca. 549 – 649 € *',
     priceType: 'Marktpreis-Richtwert',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: Oktober 2026',
+    priceReferenceDate: 'Unverbindlicher Marktpreis-Richtwert (Stand: Oktober 2026)',
     priceLastChecked: '2026-10-01',
     verificationStatus: 'VERIFIED',
     manufacturerSource: 'Anker SOLIX Zubehörspezifikation BP1600 (A17C1-Z)',
@@ -269,8 +269,8 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       plugType: 'System-Stapelanschluss'
     },
     amazonSearchQuery: 'Anker SOLIX BP1600 Zusatzakku Erweiterungsbatterie',
-    asin: 'B0FYDVSH2T',
-    affiliateUrl: getAmazonDirectUrl('B0FYDVSH2T', 'Anker SOLIX BP1600 Zusatzakku Erweiterungsbatterie')
+    asin: undefined,
+    affiliateUrl: getAmazonDirectUrl(undefined, 'Anker SOLIX BP1600 Zusatzakku Erweiterungsbatterie')
   },
   {
     id: 'ecoflow-powerstream-delta2max',
@@ -290,7 +290,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     acPowerWatts: '800 W Netzeinspeisung / 2.400 W Notstrom',
     priceRange: 'ca. 999 – 1.390 € *',
     priceType: 'Marktpreis-Richtwert',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: Oktober 2026',
+    priceReferenceDate: 'Unverbindlicher Marktpreis-Richtwert (Stand: Oktober 2026)',
     priceLastChecked: '2026-10-01',
     verificationStatus: 'VERIFIED',
     manufacturerSource: 'EcoFlow PowerStream Handbuch & DELTA 2 Max Datenblatt',
@@ -325,7 +325,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     capacityKwh: '2,05 kWh',
     priceRange: 'ca. 379 – 549 € *',
     priceType: 'Marktpreis-Richtwert',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: Oktober 2026',
+    priceReferenceDate: 'Unverbindlicher Marktpreis-Richtwert (Stand: Oktober 2026)',
     priceLastChecked: '2026-10-01',
     verificationStatus: 'VERIFIED',
     manufacturerSource: 'Growatt NOAH 2000 Datenblatt & Benutzerhandbuch',
@@ -364,7 +364,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     efficiency: '96,7 % Spitzenwirkungsgrad',
     priceRange: 'ca. 119 – 149 € *',
     priceType: 'Marktpreis-Richtwert',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: Oktober 2026',
+    priceReferenceDate: 'Unverbindlicher Marktpreis-Richtwert (Stand: Oktober 2026)',
     priceLastChecked: '2026-10-01',
     verificationStatus: 'VERIFIED',
     manufacturerSource: 'Hoymiles HMS-800W-2T technisches Datenblatt & Einheitenzertifikat',
@@ -400,7 +400,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     efficiency: '97,3 % Wirkungsgrad',
     priceRange: 'ca. 129 – 165 € *',
     priceType: 'Marktpreis-Richtwert',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: Oktober 2026',
+    priceReferenceDate: 'Unverbindlicher Marktpreis-Richtwert (Stand: Oktober 2026)',
     priceLastChecked: '2026-10-01',
     verificationStatus: 'VERIFIED',
     manufacturerSource: 'APsystems EZ1-M Spezifikationsblatt & EU-Konformitätserklärung',
@@ -439,7 +439,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     cellTechnology: 'N-Type i-TOPCon Glas-Glas',
     priceRange: 'ca. 75 – 99 € * (Einzelmodul)',
     priceType: 'Marktpreis-Richtwert',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: Oktober 2026',
+    priceReferenceDate: 'Unverbindlicher Marktpreis-Richtwert (Stand: Oktober 2026)',
     priceLastChecked: '2026-10-01',
     verificationStatus: 'VERIFIED',
     manufacturerSource: 'Trina Solar Vertex S+ TSM-NEG9R.28 Datenblatt (IEC zertifiziert)',
@@ -475,7 +475,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     cellTechnology: 'N-Type TOPCon',
     priceRange: 'ca. 70 – 95 € *',
     priceType: 'Marktpreis-Richtwert',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: Oktober 2026',
+    priceReferenceDate: 'Unverbindlicher Marktpreis-Richtwert (Stand: Oktober 2026)',
     priceLastChecked: '2026-10-01',
     verificationStatus: 'VERIFIED',
     manufacturerSource: 'Jinko Solar Tiger Neo JKM440N-54HL4R-V Spezifikationsblatt',
@@ -490,8 +490,8 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       plugType: 'MC4 Standard'
     },
     amazonSearchQuery: 'Jinko Solar Tiger Neo 440Wp N-Type',
-    asin: 'B0CNPMW5XR',
-    affiliateUrl: getAmazonDirectUrl('B0CNPMW5XR', 'Jinko Solar Tiger Neo 440Wp N-Type')
+    asin: undefined,
+    affiliateUrl: getAmazonDirectUrl(undefined, 'Jinko Solar Tiger Neo 440Wp N-Type')
   },
 
   // --- 5. MONTAGESYSTEME & ZUBEHÖR ---
@@ -510,7 +510,7 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     ],
     priceRange: 'ca. 49 – 79 € *',
     priceType: 'Marktpreis-Richtwert',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: Oktober 2026',
+    priceReferenceDate: 'Unverbindlicher Marktpreis-Richtwert (Stand: Oktober 2026)',
     priceLastChecked: '2026-10-01',
     verificationStatus: 'PARTIAL',
     manufacturerSource: 'Hersteller-Materialspezifikation V2A/AL6005-T5 & Montageanleitung',
@@ -538,11 +538,11 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
     specs: [
       '3-Phasen-Messung von Netzbezug und Einspeisung (bis 120A pro Phase)',
       'WLAN, LAN & Bluetooth integriert für lokale Datenübertragung',
-      'Unterstützt von Anker, EcoFlow und Home Assistant für Nulleinspeisung'
+      'Unterstützt von ausgewählten Systemen (z. B. EcoFlow PowerStream via App, Home Assistant / MQTT) zur dynamischen Nulleinspeisung'
     ],
     priceRange: 'ca. 95 – 125 € *',
     priceType: 'Marktpreis-Richtwert',
-    priceReferenceDate: 'Marktpreis-Richtwert Stand: Oktober 2026',
+    priceReferenceDate: 'Unverbindlicher Marktpreis-Richtwert (Stand: Oktober 2026)',
     priceLastChecked: '2026-10-01',
     verificationStatus: 'VERIFIED',
     manufacturerSource: 'Allterco Robotics / Shelly Datenblatt Pro 3EM & CE-Konformitätserklärung',

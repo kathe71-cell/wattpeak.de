@@ -96,7 +96,7 @@ export default function AmazonProductShowcase() {
       </div>
 
       <div className="text-center text-[10px] text-slate-500 font-mono">
-        * Werbelink / Partnerlink: Als Amazon-Partner verdiene ich an qualifizierten Verkäufen. Preise unterliegen Marktschwankungen der Händler.
+        * Werbelink / Partnerlink: Als Amazon-Partner verdiene ich an qualifizierten Verkäufen. Unverbindlicher Marktpreis-Richtwert (Stand: Oktober 2026). Kein aktueller Amazon-Angebotspreis. Tatsächliche Händlerpreise können abweichen.
       </div>
     </section>
   );

@@ -83,6 +83,32 @@ describe('Regulatory & Data Trust Verification (Audit Stand: Oktober 2026)', () 
         });
       });
     });
+
+    it('sollte überall den einheitlichen Amazon Affiliate Tracking-Tag "wattpeak.de-21" verwenden', () => {
+      UNIFIED_PRODUCTS.forEach(product => {
+        expect(product.affiliateUrl).toContain('tag=wattpeak.de-21');
+        if (product.asin) {
+          expect(product.affiliateUrl).toBe(`https://www.amazon.de/dp/${product.asin}?tag=wattpeak.de-21`);
+        } else {
+          expect(product.affiliateUrl).toContain('https://www.amazon.de/s?k=');
+        }
+      });
+    });
+
+    it('sollte für Produkte mit direkter ASIN eine gültige 10-stellige Alphanumerik besitzen', () => {
+      UNIFIED_PRODUCTS.forEach(product => {
+        if (product.asin) {
+          expect(product.asin).toMatch(/^[A-Z0-9]{10}$/);
+        }
+      });
+    });
+
+    it('sollte für jedes Produkt eine aussagekräftige Amazon-Suchabfrage als Fallback besitzen', () => {
+      UNIFIED_PRODUCTS.forEach(product => {
+        expect(product.amazonSearchQuery.length).toBeGreaterThan(10);
+        expect(product.priceReferenceDate).toContain('Unverbindlicher Marktpreis-Richtwert');
+      });
+    });
   });
 
   describe('4. Solarpflicht & EU-Batteriepass', () => {

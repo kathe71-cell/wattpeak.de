@@ -158,7 +158,7 @@ export default function SolarComparisonCatalog() {
                   description={prod.shortDesc} 
                   image={"https://wattpeak.de/og-image.png"} 
                   price={prod.priceRange.replace(/[^0-9]/g, "") || "0"} 
-                  url={getAmazonDirectUrl(prod.id) || "https://wattpeak.de"} 
+                  url={getAmazonDirectUrl(prod.asin, prod.amazonSearchQuery) || "https://wattpeak.de"} 
                 />
                 <div>
                   {/* Category & Status Strip */}
@@ -273,7 +273,7 @@ export default function SolarComparisonCatalog() {
                     className="w-full bg-amber-400 hover:bg-amber-300 active:scale-95 text-slate-950 font-extrabold text-xs py-3 px-4 rounded-xl transition flex items-center justify-center gap-2 shadow cursor-pointer"
                   >
                     <ShoppingCart className="w-4 h-4 text-slate-950" />
-                    <span>Hardware bei Amazon ansehen *</span>
+                    <span>{prod.asin ? 'Hardware bei Amazon ansehen *' : 'Passende Angebote bei Amazon suchen *'}</span>
                   </a>
                 </div>
               </div>
@@ -425,7 +425,7 @@ export default function SolarComparisonCatalog() {
                           className="inline-flex items-center gap-1.5 bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs px-3 py-2 rounded-xl transition cursor-pointer"
                         >
                           <ShoppingCart className="w-3.5 h-3.5" />
-                          <span>Bei Amazon ansehen *</span>
+                          <span>{p.asin ? 'Bei Amazon ansehen *' : 'Bei Amazon suchen *'}</span>
                         </a>
                       </td>
                     ))}
@@ -440,7 +440,7 @@ export default function SolarComparisonCatalog() {
       {/* Disclaimers */}
       <div className="text-center text-xs text-slate-500 pt-3 font-mono max-w-4xl mx-auto leading-relaxed space-y-1.5">
         <div>
-          * Werbelink / Partnerlink: Als Amazon-Partner verdiene ich an qualifizierten Verkäufen. Angezeigte Preisspannen basieren auf Marktbeobachtungen (Stand: Oktober 2026) und dienen als unverbindliche Orientierung.
+          * Werbelink / Partnerlink: Als Amazon-Partner verdiene ich an qualifizierten Verkäufen. Unverbindlicher Marktpreis-Richtwert (Stand: Oktober 2026). Kein aktueller Amazon-Angebotspreis. Tatsächliche Händlerpreise können abweichen.
         </div>
         <div>
           Für Photovoltaikanlagen und wesentliche Komponenten gilt gem. § 12 Abs. 3 UStG unter den gesetzlichen Voraussetzungen für private Betreiber auf Wohngebäuden der Nullsteuersatz (0 % MwSt.).
