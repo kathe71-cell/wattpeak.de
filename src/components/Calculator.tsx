@@ -729,25 +729,36 @@ export default function SolarCalculator({ isEmbed = false }: CalculatorProps) {
 
             {/* With vs Without Storage Benchmark Table */}
             {storageKwh > 0 && (
-              <div className="p-4 bg-emerald-50/50 rounded-2xl border border-emerald-200 space-y-2.5 text-xs">
+              <div className="p-4 bg-emerald-50/50 rounded-2xl border border-emerald-200 space-y-3 text-xs">
                 <div className="flex items-center justify-between">
                   <strong className="text-emerald-950 font-black">Isolierter Mehrwert des Speichers:</strong>
                   <span className="font-mono text-emerald-800 text-[11px]">
-                    ca. {result.storageDelta.annualStorageCycles} Zyklen/a
+                    ca. {result.storageDelta.annualStorageCycles.toLocaleString('de-DE')} Zyklen/a
                   </span>
                 </div>
-                <div className="grid grid-cols-2 gap-2 font-mono text-[11px]">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 font-mono text-[11px]">
                   <div className="bg-white p-2.5 rounded-xl border border-emerald-200/60">
                     <span className="text-slate-500 block text-[9px] uppercase">Zusatz-Eigenverbrauch</span>
-                    <strong className="text-emerald-900 text-sm">+{result.storageDelta.additionalSelfUsedKwh} kWh/a</strong>
+                    <strong className="text-emerald-900 text-sm">+{result.storageDelta.additionalSelfUsedKwh.toLocaleString('de-DE')} kWh/a</strong>
                   </div>
                   <div className="bg-white p-2.5 rounded-xl border border-emerald-200/60">
-                    <span className="text-slate-500 block text-[9px] uppercase">Mehrersparnis / Jahr</span>
-                    <strong className="text-emerald-900 text-sm">+{result.storageDelta.additionalAnnualSavingsEur} €/a</strong>
+                    <span className="text-slate-500 block text-[9px] uppercase">Stromkosten-Vorteil (brutto)</span>
+                    <strong className="text-emerald-900 text-sm">+{result.storageDelta.additionalAnnualSavingsEur.toLocaleString('de-DE')} €/a</strong>
+                  </div>
+                  <div className="bg-white p-2.5 rounded-xl border border-emerald-200/60 col-span-2 sm:col-span-1">
+                    <span className="text-slate-500 block text-[9px] uppercase">Netto-Mehrwert / Jahr</span>
+                    <strong className="text-emerald-900 text-sm">+{result.storageDelta.additionalNetBenefitEur.toLocaleString('de-DE')} €/a</strong>
                   </div>
                 </div>
-                <div className="text-[10px] text-slate-600 leading-relaxed pt-1">
-                  Autarkie steigt von {result.withoutStorageBenchmark.autarkyRatePercent} % (ohne Speicher) auf {result.balance.autarkyRatePercent} % (mit Speicher).
+                <div className="text-[10px] text-slate-600 leading-relaxed pt-0.5 space-y-1">
+                  <div>
+                    Autarkie steigt von {result.withoutStorageBenchmark.autarkyRatePercent.toLocaleString('de-DE')} % (ohne Speicher) auf {result.balance.autarkyRatePercent.toLocaleString('de-DE')} % (mit Speicher).
+                  </div>
+                  {result.storageDelta.storageOperatingCostEur > 0 && (
+                    <div className="text-slate-500 font-mono text-[9px]">
+                      * Netto-Mehrwert berücksichtigt ca. {result.storageDelta.storageOperatingCostEur.toLocaleString('de-DE')} €/a kalkulatorische Betriebs- und Ersatzrücklagen für den Speicher (Differenz: {result.economy.annualNetBenefitEur.toLocaleString('de-DE')} € mit Speicher vs. {result.withoutStorageBenchmark.annualNetBenefitEur.toLocaleString('de-DE')} € ohne Speicher).
+                    </div>
+                  )}
                 </div>
               </div>
             )}

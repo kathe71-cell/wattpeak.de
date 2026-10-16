@@ -98,7 +98,7 @@ export function evaluatePvOffer(input: OfferPlausibilityInput): OfferPlausibilit
   if (!offeredYield || offeredYield <= 0) {
     yieldStatus = 'nicht_angegeben';
     if (hasSpecificLocation && hasSpecificTilt && hasSpecificAzimuth) {
-      yieldEvaluationNote = `Für Ihren Standort und Dachkonfiguration errechnet die Unified Math Engine einen Referenzertrag von ca. ${engineCalculatedAnnualYieldKwh.toLocaleString('de-DE')} kWh/Jahr (${engineSpecificYieldKwhPerKwp} kWh/kWp). Tragen Sie den Wert aus Ihrem Angebot ein, um diesen abzugleichen.`;
+      yieldEvaluationNote = `Für Ihren Standort und Dachkonfiguration errechnet die Wattpeak-Modellrechnung einen Referenzertrag von ca. ${engineCalculatedAnnualYieldKwh.toLocaleString('de-DE')} kWh/Jahr (${engineSpecificYieldKwhPerKwp} kWh/kWp). Tragen Sie den Wert aus Ihrem Angebot ein, um diesen abzugleichen.`;
     } else {
       yieldEvaluationNote = `Ohne Angabe von Standort, Neigung und Ausrichtung dient der Wert von ca. ${engineCalculatedAnnualYieldKwh.toLocaleString('de-DE')} kWh/Jahr (${engineSpecificYieldKwhPerKwp} kWh/kWp) als grobe bundesweite Orientierung (Mitteldeutschland, 35° Süd unverschattet).`;
     }
@@ -111,7 +111,7 @@ export function evaluatePvOffer(input: OfferPlausibilityInput): OfferPlausibilit
     if (hasSpecificLocation && hasSpecificTilt && hasSpecificAzimuth) {
       yieldStatus = 'standort_plausibilisiert';
       if (Math.abs(yieldDeviationPercent) <= 8) {
-        yieldEvaluationNote = `Die Handwerker-Ertragsprognose (${offeredYield.toLocaleString('de-DE')} kWh/a, ${specificOffered} kWh/kWp) stimmt sehr gut mit der standortbezogenen Modellrechnung der Unified Math Engine (${engineCalculatedAnnualYieldKwh.toLocaleString('de-DE')} kWh/a) überein (Abweichung: ${yieldDeviationPercent > 0 ? '+' : ''}${yieldDeviationPercent} %).`;
+        yieldEvaluationNote = `Die Handwerker-Ertragsprognose (${offeredYield.toLocaleString('de-DE')} kWh/a, ${specificOffered} kWh/kWp) stimmt sehr gut mit der standortbezogenen Wattpeak-Modellrechnung (${engineCalculatedAnnualYieldKwh.toLocaleString('de-DE')} kWh/a) überein (Abweichung: ${yieldDeviationPercent > 0 ? '+' : ''}${yieldDeviationPercent} %).`;
       } else if (yieldDeviationPercent > 8) {
         yieldEvaluationNote = `Die Handwerkerprognose (${offeredYield.toLocaleString('de-DE')} kWh/a, ${specificOffered} kWh/kWp) liegt um ${yieldDeviationPercent} % über der standortbezogenen Berechnung (${engineCalculatedAnnualYieldKwh.toLocaleString('de-DE')} kWh/a). Prüfen Sie, ob optimistische Strahlungsdaten, bifaziale Mehrerträge oder abweichende Verschattungsannahmen zugrunde gelegt wurden.`;
       } else {

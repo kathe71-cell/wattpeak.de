@@ -201,7 +201,7 @@ export default function Home() {
                     PV-Angebots-Check
                   </h2>
                   <p className="text-sm text-slate-600 mt-3 leading-relaxed">
-                    Prüfen Sie vor Vertragsunterschrift den rechnerischen Preis je kWp, das Speicher-Verhältnis und die Handwerker-Ertragsprognose gegen die Wattpeak Unified Math Engine.
+                    Prüfen Sie vor Vertragsunterschrift den rechnerischen Preis je kWp, das Speicher-Verhältnis und die Handwerker-Ertragsprognose gegen die unabhängige Wattpeak-Modellrechnung.
                   </p>
 
                   <div className="grid grid-cols-2 gap-2 mt-6 pt-6 border-t border-slate-100 font-mono text-[11px] text-slate-600">

@@ -150,7 +150,7 @@ export default function OfferBenchmarkModal({
                 2. Plausibilisierter Ertragskorridor:
               </div>
               <p className="text-[11px] text-emerald-900">
-                Die Unified Math Engine errechnet für diese Generatorleistung eine typische Referenzerzeugung von ca. <strong>{evaluation.engineCalculatedAnnualYieldKwh.toLocaleString('de-DE')} kWh/Jahr</strong> ({evaluation.engineSpecificYieldKwhPerKwp} kWh/kWp).
+                Die Wattpeak-Modellrechnung errechnet für diese Generatorleistung eine typische Referenzerzeugung von ca. <strong>{evaluation.engineCalculatedAnnualYieldKwh.toLocaleString('de-DE')} kWh/Jahr</strong> ({evaluation.engineSpecificYieldKwhPerKwp} kWh/kWp).
               </p>
             </div>
 

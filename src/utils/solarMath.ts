@@ -191,7 +191,9 @@ export interface StorageDeltaEvaluation {
   hasStorage: boolean;
   storageKwh: number;
   additionalSelfUsedKwh: number;       // Mehrverbrauch durch Speicher ggü. ohne Speicher
-  additionalAnnualSavingsEur: number;  // Mehrersparnis durch Speicher
+  additionalAnnualSavingsEur: number;  // Brutto-Stromkostenersparnis + Einspeisedifferenz
+  additionalNetBenefitEur: number;     // Netto-Mehrwert nach laufenden Kosten/Rücklagen des Speichers
+  storageOperatingCostEur: number;     // Jährliche Betriebskosten/Rücklagenanteil für den Speicher
   storageSpecificCostEur: number;      // Reiner Aufpreis für den Speicher
   storagePaybackYears: number | null;  // Amortisation des Speichers allein
   annualStorageCycles: number;         // Berechnete Vollzyklen pro Jahr
@@ -218,6 +220,7 @@ export interface SolarCalculationResult {
     generationUtilizationRatePercent: number;
     selfConsumptionRatePercent: number;
     annualGrossBenefitEur: number;
+    annualOperatingCostEur: number;
     annualNetBenefitEur: number;
     estimatedPaybackYears: number | null;
   };
@@ -520,9 +523,14 @@ export function calculateSolarYield(params: SolarParams): SolarCalculationResult
     }
   }
 
+  // Jährliche Betriebskosten/Rücklagen für den Speicher (Differenz der Gesamtkosten)
+  const storageOperatingCostEur = Math.max(0, annualOperatingCostEur - withoutStorageResult.annualOperatingCostEur);
+  // Netto-Vorteil des Speichers nach Abzug der Speicher-Betriebskosten
+  const additionalNetBenefitEur = Math.max(0, additionalAnnualSavingsEur - storageOperatingCostEur);
+
   let storagePaybackYears: number | null = null;
-  if (additionalAnnualSavingsEur > 0 && storageSpecificCostEur > 0) {
-    const rawStorageYears = storageSpecificCostEur / additionalAnnualSavingsEur;
+  if (additionalNetBenefitEur > 0 && storageSpecificCostEur > 0) {
+    const rawStorageYears = storageSpecificCostEur / additionalNetBenefitEur;
     if (rawStorageYears <= 25) {
       storagePaybackYears = Number(rawStorageYears.toFixed(1));
     }
@@ -533,6 +541,8 @@ export function calculateSolarYield(params: SolarParams): SolarCalculationResult
     storageKwh: storageCapacity,
     additionalSelfUsedKwh,
     additionalAnnualSavingsEur,
+    additionalNetBenefitEur,
+    storageOperatingCostEur,
     storageSpecificCostEur,
     storagePaybackYears,
     annualStorageCycles
@@ -605,6 +615,7 @@ function calculateSolarYieldWithoutStorage(
     generationUtilizationRatePercent: selfConsumptionRatePercent,
     selfConsumptionRatePercent,
     annualGrossBenefitEur: grossBenefitEur,
+    annualOperatingCostEur: opCostEur,
     annualNetBenefitEur,
     estimatedPaybackYears
   };

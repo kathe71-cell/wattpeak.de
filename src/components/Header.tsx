@@ -32,19 +32,18 @@ export default function Header() {
 
   return (
     <header className="bg-white/95 backdrop-blur-md border-b border-slate-200/90 sticky top-0 z-50 transition-all">
-      {/* Sub-header Technical Status Bar */}
+      {/* Sub-header Information Bar */}
       <div className="bg-slate-950 text-slate-300 text-[11px] font-mono py-1 px-4 sm:px-6 lg:px-8 border-b border-slate-850 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <span className="flex items-center gap-1.5 text-amber-400 font-bold">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span>
-            WATTPEAK DUAL-ENGINE
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+            WATTPEAK
           </span>
           <span className="hidden md:inline text-slate-500">|</span>
-          <span className="hidden md:inline text-slate-400">DIN EN IEC 60904-3 &middot; DWD SARAH-2 &middot; EEG 2026</span>
+          <span className="hidden md:inline text-slate-400">Unabhängige PV-Berechnung &amp; Angebotsbewertung</span>
         </div>
         <div className="flex items-center gap-4 text-slate-400">
-          <span className="hidden sm:inline">100% ohne Kontaktdatenzwang</span>
-          <span className="text-amber-400 font-bold">v3.2</span>
+          <span>Ohne Registrierung &middot; Werbefrei</span>
         </div>
       </div>
 
@@ -148,7 +147,7 @@ export default function Header() {
             onClick={() => setMobileMenuOpen(false)}
             className="block px-3.5 py-2.5 rounded-xl font-bold text-amber-900 bg-amber-50/80 border border-amber-200/70"
           >
-            PV-Angebots-Check (MVP)
+            PV-Angebots-Check
           </Link>
           <Link
             to="/anlagen-vergleich"
@@ -191,20 +190,6 @@ export default function Header() {
             className="block px-3.5 py-2 rounded-xl font-semibold text-slate-700 hover:bg-slate-50"
           >
             Zelltechnik (TOPCon / HJT / IBC)
-          </Link>
-          <Link
-            to="/batteriepass"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-lg font-semibold text-slate-800 hover:bg-slate-50"
-          >
-            EU-Batteriepass
-          </Link>
-          <Link
-            to="/technologie"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-lg font-semibold text-slate-800 hover:bg-slate-50"
-          >
-            Zelltechnik
           </Link>
         </div>
       )}

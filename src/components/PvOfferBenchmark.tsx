@@ -118,7 +118,7 @@ export default function PvOfferBenchmark({
             </h2>
             <p className="text-slate-300 text-xs sm:text-sm max-w-3xl leading-relaxed">
               Tragen Sie die Kernwerte Ihres Handwerker-Angebots ein. Wir berechnen den reinen kWp-Kostenkennwert, 
-              plausibilisieren die Ertragsprognose gegen die Wattpeak Unified Math Engine (DIN EN IEC 60904-3) 
+              plausibilisieren die Ertragsprognose gegen die physikalische Wattpeak-Modellrechnung (DIN EN IEC 60904-3) 
               und prüfen typische Kostenfallen im Leistungsumfang – neutral, werbefrei und ohne Registrierung.
             </p>
           </div>
@@ -441,7 +441,7 @@ export default function PvOfferBenchmark({
                 Kategorie 2: Plausibilisiert
               </span>
               <span className="text-[11px] font-mono text-emerald-700">
-                Unified Math Engine ({evaluation.yieldStatus === 'standort_plausibilisiert' ? 'Standortbezogen' : 'Grobe Orientierung'})
+                Wattpeak-Modellrechnung ({evaluation.yieldStatus === 'standort_plausibilisiert' ? 'Standortbezogen' : 'Grobe Orientierung'})
               </span>
             </div>
 

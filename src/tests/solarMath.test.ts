@@ -310,6 +310,42 @@ describe('WattPeak Unified Solar Calculation Engine', () => {
       expect(res.economy.estimatedPaybackYears).toBeNull();
       expect(res.economy.paybackStatusText).toContain('Kein Speicher konfiguriert');
     });
+
+    it('sollte den Speichermehrwert-Diskrepanzfall (9.6 kWp, 4.200 kWh, 7.5 kWh Speicher) mathematisch exakt aufschlüsseln', () => {
+      const params: SolarParams = {
+        systemType: 'rooftop',
+        kwp: 9.6,
+        region: 'mitte',
+        tilt: 35,
+        azimuth: 0,
+        cellType: 'topcon',
+        annualConsumption: 4200,
+        storageKwh: 7.5,
+        electricityPrice: 0.36
+      };
+
+      const res = calculateSolarYield(params);
+
+      // Mit Speicher:
+      // Netto-Vorteil = 1.426 €/a
+      expect(res.economy.annualNetBenefitEur).toBe(1426);
+
+      // Ohne Speicher:
+      // Netto-Vorteil = 1.033 €/a
+      expect(res.withoutStorageBenchmark.annualNetBenefitEur).toBe(1033);
+
+      // Die Differenz im Netto-Vorteil beträgt exakt 393 €/a (1.426 € - 1.033 €)
+      const netBenefitDiff = res.economy.annualNetBenefitEur - res.withoutStorageBenchmark.annualNetBenefitEur;
+      expect(netBenefitDiff).toBe(393);
+      expect(res.storageDelta.additionalNetBenefitEur).toBe(393);
+
+      // Die reine Stromrechnung-Ersparnis (brutto) beträgt 432 €/a
+      expect(res.storageDelta.additionalAnnualSavingsEur).toBe(432);
+
+      // Die Differenz von 39 €/a (432 € - 393 €) entspricht exakt den jährlichen Betriebskosten/Rücklagen des Speichers
+      expect(res.storageDelta.storageOperatingCostEur).toBe(39);
+      expect(res.storageDelta.additionalAnnualSavingsEur - res.storageDelta.storageOperatingCostEur).toBe(res.storageDelta.additionalNetBenefitEur);
+    });
   });
 
   describe('4. PVGIS-Benchmark Referenzabgleich', () => {
