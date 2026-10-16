@@ -109,35 +109,33 @@ export default function Home() {
       <Header />
 
       <main className="space-y-16 pb-32 sm:pb-16">
-        {/* HERO SECTION: ENGINEERING CLEAN 2.0 DUAL-CORE DECISION STAGE */}
+        {/* HERO SECTION: CORE DECISION STAGE */}
         <section className="py-12 md:py-20 bg-white border-b border-slate-200/90 relative overflow-hidden tech-grid-pattern">
           {/* Subtle Accent Glow */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-amber-500/5 via-slate-100/30 to-transparent pointer-events-none"></div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             
-            {/* Technical Type-Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-950 border border-slate-800 text-amber-400 text-xs font-mono font-bold uppercase tracking-wider mb-6 shadow-md">
-              <span className="w-2 h-2 rounded-full bg-amber-400"></span>
-              <span>UNABHÄNGIGE PV-ENTSCHEIDUNGSPLATTFORM</span>
+            {/* Trust Notice */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-amber-400 text-xs font-mono font-bold tracking-wider mb-6 shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+              <span>Kostenlos · Ohne Registrierung</span>
             </div>
 
             {/* Main Headline - Core Value Proposition */}
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-slate-950 tracking-tight leading-none mb-5 max-w-4xl mx-auto">
-              Photovoltaik verstehen, berechnen<br />
-              <span className="text-amber-500">und fundiert entscheiden.</span>
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-slate-950 tracking-tight leading-tight mb-5 max-w-4xl mx-auto">
+              Photovoltaik richtig entscheiden.
             </h1>
 
             {/* Factual, Serious Subtitle */}
             <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto mb-12 leading-relaxed font-normal">
-              Keine Lead-Vermittlung. Keine Kontaktdaten-Pflicht. 
-              Zwei datenbasierte Kernwerkzeuge für Ihre unabhängige Solar-Entscheidung.
+              Berechne den möglichen Ertrag deiner PV-Anlage, prüfe Angebote und vergleiche Speicher und Komponenten.
             </p>
 
             {/* DUAL CORE ENTRY WORKSTAGE: DIE ZWEI ZENTRALEN SÄULEN */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto text-left">
               
-              {/* SÄULE 1: DER PLANER (PV-Wirtschaftlichkeit berechnen) */}
+              {/* SÄULE 1: DER PLANER (PV-Ertrag berechnen) */}
               <div className="bg-slate-950 text-white rounded-3xl p-7 sm:p-9 shadow-xl border border-slate-800 flex flex-col justify-between relative overflow-hidden group hover:border-amber-500/50 transition-all">
                 <div className="absolute top-0 right-0 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
                 
@@ -174,13 +172,13 @@ export default function Home() {
                     to="/ertragsrechner"
                     className="w-full inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 active:scale-98 text-slate-950 font-black text-sm py-4 px-6 rounded-2xl shadow-lg transition-all cursor-pointer"
                   >
-                    <span>Wirtschaftlichkeit jetzt berechnen</span>
+                    <span>PV-Ertrag berechnen</span>
                     <ArrowRight className="w-4 h-4 text-slate-950" />
                   </Link>
                 </div>
               </div>
 
-              {/* SÄULE 2: DER PRÜFER (PV-Angebot plausibilisieren) */}
+              {/* SÄULE 2: DER PRÜFER (PV-Angebot prüfen) */}
               <div className="bg-white rounded-3xl p-7 sm:p-9 shadow-xl border-2 border-slate-900 hover:border-amber-500 transition-all flex flex-col justify-between relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-48 h-48 bg-slate-100/80 rounded-full blur-3xl pointer-events-none"></div>
 
@@ -218,7 +216,7 @@ export default function Home() {
                     className="w-full inline-flex items-center justify-center gap-2 bg-slate-950 hover:bg-slate-850 active:scale-98 text-white font-extrabold text-sm py-4 px-6 rounded-2xl shadow-lg transition-all cursor-pointer"
                   >
                     <FileCheck className="w-4 h-4 text-amber-400" />
-                    <span>Angebot sofort prüfen</span>
+                    <span>PV-Angebot prüfen</span>
                     <ArrowRight className="w-4 h-4 text-amber-400" />
                   </a>
                 </div>
