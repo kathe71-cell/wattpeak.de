@@ -31,8 +31,22 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-white border-b border-slate-200 sticky top-0 z-50">
-
+    <header className="bg-white/95 backdrop-blur-md border-b border-slate-200/90 sticky top-0 z-50 transition-all">
+      {/* Sub-header Technical Status Bar */}
+      <div className="bg-slate-950 text-slate-300 text-[11px] font-mono py-1 px-4 sm:px-6 lg:px-8 border-b border-slate-850 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <span className="flex items-center gap-1.5 text-amber-400 font-bold">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span>
+            WATTPEAK DUAL-ENGINE
+          </span>
+          <span className="hidden md:inline text-slate-500">|</span>
+          <span className="hidden md:inline text-slate-400">DIN EN IEC 60904-3 &middot; DWD SARAH-2 &middot; EEG 2026</span>
+        </div>
+        <div className="flex items-center gap-4 text-slate-400">
+          <span className="hidden sm:inline">100% ohne Kontaktdatenzwang</span>
+          <span className="text-amber-400 font-bold">v3.2</span>
+        </div>
+      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
         {/* Brand Logo */}
@@ -46,29 +60,29 @@ export default function Header() {
         </Link>
 
         {/* Desktop Navigation - Clean, Prioritized & Mobile-First Foundation */}
-        <nav className="hidden lg:flex items-center space-x-1 text-sm font-semibold text-slate-700">
+        <nav className="hidden lg:flex items-center space-x-1.5 text-sm font-semibold text-slate-700">
           <Link
             to="/ertragsrechner"
-            className="hover:text-slate-950 hover:bg-slate-100 px-3 py-2 rounded-xl transition text-slate-900 font-bold"
+            className="hover:text-slate-950 hover:bg-slate-100 px-3.5 py-2 rounded-xl transition text-slate-900 font-bold flex items-center gap-1.5"
           >
-            PV-Ertragsrechner
+            <span>PV-Ertragsrechner</span>
           </Link>
-          <Link
-            to="/#angebotscheck"
-            className="hover:text-slate-950 hover:bg-slate-100 px-3 py-2 rounded-xl transition flex items-center gap-1.5 font-bold text-amber-700 bg-amber-50/70 border border-amber-200/60"
+          <a
+            href="/#angebotscheck"
+            className="hover:text-amber-950 hover:bg-amber-100/90 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 font-black text-amber-950 bg-amber-100 border border-amber-300 shadow-2xs"
           >
-            <FileCheck className="w-3.5 h-3.5 text-amber-600" />
+            <FileCheck className="w-4 h-4 text-amber-700" />
             <span>PV-Angebots-Check</span>
-          </Link>
+          </a>
           <Link
             to="/anlagen-vergleich"
-            className="hover:text-slate-950 hover:bg-slate-100 px-3 py-2 rounded-xl transition"
+            className="hover:text-slate-950 hover:bg-slate-100 px-3 py-2 rounded-xl transition text-slate-600"
           >
             Anlagenvergleich
           </Link>
           <Link
             to="/hardware-katalog"
-            className="hover:text-slate-950 hover:bg-slate-100 px-3 py-2 rounded-xl transition"
+            className="hover:text-slate-950 hover:bg-slate-100 px-3 py-2 rounded-xl transition text-slate-600"
           >
             Hardware &amp; Speicher
           </Link>

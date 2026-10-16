@@ -109,376 +109,153 @@ export default function Home() {
       <Header />
 
       <main className="space-y-16 pb-32 sm:pb-16">
-        {/* HERO SECTION: FOCUSED BRAND POSITIONING & 2 CORE ENTRY PATHS */}
-        <section className="py-12 md:py-20 bg-gradient-to-b from-white via-slate-50 to-slate-100 border-b border-slate-200">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
+        {/* HERO SECTION: ENGINEERING CLEAN 2.0 DUAL-CORE DECISION STAGE */}
+        <section className="py-12 md:py-20 bg-white border-b border-slate-200/90 relative overflow-hidden tech-grid-pattern">
+          {/* Subtle Accent Glow */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-amber-500/5 via-slate-100/30 to-transparent pointer-events-none"></div>
+
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             
-            {/* Brand Claim Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-amber-400 text-xs font-mono font-bold uppercase tracking-wider mb-6 shadow-xs">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>Unabhängige Entscheidungsplattform</span>
+            {/* Technical Type-Badge */}
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-950 border border-slate-800 text-amber-400 text-xs font-mono font-bold uppercase tracking-wider mb-6 shadow-md">
+              <span className="w-2 h-2 rounded-full bg-amber-400"></span>
+              <span>UNABHÄNGIGE PV-ENTSCHEIDUNGSPLATTFORM</span>
             </div>
 
             {/* Main Headline - Core Value Proposition */}
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-slate-950 tracking-tight leading-tight mb-5">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-slate-950 tracking-tight leading-none mb-5 max-w-4xl mx-auto">
               Photovoltaik verstehen, berechnen<br />
               <span className="text-amber-500">und fundiert entscheiden.</span>
             </h1>
 
             {/* Factual, Serious Subtitle */}
-            <p className="text-base sm:text-lg text-slate-700 max-w-3xl mx-auto mb-10 leading-relaxed font-medium">
-              Ermitteln Sie Ihren individuellen Ertrag und die reale Amortisation ohne Datenerpressung. 
-              Prüfen Sie bestehende Handwerker-Angebote objektiv auf Plausibilität und Leistungsumfang.
+            <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto mb-12 leading-relaxed font-normal">
+              Keine Lead-Vermittlung. Keine Kontaktdaten-Pflicht. 
+              Zwei datenbasierte Kernwerkzeuge für Ihre unabhängige Solar-Entscheidung.
             </p>
 
-            {/* DUAL CORE ENTRY: 1. RECHNER (PRIMÄR) & 2. ANGEBOTS-CHECK (SEKUNDÄR) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-14 text-left">
+            {/* DUAL CORE ENTRY WORKSTAGE: DIE ZWEI ZENTRALEN SÄULEN */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto text-left">
               
-              {/* Entry 1: Primärer Einstieg - Ertragsrechner */}
-              <div className="bg-white rounded-3xl border-2 border-slate-950 p-6 sm:p-8 shadow-lg hover:shadow-xl transition flex flex-col justify-between relative overflow-hidden group">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
+              {/* SÄULE 1: DER PLANER (PV-Wirtschaftlichkeit berechnen) */}
+              <div className="bg-slate-950 text-white rounded-3xl p-7 sm:p-9 shadow-xl border border-slate-800 flex flex-col justify-between relative overflow-hidden group hover:border-amber-500/50 transition-all">
+                <div className="absolute top-0 right-0 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                
                 <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="w-12 h-12 rounded-2xl bg-slate-950 text-white flex items-center justify-center font-bold shadow-sm">
-                      <Calculator className="w-6 h-6 text-amber-400" />
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="w-14 h-14 rounded-2xl bg-slate-900 border border-slate-800 text-amber-400 flex items-center justify-center font-bold shadow-inner">
+                      <Calculator className="w-7 h-7 text-amber-400" />
                     </div>
-                    <span className="bg-amber-100 text-amber-950 border border-amber-300 text-[10px] font-mono font-black uppercase px-2.5 py-0.5 rounded-full">
-                      Haupteinstieg
+                    <span className="px-3 py-1 rounded-full bg-amber-400/10 text-amber-400 border border-amber-400/30 font-mono text-[11px] font-bold uppercase tracking-wider">
+                      WERKZEUG 1
                     </span>
                   </div>
-                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500">
-                    Für Hausdach &amp; Balkon
+
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">
+                    Sie planen eine Solaranlage?
                   </span>
-                  <h3 className="text-xl sm:text-2xl font-black text-slate-950 mt-1">
+                  <h2 className="text-2xl sm:text-3xl font-black text-white mt-1 tracking-tight">
                     PV-Ertragsrechner
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
-                    Berechnen Sie Jahresertrag, Eigenverbrauch und Amortisationsdauer nach DWD-Strahlungsdaten und aktuellen EEG-Sätzen. Vollständig ohne Registrierung.
+                  </h2>
+                  <p className="text-sm text-slate-300 mt-3 leading-relaxed">
+                    Ermitteln Sie Jahresertrag, Eigenverbrauchsquote und die Amortisation mit oder ohne Batteriespeicher. Auf Basis von DWD-Globalstrahlungsdaten und den aktuellen EEG-Sätzen.
                   </p>
+
+                  <div className="grid grid-cols-2 gap-2 mt-6 pt-6 border-t border-slate-850 font-mono text-[11px] text-slate-400">
+                    <div>✓ Hausdach &amp; Balkonkraftwerk</div>
+                    <div>✓ Dynamische Degradation</div>
+                    <div>✓ Reale Speicherverluste</div>
+                    <div>✓ 100% ohne Datenerfassung</div>
+                  </div>
                 </div>
 
-                <div className="pt-6 border-t border-slate-100 mt-6 space-y-2.5">
+                <div className="pt-8 mt-6">
                   <Link
                     to="/ertragsrechner"
-                    className="w-full inline-flex items-center justify-center gap-2 bg-slate-950 hover:bg-slate-850 active:scale-95 text-white font-extrabold text-xs sm:text-sm py-3.5 px-4 rounded-xl shadow transition cursor-pointer"
+                    className="w-full inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 active:scale-98 text-slate-950 font-black text-sm py-4 px-6 rounded-2xl shadow-lg transition-all cursor-pointer"
                   >
-                    <span>Ertragsrechner starten</span>
-                    <ArrowRight className="w-4 h-4 text-amber-400" />
+                    <span>Wirtschaftlichkeit jetzt berechnen</span>
+                    <ArrowRight className="w-4 h-4 text-slate-950" />
                   </Link>
-                  <div className="flex items-center justify-center gap-4 text-[11px] text-slate-500 font-mono">
-                    <span>✓ 100% ohne Kontaktdaten</span>
-                    <span>✓ Geschlossene Energiebilanz</span>
-                  </div>
                 </div>
               </div>
 
-              {/* Entry 2: Sekundärer Einstieg - PV-Angebots-Check */}
-              <div className="bg-white rounded-3xl border border-slate-200 hover:border-amber-400 p-6 sm:p-8 shadow-sm hover:shadow-md transition flex flex-col justify-between relative overflow-hidden group">
+              {/* SÄULE 2: DER PRÜFER (PV-Angebot plausibilisieren) */}
+              <div className="bg-white rounded-3xl p-7 sm:p-9 shadow-xl border-2 border-slate-900 hover:border-amber-500 transition-all flex flex-col justify-between relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-48 h-48 bg-slate-100/80 rounded-full blur-3xl pointer-events-none"></div>
+
                 <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-950 flex items-center justify-center font-bold">
-                      <FileCheck className="w-6 h-6 text-amber-700" />
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="w-14 h-14 rounded-2xl bg-amber-50 text-amber-950 border border-amber-200 flex items-center justify-center font-bold">
+                      <FileCheck className="w-7 h-7 text-amber-700" />
                     </div>
-                    <span className="bg-slate-100 text-slate-700 border border-slate-200 text-[10px] font-mono font-bold uppercase px-2.5 py-0.5 rounded-full">
-                      Angebots-Prüfung
+                    <span className="px-3 py-1 rounded-full bg-slate-900 text-amber-400 font-mono text-[11px] font-bold uppercase tracking-wider">
+                      WERKZEUG 2
                     </span>
                   </div>
+
                   <span className="text-xs font-mono font-bold uppercase tracking-wider text-amber-800">
-                    Liegt Ihnen ein Angebot vor?
+                    Liegt Ihnen bereits ein Angebot vor?
                   </span>
-                  <h3 className="text-xl sm:text-2xl font-black text-slate-950 mt-1">
+                  <h2 className="text-2xl sm:text-3xl font-black text-slate-950 mt-1 tracking-tight">
                     PV-Angebots-Check
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
-                    Prüfen Sie vor Vertragsunterschrift den rechnerischen Preis je kWp, das Speicher-Verhältnis und den Leistungsumfang gegen neutrale Referenzwerte.
+                  </h2>
+                  <p className="text-sm text-slate-600 mt-3 leading-relaxed">
+                    Prüfen Sie vor Vertragsunterschrift den rechnerischen Preis je kWp, das Speicher-Verhältnis und die Handwerker-Ertragsprognose gegen die Wattpeak Unified Math Engine.
                   </p>
+
+                  <div className="grid grid-cols-2 gap-2 mt-6 pt-6 border-t border-slate-100 font-mono text-[11px] text-slate-600">
+                    <div>✓ 3-Stufen-Bewertung</div>
+                    <div>✓ Ertrags-Plausibilisierung</div>
+                    <div>✓ Vollständigkeits-Check</div>
+                    <div>✓ § 12 Abs. 3 UStG neutral</div>
+                  </div>
                 </div>
 
-                <div className="pt-6 border-t border-slate-100 mt-6 space-y-2.5">
+                <div className="pt-8 mt-6">
                   <a
                     href="#angebotscheck"
-                    className="w-full inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 font-black text-xs sm:text-sm py-3.5 px-4 rounded-xl shadow-xs transition cursor-pointer"
+                    className="w-full inline-flex items-center justify-center gap-2 bg-slate-950 hover:bg-slate-850 active:scale-98 text-white font-extrabold text-sm py-4 px-6 rounded-2xl shadow-lg transition-all cursor-pointer"
                   >
-                    <FileCheck className="w-4 h-4 text-slate-950" />
-                    <span>Angebot jetzt plausibilisieren</span>
-                    <ArrowRight className="w-4 h-4 text-slate-950" />
+                    <FileCheck className="w-4 h-4 text-amber-400" />
+                    <span>Angebot sofort prüfen</span>
+                    <ArrowRight className="w-4 h-4 text-amber-400" />
                   </a>
-                  <div className="flex items-center justify-center gap-4 text-[11px] text-slate-500 font-mono">
-                    <span>✓ Keine Verkaufsanrufe</span>
-                    <span>✓ Sachliche Checkliste</span>
-                  </div>
                 </div>
               </div>
 
             </div>
 
-            {/* INTERACTIVE 3-STEP SOLAR-FINDER */}
-            <div className="bg-white p-5 sm:p-7 rounded-3xl border border-slate-200 shadow-xl max-w-4xl mx-auto text-left">
-              {/* Step indicator header */}
-              <div className="flex items-center justify-between pb-4 mb-5 border-b border-slate-100">
-                <div className="flex items-center gap-2">
-                  <Search className="w-4 h-4 text-amber-500" />
-                  <span className="text-xs font-black uppercase tracking-wider text-slate-900">
-                    Interaktiver Solar-Finder
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  {[1, 2, 3].map((s) => (
-                    <button
-                      key={s}
-                      type="button"
-                      onClick={() => setStep(s as any)}
-                      className={`w-6 h-6 rounded-full text-xs font-mono font-bold flex items-center justify-center transition-all ${
-                        step === s
-                          ? 'bg-amber-500 text-slate-950 font-black'
-                          : step > s
-                          ? 'bg-slate-900 text-white'
-                          : 'bg-slate-100 text-slate-400'
-                      }`}
-                    >
-                      {s}
-                    </button>
-                  ))}
-                  <span className="text-xs font-mono font-bold text-slate-500 ml-1">
-                    Schritt {step} von 3
-                  </span>
-                </div>
-              </div>
-
-              {/* Step 1: Anlagentyp & Montageort */}
-              {step === 1 && (
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="text-base font-extrabold text-slate-950">
-                      Schritt 1: Wo soll die Solaranlage montiert werden?
-                    </h4>
-                    <p className="text-xs text-slate-500 mt-0.5">
-                      Wählen Sie die geplante Montagefläche, um die baulichen Rahmenbedingungen festzulegen.
-                    </p>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-                    {[
-                      { id: 'balkon', title: 'Balkon / Fassade', desc: '800W Stecker-Solar für Geländer', icon: Sun },
-                      { id: 'pitched', title: 'Schrägdach Haus', desc: 'Klassisches Ziegeldach (EFH/DHH)', icon: HomeIcon },
-                      { id: 'flat', title: 'Flachdach / Garage', desc: 'Ost-West oder Süd-Aufständerung', icon: Layers },
-                      { id: 'ground', title: 'Garten / Freifläche', desc: 'Bodenmontage mit Gestell', icon: Zap },
-                    ].map((item) => (
-                      <button
-                        key={item.id}
-                        type="button"
-                        onClick={() => setMountLocation(item.id as any)}
-                        className={`p-3.5 rounded-2xl border text-left transition-all ${
-                          mountLocation === item.id
-                            ? 'bg-amber-50 border-amber-500 ring-2 ring-amber-500/20 shadow-sm'
-                            : 'bg-slate-50 hover:bg-slate-100/80 border-slate-200 text-slate-700'
-                        }`}
-                      >
-                        <item.icon className={`w-5 h-5 mb-2 ${mountLocation === item.id ? 'text-amber-600' : 'text-slate-400'}`} />
-                        <div className="font-bold text-xs text-slate-900">{item.title}</div>
-                        <div className="text-[11px] text-slate-500 mt-1 leading-snug">{item.desc}</div>
-                      </button>
-                    ))}
-                  </div>
-                  <div className="flex justify-end pt-3">
-                    <button
-                      type="button"
-                      onClick={() => setStep(2)}
-                      className="inline-flex items-center gap-2 bg-slate-950 hover:bg-slate-800 text-white font-extrabold text-xs px-5 py-2.5 rounded-xl transition cursor-pointer"
-                    >
-                      <span>Weiter zu Schritt 2</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-amber-400" />
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* Step 2: Haushaltsgröße & Jahresstrombedarf */}
-              {step === 2 && (
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="text-base font-extrabold text-slate-950">
-                      Schritt 2: Wie hoch ist Ihr Jahresstrombedarf?
-                    </h4>
-                    <p className="text-xs text-slate-500 mt-0.5">
-                      Der Stromverbrauch bestimmt die optimale Auslegung für maximalen Eigenverbrauch.
-                    </p>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-                    {[
-                      { id: '1800', title: '1.800 kWh', desc: '1–2 Personen (Wohnung)' },
-                      { id: '3500', title: '3.500 kWh', desc: 'Paar / Standard-Einfamilienhaus' },
-                      { id: '5000', title: '5.000 kWh', desc: 'Familie (3–5 Personen)' },
-                      { id: '8000', title: '8.000+ kWh', desc: 'Großverbraucher (Wärmepumpe / E-Auto)' },
-                    ].map((item) => (
-                      <button
-                        key={item.id}
-                        type="button"
-                        onClick={() => setConsumption(item.id as any)}
-                        className={`p-3.5 rounded-2xl border text-left transition-all ${
-                          consumption === item.id
-                            ? 'bg-amber-50 border-amber-500 ring-2 ring-amber-500/20 shadow-sm'
-                            : 'bg-slate-50 hover:bg-slate-100/80 border-slate-200 text-slate-700'
-                        }`}
-                      >
-                        <div className="font-mono font-black text-sm text-slate-900">{item.title}</div>
-                        <div className="text-[11px] text-slate-500 mt-1 leading-snug">{item.desc}</div>
-                      </button>
-                    ))}
-                  </div>
-                  <div className="flex items-center justify-between pt-3">
-                    <button
-                      type="button"
-                      onClick={() => setStep(1)}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-slate-950 transition cursor-pointer"
-                    >
-                      <ArrowLeft className="w-3.5 h-3.5" />
-                      <span>Zurück</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setStep(3)}
-                      className="inline-flex items-center gap-2 bg-slate-950 hover:bg-slate-800 text-white font-extrabold text-xs px-5 py-2.5 rounded-xl transition cursor-pointer"
-                    >
-                      <span>Weiter zu Schritt 3</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-amber-400" />
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* Step 3: Speicher & Standort */}
-              {step === 3 && (
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="text-base font-extrabold text-slate-950">
-                      Schritt 3: Speicher-Präferenz &amp; Region
-                    </h4>
-                    <p className="text-xs text-slate-500 mt-0.5">
-                      Legen Sie fest, ob Sie Solarstrom speichern möchten und wo die Anlage steht.
-                    </p>
-                  </div>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {/* Speicher Preference */}
-                    <div>
-                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                        Speicher-Auslegung
-                      </label>
-                      <div className="space-y-2">
-                        {[
-                          { id: 'none', title: 'Ohne Speicher', sub: 'Fokus auf reinen Direktverbrauch am Tag' },
-                          { id: 'medium', title: 'Wirtschaftlich optimiert', sub: 'Kompakte Batterie (1,6 bis 7,5 kWh) für Abendstunden' },
-                          { id: 'large', title: 'Hohe Autarkie (10+ kWh)', sub: 'Großer Speicher für maximale Unabhängigkeit' },
-                        ].map((item) => (
-                          <button
-                            key={item.id}
-                            type="button"
-                            onClick={() => setStorageNeed(item.id as any)}
-                            className={`w-full p-3 rounded-xl border text-left transition-all ${
-                              storageNeed === item.id
-                                ? 'bg-amber-50 border-amber-500 font-bold text-slate-950'
-                                : 'bg-slate-50 hover:bg-slate-100/80 border-slate-200 text-slate-700'
-                            }`}
-                          >
-                            <div className="text-xs font-bold text-slate-900">{item.title}</div>
-                            <div className="text-[10px] text-slate-500">{item.sub}</div>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Region */}
-                    <div>
-                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                        Region &amp; Globalstrahlung (DWD / PVGIS)
-                      </label>
-                      <div className="space-y-2">
-                        {[
-                          { id: 'nord', title: 'Norddeutschland', sub: '~ 1.000 kWh/m² Globalstrahlung' },
-                          { id: 'mitte', title: 'Mitteldeutschland', sub: '~ 1.080 kWh/m² Globalstrahlung' },
-                          { id: 'sued', title: 'Süddeutschland', sub: '~ 1.200 kWh/m² Globalstrahlung' },
-                        ].map((item) => (
-                          <button
-                            key={item.id}
-                            type="button"
-                            onClick={() => setRegionZone(item.id as any)}
-                            className={`w-full p-3 rounded-xl border text-left transition-all ${
-                              regionZone === item.id
-                                ? 'bg-amber-50 border-amber-500 font-bold text-slate-950'
-                                : 'bg-slate-50 hover:bg-slate-100/80 border-slate-200 text-slate-700'
-                            }`}
-                          >
-                            <div className="text-xs font-bold text-slate-900">{item.title}</div>
-                            <div className="text-[10px] text-slate-500">{item.sub}</div>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between pt-4 border-t border-slate-100">
-                    <button
-                      type="button"
-                      onClick={() => setStep(2)}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-slate-950 transition cursor-pointer"
-                    >
-                      <ArrowLeft className="w-3.5 h-3.5" />
-                      <span>Zurück</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={handleFinderComplete}
-                      className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 font-black text-xs px-6 py-3 rounded-xl shadow transition cursor-pointer"
-                    >
-                      <Calculator className="w-4 h-4 text-slate-950" />
-                      <span>Ergebnis im Ertragsrechner ansehen</span>
-                      <ArrowRight className="w-4 h-4 text-slate-950" />
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* Legal Note in Finder */}
-              <div className="pt-3.5 border-t border-slate-100 mt-4 text-[11px] text-slate-500 flex items-center gap-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                <span>0 % MwSt. gem. § 12 Abs. 3 UStG für private Wohngebäude &amp; vereinfachte MaStR-Registrierung</span>
-              </div>
-            </div>
-
-            {/* Quick Metrics Strip */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-10 max-w-4xl mx-auto text-xs font-mono">
-              <div className="p-3 bg-white rounded-xl border border-slate-200 text-left">
-                <span className="text-slate-400 uppercase text-[10px]">Solarpaket I</span>
+            {/* Quick Metrics Bar directly underneath the dual stage */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-12 max-w-5xl mx-auto text-xs font-mono">
+              <div className="p-3.5 bg-white rounded-2xl border border-slate-200 text-left shadow-2xs">
+                <span className="text-slate-500 uppercase text-[10px]">Solarpaket I</span>
                 <div className="text-slate-950 font-black text-sm mt-0.5">800W AC / 2.000 Wp DC</div>
               </div>
-              <Link to="/einspeiseverguetung" className="p-3 bg-white rounded-xl border border-slate-200 text-left hover:border-amber-400 transition block">
-                <span className="text-slate-400 uppercase text-[10px]">EEG-Vergütung (ab 08/2026)</span>
+              <Link to="/einspeiseverguetung" className="p-3.5 bg-white rounded-2xl border border-slate-200 text-left hover:border-amber-400 transition block shadow-2xs">
+                <span className="text-slate-500 uppercase text-[10px]">EEG-Vergütung (2026)</span>
                 <div className="text-emerald-700 font-black text-sm mt-0.5">7,70 ct/kWh →</div>
               </Link>
-              <div className="p-3 bg-white rounded-xl border border-slate-200 text-left">
-                <span className="text-slate-400 uppercase text-[10px]">Jahresertrag DE</span>
-                <div className="text-slate-950 font-black text-sm mt-0.5">900 – 1.150 kWh/kWp</div>
+              <div className="p-3.5 bg-white rounded-2xl border border-slate-200 text-left shadow-2xs">
+                <span className="text-slate-500 uppercase text-[10px]">DWD Strahlungsband</span>
+                <div className="text-slate-950 font-black text-sm mt-0.5">920 – 1.150 kWh/kWp</div>
               </div>
-              <div className="p-3 bg-white rounded-xl border border-slate-200 text-left">
-                <span className="text-slate-400 uppercase text-[10px]">Netzanschluss-Norm</span>
-                <div className="text-slate-950 font-black text-sm mt-0.5">VDE-AR-N 4105:2026-03</div>
+              <div className="p-3.5 bg-white rounded-2xl border border-slate-200 text-left shadow-2xs">
+                <span className="text-slate-500 uppercase text-[10px]">Netzanschluss</span>
+                <div className="text-slate-950 font-black text-sm mt-0.5">VDE-AR-N 4105:2026</div>
               </div>
             </div>
+
           </div>
         </section>
 
-        {/* SECTION 1: SYSTEM- & ANLAGENVERGLEICH */}
-        <section id="anlagenvergleich" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
-          <SolarSystemDecoder />
-        </section>
-
-        {/* SECTION 2: PV-ANGEBOTS-CHECK (MVP-WERKZEUG) */}
-        <section id="angebotscheck" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
+        {/* SECTION 1: PV-ANGEBOTS-CHECK (SOFORT ERREICHBAR NACH DEM HERO) */}
+        <section id="angebotscheck" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-28">
           <PvOfferBenchmark 
             onApplyToCalculator={(params) => {
-              navigate('/ertragsrechner', {
+              navigate("/ertragsrechner", {
                 state: {
-                  systemType: 'rooftop',
+                  systemType: "rooftop",
                   kwp: params.kwp,
                   storage: params.storageKwh,
                   customInvestmentEur: params.customInvestmentEur
@@ -486,6 +263,239 @@ export default function Home() {
               });
             }}
           />
+        </section>
+
+        {/* SECTION 2: INTERAKTIVER SOLAR-FINDER (FÜR EINSTEIGER) */}
+        <section className="max-w-4xl mx-auto px-4 sm:px-6">
+          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/90 shadow-lg text-left">
+            <div className="flex items-center justify-between pb-4 mb-6 border-b border-slate-100">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-lg bg-amber-100 text-amber-900 flex items-center justify-center font-bold">
+                  <Search className="w-4 h-4 text-amber-700" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-black uppercase tracking-wider text-slate-950 font-mono">
+                    3-Schritt Solar-Finder
+                  </h3>
+                  <span className="text-[11px] text-slate-500">Für Einsteiger: Passende Systemgröße ermitteln</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                {[1, 2, 3].map((s) => (
+                  <button
+                    key={s}
+                    type="button"
+                    onClick={() => setStep(s as any)}
+                    className={`w-6 h-6 rounded-full text-xs font-mono font-bold flex items-center justify-center transition-all ${
+                      step === s
+                        ? "bg-amber-500 text-slate-950 font-black"
+                        : step > s
+                        ? "bg-slate-900 text-white"
+                        : "bg-slate-100 text-slate-400"
+                    }`}
+                  >
+                    {s}
+                  </button>
+                ))}
+                <span className="text-xs font-mono font-bold text-slate-500 ml-1 font-mono">
+                  {step}/3
+                </span>
+              </div>
+            </div>
+
+            {/* Step 1: Anlagentyp & Montageort */}
+            {step === 1 && (
+              <div className="space-y-4">
+                <label className="block text-xs font-bold text-slate-750 uppercase tracking-wider font-mono">
+                  Schritt 1: Wo soll Ihre Solaranlage montiert werden?
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {[
+                    { id: "pitched", title: "Schrägdach (Haus)", sub: "Klassische Ziegel-/Blechmontage 30–45°", icon: HomeIcon },
+                    { id: "flat", title: "Flachdach / Garage", sub: "Ost-West oder Süd-Aufständerung 10–15°", icon: Layers },
+                    { id: "balkon", title: "Balkon / Fassade", sub: "800W Stecker-Solar (Solarpaket I)", icon: Sun },
+                    { id: "ground", title: "Freifläche / Garten", sub: "Erdbefestigung / Gestell", icon: Zap },
+                  ].map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <button
+                        key={item.id}
+                        type="button"
+                        onClick={() => setMountLocation(item.id as any)}
+                        className={`p-4 rounded-2xl border text-left flex items-start gap-3 transition-all cursor-pointer ${
+                          mountLocation === item.id
+                            ? "bg-amber-50 border-amber-500 ring-2 ring-amber-400 font-bold text-slate-950 shadow-sm"
+                            : "bg-slate-50 hover:bg-slate-100/80 border-slate-200 text-slate-700"
+                        }`}
+                      >
+                        <div className="p-2 rounded-xl bg-white border border-slate-200 text-slate-800 shadow-2xs">
+                          <Icon className="w-5 h-5 text-amber-600" />
+                        </div>
+                        <div>
+                          <div className="text-sm font-black text-slate-950">{item.title}</div>
+                          <div className="text-xs text-slate-500 mt-0.5">{item.sub}</div>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div className="flex justify-end pt-4 border-t border-slate-100">
+                  <button
+                    type="button"
+                    onClick={() => setStep(2)}
+                    className="inline-flex items-center gap-2 bg-slate-950 hover:bg-slate-850 active:scale-95 text-white font-extrabold text-xs px-5 py-3 rounded-xl transition cursor-pointer"
+                  >
+                    <span>Weiter zu Schritt 2</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-amber-400" />
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Step 2: Stromverbrauch */}
+            {step === 2 && (
+              <div className="space-y-4">
+                <label className="block text-xs font-bold text-slate-750 uppercase tracking-wider font-mono">
+                  Schritt 2: Wie hoch ist Ihr jährlicher Haushalts-Stromverbrauch?
+                </label>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  {[
+                    { id: "1800", title: "1.800 kWh", sub: "1–2 Personen" },
+                    { id: "3500", title: "3.500 kWh", sub: "3–4 Personen" },
+                    { id: "5000", title: "5.000 kWh", sub: "Familie + E-Auto" },
+                    { id: "8000", title: "8.000 kWh", sub: "Wärmepumpe / groß" },
+                  ].map((item) => (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => setConsumption(item.id as any)}
+                      className={`p-3.5 rounded-2xl border text-center transition-all cursor-pointer ${
+                        consumption === item.id
+                          ? "bg-amber-50 border-amber-500 ring-2 ring-amber-400 font-bold text-slate-950 shadow-sm"
+                          : "bg-slate-50 hover:bg-slate-100/80 border-slate-200 text-slate-700"
+                      }`}
+                    >
+                      <div className="text-base font-black text-slate-950 font-mono">{item.title}</div>
+                      <div className="text-[11px] text-slate-500 mt-0.5">{item.sub}</div>
+                    </button>
+                  ))}
+                </div>
+
+                <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                  <button
+                    type="button"
+                    onClick={() => setStep(1)}
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-slate-950 transition cursor-pointer"
+                  >
+                    <ArrowLeft className="w-3.5 h-3.5" />
+                    <span>Zurück</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setStep(3)}
+                    className="inline-flex items-center gap-2 bg-slate-950 hover:bg-slate-850 active:scale-95 text-white font-extrabold text-xs px-5 py-3 rounded-xl transition cursor-pointer"
+                  >
+                    <span>Weiter zu Schritt 3</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-amber-400" />
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Step 3: Speicher & Region */}
+            {step === 3 && (
+              <div className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Speicher-Wunsch */}
+                  <div>
+                    <label className="block text-xs font-bold text-slate-750 uppercase tracking-wider mb-2 font-mono">
+                      Stromspeicher-Präferenz
+                    </label>
+                    <div className="space-y-2">
+                      {[
+                        { id: "none", title: "Ohne Speicher", sub: "Reine Netzeinspeisung & Direktverbrauch" },
+                        { id: "medium", title: "Standard (Nachtstrom)", sub: "Deckung des typischen Abends-/Nachtbedarfs" },
+                        { id: "large", title: "Groß (Hohe Autarkie)", sub: "Maximale Unabhängigkeit & Puffer" },
+                      ].map((item) => (
+                        <button
+                          key={item.id}
+                          type="button"
+                          onClick={() => setStorageNeed(item.id as any)}
+                          className={`w-full p-3 rounded-xl border text-left transition-all cursor-pointer ${
+                            storageNeed === item.id
+                              ? "bg-amber-50 border-amber-500 font-bold text-slate-950 shadow-2xs"
+                              : "bg-slate-50 hover:bg-slate-100/80 border-slate-200 text-slate-700"
+                          }`}
+                        >
+                          <div className="text-xs font-black text-slate-900">{item.title}</div>
+                          <div className="text-[11px] text-slate-500">{item.sub}</div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Region */}
+                  <div>
+                    <label className="block text-xs font-bold text-slate-750 uppercase tracking-wider mb-2 font-mono">
+                      Region & Globalstrahlung (DWD / PVGIS)
+                    </label>
+                    <div className="space-y-2">
+                      {[
+                        { id: "nord", title: "Norddeutschland", sub: "~ 1.000 kWh/m² Globalstrahlung" },
+                        { id: "mitte", title: "Mitteldeutschland", sub: "~ 1.080 kWh/m² Globalstrahlung" },
+                        { id: "sued", title: "Süddeutschland", sub: "~ 1.200 kWh/m² Globalstrahlung" },
+                      ].map((item) => (
+                        <button
+                          key={item.id}
+                          type="button"
+                          onClick={() => setRegionZone(item.id as any)}
+                          className={`w-full p-3 rounded-xl border text-left transition-all cursor-pointer ${
+                            regionZone === item.id
+                              ? "bg-amber-50 border-amber-500 font-bold text-slate-950 shadow-2xs"
+                              : "bg-slate-50 hover:bg-slate-100/80 border-slate-200 text-slate-700"
+                          }`}
+                        >
+                          <div className="text-xs font-black text-slate-900">{item.title}</div>
+                          <div className="text-[11px] text-slate-500">{item.sub}</div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                  <button
+                    type="button"
+                    onClick={() => setStep(2)}
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-slate-950 transition cursor-pointer"
+                  >
+                    <ArrowLeft className="w-3.5 h-3.5" />
+                    <span>Zurück</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleFinderComplete}
+                    className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 font-black text-xs px-6 py-3.5 rounded-xl shadow transition cursor-pointer"
+                  >
+                    <Calculator className="w-4 h-4 text-slate-950" />
+                    <span>Konfiguration im Ertragsrechner öffnen</span>
+                    <ArrowRight className="w-4 h-4 text-slate-950" />
+                  </button>
+                </div>
+              </div>
+            )}
+
+            <div className="pt-3.5 border-t border-slate-100 mt-4 text-[11px] text-slate-500 flex items-center gap-1.5 font-mono">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+              <span>Datenbasierte Richtwerte nach DIN EN IEC 60904-3 &middot; Keine Werbeeinwilligung erforderlich</span>
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 3: SYSTEM- & ANLAGENVERGLEICH */}
+        <section id="anlagenvergleich" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-28">
+          <SolarSystemDecoder />
         </section>
 
         {/* SECTION 3: HARDWARE- & KOMPONENTEN-KATALOG */}
@@ -531,21 +541,21 @@ export default function Home() {
         </div>
       </main>
 
-      {/* STICKY MOBILE BOTTOM BAR */}
-      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-4 py-2.5 flex items-center justify-between gap-2 shadow-2xl no-print">
+      {/* STICKY MOBILE BOTTOM BAR - ENGINEERING CLEAN 2.0 SEGMENTED CONTROL */}
+      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-950/95 backdrop-blur-lg border-t border-slate-800 px-3 py-2 flex items-center justify-between gap-2 shadow-2xl no-print">
         <Link
           to="/ertragsrechner"
-          className="flex-1 flex items-center justify-center gap-1.5 bg-slate-950 text-white font-extrabold h-12 rounded-xl text-xs shadow-sm"
+          className="flex-1 flex items-center justify-center gap-2 bg-slate-900 border border-slate-750 text-white font-extrabold h-11 rounded-xl text-xs active:scale-95 transition"
         >
-          <Calculator className="w-4 h-4 text-amber-400" />
-          Ertrag berechnen
+          <Calculator className="w-3.5 h-3.5 text-amber-400" />
+          <span>Ertragsrechner</span>
         </Link>
         <a
           href="#angebotscheck"
-          className="flex-1 flex items-center justify-center gap-1.5 bg-amber-500 text-slate-950 font-black h-12 rounded-xl text-xs shadow-sm"
+          className="flex-1 flex items-center justify-center gap-2 bg-amber-500 text-slate-950 font-black h-11 rounded-xl text-xs active:scale-95 shadow-md transition"
         >
-          <FileCheck className="w-4 h-4 text-slate-950" />
-          Angebots-Check
+          <FileCheck className="w-3.5 h-3.5 text-slate-950" />
+          <span>Angebots-Check</span>
         </a>
       </div>
 

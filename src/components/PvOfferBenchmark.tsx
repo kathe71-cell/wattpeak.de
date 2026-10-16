@@ -100,34 +100,40 @@ export default function PvOfferBenchmark({
   };
 
   return (
-    <div id="angebotscheck" className={`bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden scroll-mt-24 ${className}`}>
+    <div id="angebotscheck" className={`bg-white rounded-3xl border-2 border-slate-900 shadow-xl overflow-hidden scroll-mt-24 ${className}`}>
       
-      {/* Component Header with neutral, serious positioning */}
-      <div className="bg-slate-900 text-white p-6 sm:p-8">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div className="space-y-1">
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-slate-800 text-amber-400 font-mono text-xs font-bold uppercase tracking-wider">
-              <FileCheck className="w-3.5 h-3.5" />
-              <span>Unabhängiges MVP-Werkzeug</span>
+      {/* Component Header with Engineering Clean 2.0 Instrumentation Look */}
+      <div className="bg-slate-950 text-white p-6 sm:p-9 relative overflow-hidden">
+        <div className="absolute inset-0 tech-grid-dark opacity-30"></div>
+        <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div className="relative z-10 flex flex-wrap items-center justify-between gap-6">
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-slate-900 text-amber-400 font-mono text-xs font-bold uppercase tracking-wider border border-slate-800">
+              <FileCheck className="w-4 h-4 text-amber-400" />
+              <span>WATTPEAK KERNWERKZEUG · 3-STUFEN-AUDIT</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
+            <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-white font-sans">
               PV-Angebots-Check
             </h2>
-            <p className="text-slate-300 text-xs sm:text-sm max-w-2xl leading-relaxed mt-1">
-              Geben Sie die Eckdaten Ihres vorliegenden Solarangebots ein. 
-              Wir ermitteln rechnerische Kennwerte, plausibilisieren die Ertragsprognose anhand der Wattpeak Unified Math Engine und prüfen den Leistungsumfang – sachlich und ohne Kontaktdatenabfrage.
+            <p className="text-slate-300 text-xs sm:text-sm max-w-3xl leading-relaxed">
+              Tragen Sie die Kernwerte Ihres Handwerker-Angebots ein. Wir berechnen den reinen kWp-Kostenkennwert, 
+              plausibilisieren die Ertragsprognose gegen die Wattpeak Unified Math Engine (DIN EN IEC 60904-3) 
+              und prüfen typische Kostenfallen im Leistungsumfang – neutral, werbefrei und ohne Registrierung.
             </p>
           </div>
 
-          <button
-            type="button"
-            onClick={handleReset}
-            className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-750 border border-slate-700 px-3 py-2 rounded-xl transition cursor-pointer"
-            title="Auf Standardwerte zurücksetzen"
-          >
-            <RotateCcw className="w-3.5 h-3.5" />
-            <span>Zurücksetzen</span>
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={handleReset}
+              className="inline-flex items-center gap-2 text-xs font-mono font-bold text-slate-300 hover:text-white bg-slate-900 hover:bg-slate-800 border border-slate-700 px-3.5 py-2.5 rounded-xl transition cursor-pointer shadow-sm"
+              title="Auf Standardwerte zurücksetzen"
+            >
+              <RotateCcw className="w-3.5 h-3.5 text-amber-400" />
+              <span>ZURÜCKSETZEN</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -387,44 +393,45 @@ export default function PvOfferBenchmark({
         <div className="lg:col-span-6 space-y-5">
           
           {/* TIER 1: RECHNERISCHE KENNZAHLEN (BERECHNET) */}
-          <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-slate-600 bg-slate-200 px-2 py-0.5 rounded">
-                Kategorie 1: Berechnet
+          <div className="bg-white p-6 rounded-3xl border-2 border-slate-900 shadow-md space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-250 pb-3">
+              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-950 bg-slate-100 border border-slate-300 px-2.5 py-1 rounded-md">
+                Kategorie 1: Rechnerisch abgeleitet
               </span>
-              <span className="text-[11px] font-mono text-slate-500">Mathematisch abgeleitet</span>
+              <span className="text-[11px] font-mono text-slate-500">Exakte Mathematik</span>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <div className="bg-white p-3.5 rounded-xl border border-slate-200">
-                <span className="text-[10px] font-mono text-slate-500 uppercase block">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="bg-slate-950 text-white p-4 rounded-2xl border border-slate-800 shadow-inner">
+                <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider block">
                   Rechn. Gesamtpreis je kWp
                 </span>
-                <div className="text-xl font-black text-slate-950 font-mono mt-0.5">
-                  {evaluation.rawPricePerKwp.toLocaleString('de-DE')} € <span className="text-xs font-semibold">/ kWp</span>
+                <div className="text-2xl sm:text-3xl font-black text-amber-400 font-mono-numbers tracking-tight mt-1">
+                  {evaluation.rawPricePerKwp.toLocaleString('de-DE')} € <span className="text-xs text-slate-400 font-sans font-semibold">/ kWp</span>
                 </div>
-                <span className="text-[10px] text-slate-500 block mt-1">
-                  Enthält Montage, PV {evaluation.safeStorageKwh > 0 ? `+ ${evaluation.safeStorageKwh} kWh Speicher` : ''}
+                <span className="text-[10px] text-slate-400 block mt-1.5 font-mono">
+                  Inkl. Montage, PV {evaluation.safeStorageKwh > 0 ? `+ ${evaluation.safeStorageKwh} kWh Speicher` : ''}
                 </span>
               </div>
 
-              <div className="bg-white p-3.5 rounded-xl border border-slate-200">
-                <span className="text-[10px] font-mono text-slate-500 uppercase block">
-                  Speicher / PV Verhältnis
+              <div className="bg-slate-950 text-white p-4 rounded-2xl border border-slate-800 shadow-inner">
+                <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider block">
+                  Speicher-zu-PV Verhältnis
                 </span>
-                <div className="text-xl font-black text-slate-950 font-mono mt-0.5">
-                  {evaluation.safeStorageKwh > 0 ? `${evaluation.storageToPvRatio} kWh/kWp` : 'Kein Speicher'}
+                <div className="text-2xl sm:text-3xl font-black text-white font-mono-numbers tracking-tight mt-1">
+                  {evaluation.safeStorageKwh > 0 ? `${evaluation.storageToPvRatio}` : '0,00'} <span className="text-xs text-amber-400 font-mono">kWh/kWp</span>
                 </div>
-                <span className="text-[10px] text-slate-500 block mt-1">
+                <span className="text-[10px] text-slate-400 block mt-1.5 font-mono">
                   {evaluation.safeStorageKwh > 0 ? `${evaluation.safeStorageKwh} kWh an ${evaluation.safeKwp} kWp` : 'Reiner Direktverbrauch'}
                 </span>
               </div>
             </div>
 
-            {/* Factual Tax note */}
-            <p className="text-[11px] text-slate-600 leading-relaxed font-mono bg-white p-2.5 rounded-xl border border-slate-200">
+            {/* Factual Tax note with technical typography */}
+            <div className="text-[11px] text-slate-700 leading-relaxed font-mono bg-slate-50 p-3 rounded-xl border border-slate-200">
+              <span className="font-bold text-slate-900 block mb-0.5">Steuerlicher Ausweis:</span>
               {evaluation.taxNote}
-            </p>
+            </div>
           </div>
 
           {/* TIER 2: PLAUSIBILISIERTE ERTRAGS- & AUSLEGUNGSMETRIKEN */}

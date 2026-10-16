@@ -12,6 +12,23 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  /* Technical typography & tabular figures for calculations */
+  .font-mono-numbers {
+    font-variant-numeric: tabular-nums lining-nums;
+    font-feature-settings: "tnum" 1, "lnum" 1;
+  }
+}
+
+/* Subtle Technical Grid & Hairline Utilities */
+.tech-grid-pattern {
+  background-image: radial-gradient(rgba(15, 23, 42, 0.08) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+.tech-grid-dark {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 0);
+  background-size: 20px 20px;
 }
 
 @media print {

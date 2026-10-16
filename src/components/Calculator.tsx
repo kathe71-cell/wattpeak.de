@@ -574,53 +574,56 @@ export default function SolarCalculator({ isEmbed = false }: CalculatorProps) {
               </div>
             </div>
 
-            {/* 4 Core Metric KPI Blocks */}
-            <div className="grid grid-cols-2 gap-3">
-              <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200/80">
-                <span className="text-[11px] font-mono font-bold text-slate-500 uppercase">Jahresertrag</span>
-                <div className="text-2xl font-black text-slate-950 font-mono mt-0.5">
-                  {result.balance.totalAnnualYieldKwh.toLocaleString('de-DE')} <span className="text-sm font-semibold">kWh/a</span>
+            {/* 4 Core Metric KPI Blocks - Engineering Clean 2.0 */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="bg-slate-950 text-white p-5 rounded-2xl border border-slate-800 shadow-md">
+                <span className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-wider block">
+                  Jahresertrag (Erzeugung)
+                </span>
+                <div className="text-3xl font-black text-amber-400 font-mono-numbers tracking-tight mt-1">
+                  {result.balance.totalAnnualYieldKwh.toLocaleString('de-DE')} <span className="text-sm font-sans font-semibold text-slate-400">kWh/a</span>
                 </div>
-                <span className="text-[10px] text-slate-500 block mt-1">
-                  CO₂-Vermeidung: {result.economy.co2SavedKgPerYear} kg/a
+                <span className="text-[10px] text-slate-400 block mt-2 font-mono">
+                  Spezifisch: {result.physics.specificYieldKwhPerKwp} kWh/kWp · CO₂: {result.economy.co2SavedKgPerYear} kg/a
                 </span>
               </div>
 
-              <div className="bg-emerald-50/60 p-4 rounded-2xl border border-emerald-200/80">
-                <span className="text-[11px] font-mono font-bold text-emerald-800 uppercase">Autarkiegrad</span>
-                <div className="text-2xl font-black text-emerald-950 font-mono mt-0.5">
-                  {result.balance.autarkyRatePercent} %
+              <div className="bg-slate-950 text-white p-5 rounded-2xl border border-slate-800 shadow-md">
+                <span className="text-[11px] font-mono font-bold text-emerald-400 uppercase tracking-wider block">
+                  Autarkiegrad (Netzunabhängigkeit)
+                </span>
+                <div className="text-3xl font-black text-emerald-400 font-mono-numbers tracking-tight mt-1">
+                  {result.balance.autarkyRatePercent} <span className="text-sm font-sans font-semibold text-slate-400">%</span>
                 </div>
-                <span className="text-[10px] text-emerald-700 block mt-1">
-                  Eigenversorgungs-Anteil
+                <span className="text-[10px] text-slate-400 block mt-2 font-mono">
+                  Eigenversorgungs-Anteil am Gesamtverbrauch
                 </span>
               </div>
 
-              <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200/80">
+              <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
                 <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-mono font-bold text-slate-500 uppercase">Eigenverbrauchsquote</span>
-                  <span className="text-[10px] font-mono text-slate-400">Nutzbar</span>
+                  <span className="text-[11px] font-mono font-bold text-slate-600 uppercase tracking-wider">Eigenverbrauchsquote</span>
+                  <span className="text-[10px] font-mono text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded">Nutzbar</span>
                 </div>
-                <div className="text-2xl font-black text-slate-950 font-mono mt-0.5">
-                  {result.balance.usableSelfConsumptionRatePercent} %
+                <div className="text-3xl font-black text-slate-950 font-mono-numbers tracking-tight mt-1">
+                  {result.balance.usableSelfConsumptionRatePercent} <span className="text-sm font-sans font-semibold text-slate-500">%</span>
                 </div>
-                <span className="text-[10px] text-slate-500 block mt-1">
-                  {result.balance.totalSelfUsedKwh.toLocaleString('de-DE')} kWh vor Ort genutzt
-                  {result.balance.storageLossKwh > 0 && ` · PV-Nutzung inkl. Verluste: ${result.balance.generationUtilizationRatePercent} %`}
+                <span className="text-[10px] text-slate-500 block mt-2 font-mono">
+                  {result.balance.totalSelfUsedKwh.toLocaleString('de-DE')} kWh direkt oder per Speicher vor Ort genutzt
                 </span>
               </div>
 
-              <div className="bg-amber-50/60 p-4 rounded-2xl border border-amber-200/80">
-                <span className="text-[11px] font-mono font-bold text-amber-900 uppercase">
-                  {systemType === 'retrofit_storage' ? 'Speicher-Mehrwert' : 'Wirtschaftl. Vorteil'}
+              <div className="bg-amber-50 p-5 rounded-2xl border border-amber-300 shadow-xs">
+                <span className="text-[11px] font-mono font-bold text-amber-950 uppercase tracking-wider block">
+                  {systemType === 'retrofit_storage' ? 'Speicher-Mehrwert' : 'Wirtschaftlicher Vorteil'}
                 </span>
-                <div className="text-2xl font-black text-amber-950 font-mono mt-0.5">
-                  {result.economy.annualNetBenefitEur.toLocaleString('de-DE')} <span className="text-sm font-semibold">€/a</span>
+                <div className="text-3xl font-black text-amber-950 font-mono-numbers tracking-tight mt-1">
+                  {result.economy.annualNetBenefitEur.toLocaleString('de-DE')} <span className="text-sm font-sans font-semibold text-amber-800">€/a</span>
                 </div>
-                <span className="text-[10px] text-amber-800 block mt-1">
+                <span className="text-[10px] text-amber-900 block mt-2 font-mono">
                   {systemType === 'retrofit_storage' 
                     ? 'Zusatzersparnis ggü. PV ohne Speicher' 
-                    : 'Ersparnis + Erlös abzgl. Kosten'}
+                    : 'Ersparnis + EEG-Vergütung abzgl. Kosten'}
                 </span>
               </div>
             </div>
