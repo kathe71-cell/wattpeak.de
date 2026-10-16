@@ -14,20 +14,32 @@ export function BreadcrumbSchema({ items }: { items: { name: string; url: string
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />;
 }
 
-export function ProductSchema({ name, description, image, price, url }: { name: string, description: string, image: string, price: string, url: string }) {
+export function CollectionPageSchema({
+  name,
+  description,
+  url,
+  items
+}: {
+  name: string;
+  description: string;
+  url: string;
+  items: { name: string; position: number }[];
+}) {
   const schema = {
     "@context": "https://schema.org",
-    "@type": "Product",
+    "@type": "CollectionPage",
     "name": name,
     "description": description,
-    "image": image,
-    "offers": {
-      "@type": "Offer",
-      "url": url,
-      "priceCurrency": "EUR",
-      "price": price,
-      "availability": "https://schema.org/InStock",
-      "itemCondition": "https://schema.org/NewCondition"
+    "url": url,
+    "mainEntity": {
+      "@type": "ItemList",
+      "name": "Geprüfte Solar-Hardware & Speicherkomponenten",
+      "numberOfItems": items.length,
+      "itemListElement": items.map((item) => ({
+        "@type": "ListItem",
+        "position": item.position,
+        "name": item.name
+      }))
     }
   };
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />;
