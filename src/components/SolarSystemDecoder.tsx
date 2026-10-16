@@ -35,7 +35,6 @@ export default function SolarSystemDecoder() {
         '800 W AC-Einspeisegrenze am Wechselrichter (gemäß § 8 Abs. 5a EEG / VDE-AR-N 4105:2026-03)'
       ],
       amazonQuery: 'Balkonkraftwerk 800W Komplettset Hoymiles',
-      amazonAsin: 'B0CJGKQXVL',  // Hoymiles HMS-800W-2T 880Wp Komplettset
       params: {
         systemType: 'balcony',
         kwp: 0.88,

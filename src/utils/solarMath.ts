@@ -217,6 +217,7 @@ export interface SolarCalculationResult {
     usableSelfConsumptionRatePercent: number;
     generationUtilizationRatePercent: number;
     selfConsumptionRatePercent: number;
+    annualGrossBenefitEur: number;
     annualNetBenefitEur: number;
     estimatedPaybackYears: number | null;
   };
@@ -459,12 +460,30 @@ export function calculateSolarYield(params: SolarParams): SolarCalculationResult
   const estimatedInvestmentEur = estimateMarketInvestmentEur(params);
   const opCostRate = params.operatingCostRatePercent ?? (isBalcony ? 0.0 : 0.01);
   const annualOperatingCostEur = Math.round(estimatedInvestmentEur * opCostRate + (params.inverterReserveAnnualEur || 0));
-  const annualNetBenefitEur = Math.max(0, annualGrossBenefitEur - annualOperatingCostEur);
+
+  // 12. Benchmark: Ohne Speicher unter identischen Parametern (vorab berechnen für saubere Trennung bei Nachrüstung)
+  const withoutStorageResult = calculateSolarYieldWithoutStorage(params, totalAnnualYieldKwh, annualDaytimeDemandKwh, annualConsumption, electricityPrice, feedInTariff);
+
+  // Isolierter Mehrwert des Speichers (Storage Delta)
+  const additionalSelfUsedKwh = Math.max(0, totalSelfUsedKwh - withoutStorageResult.totalSelfUsedKwh);
+  // Bei Speichernachrüstung ist der wirtschaftliche Vorteil rein die Speicher-Mehrersparnis abzüglich der Betriebskosten der Nachrüstung
+  const basePvNetBenefitEur = Math.max(0, annualGrossBenefitEur - annualOperatingCostEur);
+  // Mehrersparnis gegenüber Anlage ohne Speicher:
+  // PV mit Speicher Vorteil (Brutto) minus PV ohne Speicher Vorteil (Brutto)
+  const grossStorageDeltaEur = Math.max(0, annualGrossBenefitEur - withoutStorageResult.annualGrossBenefitEur);
+  
+  // Für SystemType 'retrofit_storage' ist der relevante wirtschaftliche Jahresvorteil der Speicher-Mehrertrag (nach Nachrüstungskosten)
+  const isRetrofit = params.systemType === 'retrofit_storage';
+  const annualNetBenefitEur = isRetrofit
+    ? Math.max(0, grossStorageDeltaEur - annualOperatingCostEur)
+    : basePvNetBenefitEur;
 
   let estimatedPaybackYears: number | null = null;
   let paybackStatusText = 'Amortisiert sich nicht innerhalb der 25-jährigen Betrachtungsdauer';
 
-  if (annualNetBenefitEur > 0) {
+  if (storageCapacity === 0 && isRetrofit) {
+    paybackStatusText = 'Kein Speicher konfiguriert (0 kWh)';
+  } else if (annualNetBenefitEur > 0) {
     const rawYears = estimatedInvestmentEur / annualNetBenefitEur;
     if (rawYears <= 25) {
       estimatedPaybackYears = Number(rawYears.toFixed(1));
@@ -487,18 +506,18 @@ export function calculateSolarYield(params: SolarParams): SolarCalculationResult
     co2SavedKgPerYear
   };
 
-  // 12. Benchmark: Ohne Speicher unter identischen Parametern
-  const withoutStorageResult = calculateSolarYieldWithoutStorage(params, totalAnnualYieldKwh, annualDaytimeDemandKwh, annualConsumption, electricityPrice, feedInTariff);
-
   // 13. Isolierter Mehrwert des Speichers (Storage Delta)
-  const additionalSelfUsedKwh = Math.max(0, totalSelfUsedKwh - withoutStorageResult.totalSelfUsedKwh);
-  const additionalAnnualSavingsEur = Math.max(0, annualNetBenefitEur - withoutStorageResult.annualNetBenefitEur);
+  const additionalAnnualSavingsEur = grossStorageDeltaEur;
   
   // Reiner Speicher-Investitionsanteil
   let storageSpecificCostEur = 0;
   if (storageCapacity > 0) {
-    const baseInvestWithoutStorage = estimateMarketInvestmentEur({ ...params, storageKwh: 0 });
-    storageSpecificCostEur = Math.max(0, estimatedInvestmentEur - baseInvestWithoutStorage);
+    if (isRetrofit) {
+      storageSpecificCostEur = estimatedInvestmentEur;
+    } else {
+      const baseInvestWithoutStorage = estimateMarketInvestmentEur({ ...params, storageKwh: 0 });
+      storageSpecificCostEur = Math.max(0, estimatedInvestmentEur - baseInvestWithoutStorage);
+    }
   }
 
   let storagePaybackYears: number | null = null;
@@ -585,6 +604,7 @@ function calculateSolarYieldWithoutStorage(
     usableSelfConsumptionRatePercent: selfConsumptionRatePercent,
     generationUtilizationRatePercent: selfConsumptionRatePercent,
     selfConsumptionRatePercent,
+    annualGrossBenefitEur: grossBenefitEur,
     annualNetBenefitEur,
     estimatedPaybackYears
   };

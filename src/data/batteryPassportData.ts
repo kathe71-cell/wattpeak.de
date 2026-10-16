@@ -45,13 +45,13 @@ export const BATTERY_REGULATION_MILESTONES: BatteryRegulationMilestone[] = [
     status: 'IN_FORCE',
   },
   {
-    effectiveDate: '2026-02-18',
+    effectiveDate: '2027-08-18',
     label: 'Sorgfaltspflichten in der Lieferkette (Due Diligence)',
     category: 'Lieferkette',
-    legalArticle: 'Art. 48–53 VO (EU) 2023/1542',
+    legalArticle: 'Art. 48–53 VO (EU) 2023/1542 i.V.m. VO (EU) 2025/1561',
     scope: 'Wirtschaftsakteure ab 40 Mio. € Nettoumsatz',
-    description: 'Nachweispflicht für ökologische und soziale Sorgfaltspflichten bei der Beschaffung kritischer Rohstoffe (Kobalt, natürlicher Graphit, Lithium, Nickel).',
-    status: 'IN_FORCE',
+    description: 'Nachweispflicht für ökologische und soziale Sorgfaltspflichten bei der Beschaffung kritischer Rohstoffe (Kobalt, natürlicher Graphit, Lithium, Nickel). Frist wurde im Rahmen des EU-Änderungspakets auf den 18.08.2027 verschoben.',
+    status: 'UPCOMING',
   },
   {
     effectiveDate: '2027-02-18',

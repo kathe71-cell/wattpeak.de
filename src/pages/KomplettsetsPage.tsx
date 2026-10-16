@@ -179,19 +179,34 @@ export default function KomplettsetsPage() {
           </div>
 
           {/* E-Auto Hinweis */}
-          <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 text-xs sm:text-sm text-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
-            <div>
-              <strong className="text-slate-900">Praxis-Tipp für E-Auto-Besitzer:</strong> Wer eine PV-Heimanlage für solares Überschussladen nutzen möchte, benötigt eine steuerbare 11-kW-Wallbox mit automatischer Phasenumschaltung.
-            </div>
-            <a
-              href="https://www.test.de/Wallbox-Test-die-besten-Ladestationen-im-Vergleich-5699091-0/"
-              target="_blank"
-              rel="noopener noreferrer nofollow"
-              className="inline-flex items-center gap-1.5 font-bold text-amber-700 hover:text-amber-600 shrink-0 underline"
-            >
-              Wallbox-Test bei Stiftung Warentest
-              <ArrowRight className="w-3.5 h-3.5" />
-            </a>
+          <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 text-xs sm:text-sm text-slate-700 shadow-sm">
+            <strong className="text-slate-900">Praxis-Tipp für E-Auto-Besitzer:</strong> Wer eine PV-Heimanlage für solares Überschussladen nutzen möchte, benötigt eine steuerbare 11-kW-Wallbox mit automatischer Phasenumschaltung für maximale Eigenverbrauchsoptimierung.
+          </div>
+        </section>
+
+        {/* Öffentlich laden & Ladeinfrastruktur */}
+        <section className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-sm space-y-4">
+          <div className="flex items-center gap-2 text-amber-900 font-mono text-xs font-bold uppercase tracking-wider">
+            <Zap className="w-4 h-4 text-amber-600" />
+            Elektromobilität &amp; Ladeinfrastruktur
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight">
+            Öffentlich laden: Schnellladestationen und Ladeparks finden
+          </h2>
+          <div className="text-sm sm:text-base text-slate-700 leading-relaxed space-y-3 max-w-4xl">
+            <p>
+              Wer ein Elektroauto fährt, lädt idealerweise zu Hause, beispielsweise mit einer Wallbox und selbst erzeugtem Solarstrom. Unterwegs ist dagegen eine gut ausgebaute öffentliche Ladeinfrastruktur entscheidend. Besonders auf längeren Strecken spielen Schnellladestationen mit hoher Ladeleistung eine wichtige Rolle.
+            </p>
+            <p>
+              Einen Überblick über öffentliche Ladepunkte, Schnellladeparks und Lademöglichkeiten entlang deutscher Autobahnen bietet{' '}
+              <a
+                href="https://www.ladestandorte.de/"
+                className="font-bold text-amber-700 hover:text-amber-600 underline decoration-amber-400 underline-offset-2 transition-colors"
+              >
+                Ladestandorte.de
+              </a>
+              . Das datenbasierte Informationsportal stellt Standorte, Ladeinfrastrukturbetreiber und Entwicklungen beim Ausbau des Schnellladenetzes in Deutschland vor.
+            </p>
           </div>
         </section>
 

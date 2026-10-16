@@ -12,7 +12,8 @@ import {
   Home as HomeIcon,
   Battery,
   Sparkles,
-  Zap
+  Zap,
+  FileCheck
 } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -20,6 +21,7 @@ import SolarSystemDecoder from '../components/SolarSystemDecoder';
 import SolarComparisonCatalog from '../components/SolarComparisonCatalog';
 import SolarCalculator from '../components/Calculator';
 import BalkonSimulator from '../components/BalkonSimulator';
+import PvOfferBenchmark from '../components/PvOfferBenchmark';
 import PositionZeroBox from '../components/PositionZeroBox';
 import TechComparisonTable from '../components/TechComparisonTable';
 import LegalFaq from '../components/LegalFaq';
@@ -91,6 +93,7 @@ export default function Home() {
 
     navigate('/ertragsrechner', {
       state: {
+        systemType: mountLocation === 'balkon' ? 'balcony' : 'rooftop',
         kwp: kwpVal,
         demand: parseInt(consumption, 10),
         storage: storageVal,
@@ -106,132 +109,107 @@ export default function Home() {
       <Header />
 
       <main className="space-y-16 pb-32 sm:pb-16">
-        {/* HERO SECTION: BRAND CLAIM, 3 PRIMARY ENTRY PATHS & 3-STEP FINDER */}
-        <section className="py-10 md:py-16 bg-gradient-to-b from-white via-slate-50 to-slate-100 border-b border-slate-200">
+        {/* HERO SECTION: FOCUSED BRAND POSITIONING & 2 CORE ENTRY PATHS */}
+        <section className="py-12 md:py-20 bg-gradient-to-b from-white via-slate-50 to-slate-100 border-b border-slate-200">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
             
             {/* Brand Claim Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100/80 border border-amber-300 text-amber-950 text-xs font-mono font-bold uppercase tracking-wider mb-5">
-              <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-              <span>Wattpeak. Solar verstehen. Besser entscheiden.</span>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-amber-400 text-xs font-mono font-bold uppercase tracking-wider mb-6 shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <span>Unabhängige Entscheidungsplattform</span>
             </div>
 
-            {/* Main Headline */}
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-slate-950 tracking-tight leading-tight mb-4">
-              Welche Solaranlage passt zu mir –<br />
-              <span className="text-amber-500">und was bringt sie tatsächlich?</span>
+            {/* Main Headline - Core Value Proposition */}
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-slate-950 tracking-tight leading-tight mb-5">
+              Photovoltaik verstehen, berechnen<br />
+              <span className="text-amber-500">und fundiert entscheiden.</span>
             </h1>
 
-            {/* Factual Subtitle */}
-            <p className="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto mb-10 leading-relaxed font-medium">
-              Ermitteln Sie Ihren individuellen Ertrag, die reale Stromersparnis und Amortisation. 
-              Vergleichen Sie 800W-Balkonkraftwerke, Dachanlagen und Speichertechnik – objektiv, datenbasiert und physikalisch fundiert.
+            {/* Factual, Serious Subtitle */}
+            <p className="text-base sm:text-lg text-slate-700 max-w-3xl mx-auto mb-10 leading-relaxed font-medium">
+              Ermitteln Sie Ihren individuellen Ertrag und die reale Amortisation ohne Datenerpressung. 
+              Prüfen Sie bestehende Handwerker-Angebote objektiv auf Plausibilität und Leistungsumfang.
             </p>
 
-            {/* 3 PRIMARY ENTRY PATHS */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl mx-auto mb-12 text-left">
-              {/* Path 1: Balkonkraftwerk */}
-              <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-md hover:border-amber-400 transition flex flex-col justify-between">
+            {/* DUAL CORE ENTRY: 1. RECHNER (PRIMÄR) & 2. ANGEBOTS-CHECK (SEKUNDÄR) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-14 text-left">
+              
+              {/* Entry 1: Primärer Einstieg - Ertragsrechner */}
+              <div className="bg-white rounded-3xl border-2 border-slate-950 p-6 sm:p-8 shadow-lg hover:shadow-xl transition flex flex-col justify-between relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
                 <div>
-                  <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-900 flex items-center justify-center font-bold mb-4">
-                    <Sun className="w-5 h-5 text-amber-600" />
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="w-12 h-12 rounded-2xl bg-slate-950 text-white flex items-center justify-center font-bold shadow-sm">
+                      <Calculator className="w-6 h-6 text-amber-400" />
+                    </div>
+                    <span className="bg-amber-100 text-amber-950 border border-amber-300 text-[10px] font-mono font-black uppercase px-2.5 py-0.5 rounded-full">
+                      Haupteinstieg
+                    </span>
                   </div>
-                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-amber-700">Einstieg ohne Genehmigung</span>
-                  <h3 className="text-lg font-black text-slate-950 mt-1">Balkonkraftwerk (800W)</h3>
-                  <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                    Für Mieter &amp; Wohnungseigentümer. Bis zu 2.000 Wp Modulleistung gem. EEG (§ 3 Nr. 43 / § 8 Abs. 5a), 800 VA AC-Einspeisung. Schutzkontakt-Anschluss nach DIN VDE V 0126-95:2025-12, 0 % MwSt. gem. § 12 Abs. 3 UStG.
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500">
+                    Für Hausdach &amp; Balkon
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-black text-slate-950 mt-1">
+                    PV-Ertragsrechner
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                    Berechnen Sie Jahresertrag, Eigenverbrauch und Amortisationsdauer nach DWD-Strahlungsdaten und aktuellen EEG-Sätzen. Vollständig ohne Registrierung.
                   </p>
                 </div>
-                <div className="pt-5 border-t border-slate-100 mt-5 space-y-2">
-                  <a
-                    href="#balkonsimulator"
-                    className="w-full inline-flex items-center justify-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs py-2.5 px-3 rounded-xl transition"
-                  >
-                    <span>Balkonsimulator öffnen</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </a>
-                  <Link
-                    to="/balkonkraftwerk"
-                    className="w-full inline-flex items-center justify-center text-slate-600 hover:text-slate-950 font-semibold text-[11px] py-1 transition"
-                  >
-                    800W-Leitfaden &amp; Gesetze
-                  </Link>
-                  <Link
-                    to="/wechselrichter-vergleich"
-                    className="w-full inline-flex items-center justify-center text-slate-500 hover:text-amber-700 font-semibold text-[11px] py-0.5 transition"
-                  >
-                    Mikro vs. String vs. Hybrid →
-                  </Link>
-                </div>
-              </div>
 
-              {/* Path 2: Solaranlage fürs Haus */}
-              <div className="bg-white rounded-2xl border-2 border-amber-300 p-6 shadow-md hover:shadow-lg transition flex flex-col justify-between relative">
-                <span className="absolute -top-3 right-4 bg-slate-900 text-amber-400 text-[10px] font-mono font-black uppercase px-2.5 py-0.5 rounded-full shadow-sm">
-                  Eigenheim-Standard
-                </span>
-                <div>
-                  <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold mb-4">
-                    <HomeIcon className="w-5 h-5 text-amber-400" />
-                  </div>
-                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-500">Hohe Eigenversorgung</span>
-                  <h3 className="text-lg font-black text-slate-950 mt-1">Solaranlage fürs Haus</h3>
-                  <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                    Dachanlagen von 5 bis 15 kWp. Hoher Eigenverbrauch, gesetzliche EEG-Einspeisevergütung und Amortisationsanalyse vor Handwerker-Beauftragung.
-                  </p>
-                </div>
-                <div className="pt-5 border-t border-slate-100 mt-5 space-y-2">
+                <div className="pt-6 border-t border-slate-100 mt-6 space-y-2.5">
                   <Link
                     to="/ertragsrechner"
-                    className="w-full inline-flex items-center justify-center gap-1.5 bg-slate-950 hover:bg-slate-800 text-white font-extrabold text-xs py-2.5 px-3 rounded-xl transition"
+                    className="w-full inline-flex items-center justify-center gap-2 bg-slate-950 hover:bg-slate-850 active:scale-95 text-white font-extrabold text-xs sm:text-sm py-3.5 px-4 rounded-xl shadow transition cursor-pointer"
                   >
-                    <Calculator className="w-3.5 h-3.5 text-amber-400" />
-                    <span>Dachanlage berechnen</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Ertragsrechner starten</span>
+                    <ArrowRight className="w-4 h-4 text-amber-400" />
                   </Link>
-                  <Link
-                    to="/anlagen-vergleich"
-                    className="w-full inline-flex items-center justify-center text-slate-600 hover:text-slate-950 font-semibold text-[11px] py-1 transition"
-                  >
-                    Anlagengrößen vergleichen
-                  </Link>
+                  <div className="flex items-center justify-center gap-4 text-[11px] text-slate-500 font-mono">
+                    <span>✓ 100% ohne Kontaktdaten</span>
+                    <span>✓ Geschlossene Energiebilanz</span>
+                  </div>
                 </div>
               </div>
 
-              {/* Path 3: Speicher nachrüsten */}
-              <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-md hover:border-amber-400 transition flex flex-col justify-between">
+              {/* Entry 2: Sekundärer Einstieg - PV-Angebots-Check */}
+              <div className="bg-white rounded-3xl border border-slate-200 hover:border-amber-400 p-6 sm:p-8 shadow-sm hover:shadow-md transition flex flex-col justify-between relative overflow-hidden group">
                 <div>
-                  <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-900 flex items-center justify-center font-bold mb-4">
-                    <Battery className="w-5 h-5 text-emerald-700" />
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-950 flex items-center justify-center font-bold">
+                      <FileCheck className="w-6 h-6 text-amber-700" />
+                    </div>
+                    <span className="bg-slate-100 text-slate-700 border border-slate-200 text-[10px] font-mono font-bold uppercase px-2.5 py-0.5 rounded-full">
+                      Angebots-Prüfung
+                    </span>
                   </div>
-                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-emerald-700">Autarkie &amp; Nachtstrom</span>
-                  <h3 className="text-lg font-black text-slate-950 mt-1">Speicher nachrüsten</h3>
-                  <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                    Für Bestands- &amp; Neuanlagen. AC- &amp; DC-gekoppelte LiFePO4-Batterien objektiv dimensionieren und Mehrwert realistisch ohne Mythen prüfen.
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-amber-800">
+                    Liegt Ihnen ein Angebot vor?
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-black text-slate-950 mt-1">
+                    PV-Angebots-Check
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                    Prüfen Sie vor Vertragsunterschrift den rechnerischen Preis je kWp, das Speicher-Verhältnis und den Leistungsumfang gegen neutrale Referenzwerte.
                   </p>
                 </div>
-                <div className="pt-5 border-t border-slate-100 mt-5 space-y-2">
-                  <Link
-                    to="/hardware-katalog"
-                    className="w-full inline-flex items-center justify-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-900 font-extrabold text-xs py-2.5 px-3 rounded-xl transition"
+
+                <div className="pt-6 border-t border-slate-100 mt-6 space-y-2.5">
+                  <a
+                    href="#angebotscheck"
+                    className="w-full inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 font-black text-xs sm:text-sm py-3.5 px-4 rounded-xl shadow-xs transition cursor-pointer"
                   >
-                    <ShoppingCart className="w-3.5 h-3.5 text-amber-600" />
-                    <span>Speicher &amp; Hardware *</span>
-                  </Link>
-                  <Link
-                    to="/batteriepass"
-                    className="w-full inline-flex items-center justify-center text-slate-600 hover:text-slate-950 font-semibold text-[11px] py-1 transition"
-                  >
-                    EU-Batteriepass &amp; Haltbarkeit
-                  </Link>
-                  <Link
-                    to="/balkonkraftwerk-speicher"
-                    className="w-full inline-flex items-center justify-center text-slate-500 hover:text-amber-700 font-semibold text-[11px] py-0.5 transition"
-                  >
-                    Balkonspeicher Vergleich 2025 →
-                  </Link>
+                    <FileCheck className="w-4 h-4 text-slate-950" />
+                    <span>Angebot jetzt plausibilisieren</span>
+                    <ArrowRight className="w-4 h-4 text-slate-950" />
+                  </a>
+                  <div className="flex items-center justify-center gap-4 text-[11px] text-slate-500 font-mono">
+                    <span>✓ Keine Verkaufsanrufe</span>
+                    <span>✓ Sachliche Checkliste</span>
+                  </div>
                 </div>
               </div>
+
             </div>
 
             {/* INTERACTIVE 3-STEP SOLAR-FINDER */}
@@ -494,7 +472,23 @@ export default function Home() {
           <SolarSystemDecoder />
         </section>
 
-        {/* SECTION 2: HARDWARE- & KOMPONENTEN-KATALOG */}
+        {/* SECTION 2: PV-ANGEBOTS-CHECK (MVP-WERKZEUG) */}
+        <section id="angebotscheck" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
+          <PvOfferBenchmark 
+            onApplyToCalculator={(params) => {
+              navigate('/ertragsrechner', {
+                state: {
+                  systemType: 'rooftop',
+                  kwp: params.kwp,
+                  storage: params.storageKwh,
+                  customInvestmentEur: params.customInvestmentEur
+                }
+              });
+            }}
+          />
+        </section>
+
+        {/* SECTION 3: HARDWARE- & KOMPONENTEN-KATALOG */}
         <section id="hardware" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
           <SolarComparisonCatalog />
         </section>
@@ -541,18 +535,18 @@ export default function Home() {
       <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-4 py-2.5 flex items-center justify-between gap-2 shadow-2xl no-print">
         <Link
           to="/ertragsrechner"
-          className="flex-1 flex items-center justify-center gap-1.5 bg-amber-500 text-slate-950 font-extrabold h-12 rounded-xl text-xs shadow-sm"
+          className="flex-1 flex items-center justify-center gap-1.5 bg-slate-950 text-white font-extrabold h-12 rounded-xl text-xs shadow-sm"
         >
-          <Calculator className="w-4 h-4 text-slate-950" />
+          <Calculator className="w-4 h-4 text-amber-400" />
           Ertrag berechnen
         </Link>
-        <Link
-          to="/hardware-katalog"
-          className="flex-1 flex items-center justify-center gap-1.5 bg-slate-900 text-white font-bold h-12 rounded-xl text-xs"
+        <a
+          href="#angebotscheck"
+          className="flex-1 flex items-center justify-center gap-1.5 bg-amber-500 text-slate-950 font-black h-12 rounded-xl text-xs shadow-sm"
         >
-          <ShoppingCart className="w-4 h-4 text-amber-400" />
-          Hardware *
-        </Link>
+          <FileCheck className="w-4 h-4 text-slate-950" />
+          Angebots-Check
+        </a>
       </div>
 
       <Footer />

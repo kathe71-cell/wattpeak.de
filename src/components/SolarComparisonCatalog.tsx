@@ -310,6 +310,7 @@ export default function SolarComparisonCatalog() {
               onClick={() => setComparedProductIds([])}
               className="text-slate-400 hover:text-white p-1 rounded-lg cursor-pointer"
               title="Vergleich leeren"
+              aria-label="Vergleich leeren"
             >
               <X className="w-4 h-4" />
             </button>
@@ -329,6 +330,7 @@ export default function SolarComparisonCatalog() {
               <button
                 type="button"
                 onClick={() => setShowComparisonModal(false)}
+                aria-label="Vergleich schließen"
                 className="p-2 rounded-xl hover:bg-slate-100 text-slate-500 hover:text-slate-950 transition cursor-pointer"
               >
                 <X className="w-6 h-6" />
@@ -336,8 +338,8 @@ export default function SolarComparisonCatalog() {
             </div>
 
             {/* Table */}
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs font-mono">
+            <div className="overflow-x-auto -mx-2 sm:mx-0">
+              <table className="w-full min-w-[520px] text-left text-xs font-mono">
                 <thead>
                   <tr className="border-b border-slate-200">
                     <th className="p-3 bg-slate-50 text-slate-500 font-bold uppercase w-1/4">Kriterium</th>

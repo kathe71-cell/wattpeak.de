@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Zap, Menu, X, Search } from 'lucide-react';
+import { Menu, X, Search, FileCheck } from 'lucide-react';
 import SearchModal from './SearchModal';
+import WattpeakLogo from './WattpeakLogo';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -38,66 +39,56 @@ export default function Header() {
         <Link 
           to="/" 
           onClick={handleLogoClick}
-          className="flex items-center space-x-3 group cursor-pointer"
+          className="group cursor-pointer"
+          aria-label="Wattpeak.de Startseite"
         >
-          <div className="w-10 h-10 bg-slate-900 text-white rounded-xl flex items-center justify-center font-bold text-xl shadow-sm group-hover:scale-105 transition-transform">
-            <Zap className="w-6 h-6 text-amber-400 fill-amber-400" />
-          </div>
-          <div>
-            <div className="font-black text-2xl tracking-tight text-slate-950">
-              wattpeak<span className="text-amber-500">.de</span>
-            </div>
-            <span className="text-xs font-semibold text-slate-500 block -mt-1">
-              Solar verstehen. Besser entscheiden.
-            </span>
-          </div>
+          <WattpeakLogo size="md" showClaim={true} />
         </Link>
 
-        {/* Desktop Navigation - Clean, Balanced & Elegant */}
-        <nav className="hidden lg:flex items-center space-x-5 text-sm font-semibold text-slate-600">
-          <Link
-            to="/anlagen-vergleich"
-            className="hover:text-amber-600 transition text-slate-900 font-bold hover:bg-slate-50 px-2 py-1 rounded-lg"
-          >
-            Anlagen vergleichen
-          </Link>
+        {/* Desktop Navigation - Clean, Prioritized & Mobile-First Foundation */}
+        <nav className="hidden lg:flex items-center space-x-1 text-sm font-semibold text-slate-700">
           <Link
             to="/ertragsrechner"
-            className="hover:text-amber-600 transition hover:bg-slate-50 px-2 py-1 rounded-lg"
+            className="hover:text-slate-950 hover:bg-slate-100 px-3 py-2 rounded-xl transition text-slate-900 font-bold"
           >
-            Ertragsrechner
+            PV-Ertragsrechner
+          </Link>
+          <Link
+            to="/#angebotscheck"
+            className="hover:text-slate-950 hover:bg-slate-100 px-3 py-2 rounded-xl transition flex items-center gap-1.5 font-bold text-amber-700 bg-amber-50/70 border border-amber-200/60"
+          >
+            <FileCheck className="w-3.5 h-3.5 text-amber-600" />
+            <span>PV-Angebots-Check</span>
+          </Link>
+          <Link
+            to="/anlagen-vergleich"
+            className="hover:text-slate-950 hover:bg-slate-100 px-3 py-2 rounded-xl transition"
+          >
+            Anlagenvergleich
           </Link>
           <Link
             to="/hardware-katalog"
-            className="hover:text-amber-600 transition hover:bg-slate-50 px-2 py-1 rounded-lg"
+            className="hover:text-slate-950 hover:bg-slate-100 px-3 py-2 rounded-xl transition"
           >
             Hardware &amp; Speicher
           </Link>
-          <Link 
-            to="/balkonkraftwerk" 
-            className="hover:text-amber-600 transition hover:bg-slate-50 px-2 py-1 rounded-lg"
+
+          {/* Wissen Dropdown / Link */}
+          <Link
+            to="/einspeiseverguetung"
+            className="hover:text-slate-950 hover:bg-slate-100 px-3 py-2 rounded-xl transition"
           >
-            800W Balkonsolar
+            EEG-Vergütung
           </Link>
-          <Link 
-            to="/batteriepass" 
-            className="hover:text-amber-600 transition hover:bg-slate-50 px-2 py-1 rounded-lg"
-          >
-            EU-Batteriepass
-          </Link>
-          <Link 
-            to="/technologie" 
-            className="hover:text-amber-600 transition hover:bg-slate-50 px-2 py-1 rounded-lg"
-          >
-            Zelltechnik
-          </Link>
+
           <button
             onClick={() => setSearchOpen(true)}
-            className="flex items-center gap-1.5 text-xs text-slate-600 hover:text-amber-600 bg-slate-100 hover:bg-slate-200 border border-slate-200 px-2.5 py-1.5 rounded-lg transition-colors font-semibold"
+            className="flex items-center gap-1.5 text-xs text-slate-600 hover:text-slate-950 bg-slate-100 hover:bg-slate-200 border border-slate-200 ml-2 px-3 py-2 rounded-xl transition-colors font-semibold cursor-pointer"
             title="Suche öffnen (⌘K)"
+            aria-label="Suche öffnen"
           >
-            <Search className="w-4 h-4 text-amber-500" />
-            <span className="font-mono bg-white border border-slate-300 text-slate-500 px-1 py-0.2 rounded text-[10px]">⌘K</span>
+            <Search className="w-3.5 h-3.5 text-slate-600" />
+            <span className="font-mono bg-white border border-slate-300 text-slate-500 px-1.5 py-0.5 rounded text-[10px]">⌘K</span>
           </button>
         </nav>
 
@@ -105,15 +96,15 @@ export default function Header() {
         <div className="flex items-center gap-2 lg:hidden">
           <button
             onClick={() => setSearchOpen(true)}
-            className="p-2 text-slate-700 hover:text-amber-600 rounded-lg hover:bg-slate-100"
+            className="p-2 text-slate-700 hover:text-slate-950 rounded-xl hover:bg-slate-100 cursor-pointer"
             aria-label="Suche öffnen"
           >
-            <Search className="w-5 h-5 text-amber-500" />
+            <Search className="w-5 h-5 text-slate-700" />
           </button>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-lg text-slate-700 hover:text-slate-950 hover:bg-slate-100"
-            aria-label="Menü"
+            className="p-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 cursor-pointer"
+            aria-label={mobileMenuOpen ? 'Menü schließen' : 'Menü öffnen'}
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -122,41 +113,70 @@ export default function Header() {
 
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-2 shadow-xl">
+        <div className="lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-2 shadow-xl animate-in fade-in slide-in-from-top-2 duration-150">
           <button
             onClick={() => { setMobileMenuOpen(false); setSearchOpen(true); }}
-            className="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-slate-100 text-slate-800 font-semibold hover:bg-slate-200 text-sm"
+            className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-slate-100 text-slate-800 font-semibold hover:bg-slate-200 text-sm cursor-pointer"
           >
-            <span className="flex items-center gap-2"><Search className="w-4 h-4 text-amber-500" /> PV-Rechner &amp; Hardware suchen</span>
+            <span className="flex items-center gap-2"><Search className="w-4 h-4 text-slate-600" /> Suche &amp; Themen</span>
             <span className="text-xs bg-white border border-slate-300 text-slate-500 px-1.5 py-0.5 rounded font-mono">⌘K</span>
           </button>
-          <Link
-            to="/anlagen-vergleich"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-lg font-bold text-amber-700 hover:bg-slate-50"
-          >
-            Anlagen vergleichen
-          </Link>
+
           <Link
             to="/ertragsrechner"
             onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-lg font-semibold text-slate-800 hover:bg-slate-50"
+            className="block px-3.5 py-2.5 rounded-xl font-bold text-slate-900 hover:bg-slate-50"
           >
-            WattPeak Ertragsrechner
+            PV-Ertragsrechner
+          </Link>
+          <Link
+            to="/#angebotscheck"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block px-3.5 py-2.5 rounded-xl font-bold text-amber-900 bg-amber-50/80 border border-amber-200/70"
+          >
+            PV-Angebots-Check (MVP)
+          </Link>
+          <Link
+            to="/anlagen-vergleich"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block px-3.5 py-2 rounded-xl font-semibold text-slate-700 hover:bg-slate-50"
+          >
+            Anlagenvergleich
           </Link>
           <Link
             to="/hardware-katalog"
             onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-lg font-semibold text-slate-800 hover:bg-slate-50"
+            className="block px-3.5 py-2 rounded-xl font-semibold text-slate-700 hover:bg-slate-50"
           >
             Hardware- &amp; Speicherkatalog
           </Link>
           <Link
             to="/balkonkraftwerk"
             onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-lg font-semibold text-slate-800 hover:bg-slate-50"
+            className="block px-3.5 py-2 rounded-xl font-semibold text-slate-700 hover:bg-slate-50"
           >
             800W Balkonsolar
+          </Link>
+          <Link
+            to="/einspeiseverguetung"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block px-3.5 py-2 rounded-xl font-semibold text-slate-700 hover:bg-slate-50"
+          >
+            EEG-Einspeisevergütung
+          </Link>
+          <Link
+            to="/batteriepass"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block px-3.5 py-2 rounded-xl font-semibold text-slate-700 hover:bg-slate-50"
+          >
+            EU-Batteriepass &amp; Haltbarkeit
+          </Link>
+          <Link
+            to="/technologie"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block px-3.5 py-2 rounded-xl font-semibold text-slate-700 hover:bg-slate-50"
+          >
+            Zelltechnik (TOPCon / HJT / IBC)
           </Link>
           <Link
             to="/batteriepass"

@@ -73,6 +73,7 @@ export default function SavedProjectsDrawer({
           <button
             type="button"
             onClick={onClose}
+            aria-label="Schließen"
             className="text-slate-400 hover:text-white p-1.5 rounded-xl hover:bg-slate-800 transition cursor-pointer"
           >
             <X className="w-5 h-5" />
@@ -140,6 +141,7 @@ export default function SavedProjectsDrawer({
                       onClick={() => handleDelete(p.id)}
                       className="text-slate-400 hover:text-red-600 p-1 transition cursor-pointer"
                       title="Projekt löschen"
+                      aria-label="Projekt löschen"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
@@ -177,6 +179,7 @@ export default function SavedProjectsDrawer({
                       onClick={() => handleCopyLink(p)}
                       className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs p-2 rounded-xl transition flex items-center gap-1 cursor-pointer shrink-0"
                       title="Link kopieren"
+                      aria-label="Link kopieren"
                     >
                       {copiedId === p.id ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                     </button>

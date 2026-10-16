@@ -71,8 +71,8 @@ export default function TechComparisonTable() {
       </div>
 
       {/* Responsive Table / Cards */}
-      <div className="overflow-x-auto">
-        <table className="w-full text-left text-xs font-mono">
+      <div className="overflow-x-auto -mx-4 sm:mx-0">
+        <table className="w-full min-w-[640px] text-left text-xs font-mono">
           <thead>
             <tr className="bg-slate-900 text-white uppercase text-[11px] tracking-wider">
               <th className="p-4 rounded-tl-2xl">Zell-Architektur</th>

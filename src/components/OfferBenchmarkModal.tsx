@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X, TrendingUp } from 'lucide-react';
+import { evaluatePvOffer } from '../utils/offerEvaluation';
 
 interface OfferBenchmarkModalProps {
   isOpen: boolean;
@@ -23,26 +24,14 @@ export default function OfferBenchmarkModal({
 
   if (!isOpen) return null;
 
-  const pricePerKwp = currentKwp > 0 ? Math.round(offerTotalEur / currentKwp) : 0;
-  
-  // Benchmark classification (Marktübersicht Deutschland 2025/2026, 0% MwSt.)
-  let categoryLabel = 'Marktüblich';
-  let categoryColor = 'text-amber-700 bg-amber-50 border-amber-300';
-  let categoryDesc = 'Der Angebotspreis liegt im soliden Marktdurchschnitt deutscher Fachbetriebe inklusive Gerüst, Montage und Zählerschrankumbau.';
+  const [taxRatePercent, setTaxRatePercent] = useState<number>(0);
 
-  // Storage adds roughly 450-550 € per kWh to expected cost
-  const storageAllowancePerKwp = (currentStorageKwh * 500) / currentKwp;
-  const effectivePvOnlyCostPerKwp = Math.max(0, pricePerKwp - storageAllowancePerKwp);
-
-  if (effectivePvOnlyCostPerKwp < 1250) {
-    categoryLabel = 'Sehr wirtschaftlich / Günstig';
-    categoryColor = 'text-emerald-800 bg-emerald-50 border-emerald-300';
-    categoryDesc = 'Dieser Preis liegt unter dem Bundesdurchschnitt. Prüfen Sie, ob Gerüst, Anmeldung beim Netzbetreiber und Zählerumbau im Festpreis enthalten sind.';
-  } else if (effectivePvOnlyCostPerKwp > 1650) {
-    categoryLabel = 'Überdurchschnittlich teuer';
-    categoryColor = 'text-red-800 bg-red-50 border-red-300';
-    categoryDesc = 'Dieser Preis ist spürbar höher als der übliche Schnitt. Holen Sie vor Unterschrift mindestens zwei Gegenangebote von regionalen Innungsbetrieben ein.';
-  }
+  const evaluation = evaluatePvOffer({
+    kwp: currentKwp,
+    storageKwh: currentStorageKwh,
+    totalOfferPriceEur: offerTotalEur,
+    taxRatePercent
+  });
 
   const customPaybackYears = currentAnnualBenefitEur > 0 
     ? Number((offerTotalEur / currentAnnualBenefitEur).toFixed(1)) 
@@ -64,7 +53,7 @@ export default function OfferBenchmarkModal({
         <div className="bg-slate-900 text-white p-5 flex items-center justify-between">
           <div>
             <div className="text-xs font-mono font-bold text-amber-400 uppercase tracking-widest">
-              Angebots-Checker
+              PV-Angebots-Check
             </div>
             <h3 className="font-black text-lg text-white">
               Handwerker-Angebot einordnen
@@ -73,7 +62,8 @@ export default function OfferBenchmarkModal({
           <button 
             type="button" 
             onClick={onClose}
-            className="text-slate-400 hover:text-white p-1.5 rounded-xl hover:bg-slate-800 transition"
+            aria-label="Schließen"
+            className="text-slate-400 hover:text-white p-1.5 rounded-xl hover:bg-slate-800 transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -82,19 +72,45 @@ export default function OfferBenchmarkModal({
         {/* Body */}
         <div className="p-6 space-y-5 text-slate-900 text-xs sm:text-sm">
           <p className="text-slate-600 leading-relaxed">
-            Geben Sie den schlüsselfertigen Endpreis Ihres Angebots ein. Wir vergleichen den Preis pro kWp mit dem 
-            aktuellen Bundesdurchschnitt und berechnen Ihre reale Amortisationsdauer.
+            Geben Sie den tatsächlichen Endpreis Ihres vorliegenden Angebots ein, um die rechnerischen Kennzahlen und die Amortisation mit Ihren Rechnerwerten zu vergleichen.
           </p>
 
           <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
-            <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
-              Angebotspreis schlüsselfertig (netto / 0 % MwSt.)
-            </label>
+            <div className="flex justify-between items-baseline">
+              <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
+                Angebotspreis (Rechnungsbetrag)
+              </label>
+              <div className="flex items-center gap-1 font-mono text-[10px]">
+                <button
+                  type="button"
+                  onClick={() => setTaxRatePercent(0)}
+                  className={`px-2 py-0.5 rounded font-bold transition cursor-pointer ${
+                    taxRatePercent === 0 
+                      ? 'bg-amber-100 text-amber-950 border border-amber-300' 
+                      : 'text-slate-500 hover:text-slate-950'
+                  }`}
+                >
+                  0 % USt
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setTaxRatePercent(19)}
+                  className={`px-2 py-0.5 rounded font-bold transition cursor-pointer ${
+                    taxRatePercent === 19 
+                      ? 'bg-amber-100 text-amber-950 border border-amber-300' 
+                      : 'text-slate-500 hover:text-slate-950'
+                  }`}
+                >
+                  19 % USt
+                </button>
+              </div>
+            </div>
+
             <div className="flex items-center gap-3">
               <input
                 type="number"
-                min={1000}
-                max={60000}
+                min={0}
+                max={120000}
                 step={250}
                 value={offerTotalEur}
                 onChange={(e) => setOfferTotalEur(Number(e.target.value))}
@@ -104,24 +120,48 @@ export default function OfferBenchmarkModal({
             </div>
             <div className="flex justify-between text-xs text-slate-500 font-mono">
               <span>Für {currentKwp} kWp PV {currentStorageKwh > 0 ? `+ ${currentStorageKwh} kWh Speicher` : ''}</span>
-              <span className="font-bold text-slate-900">ca. {pricePerKwp} € / kWp brutto</span>
+              <span className="font-bold text-slate-900">{evaluation.rawPricePerKwp.toLocaleString('de-DE')} € / kWp brutto</span>
             </div>
           </div>
 
-          {/* Classification Box */}
-          <div className={`p-4 rounded-2xl border ${categoryColor} space-y-1.5`}>
-            <div className="flex items-center gap-2 font-black text-sm">
-              <TrendingUp className="w-4 h-4" />
-              <span>Bewertung: {categoryLabel}</span>
+          {/* 3-Tier Classification Preview */}
+          <div className="space-y-2 text-xs">
+            <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+              <div className="font-bold text-slate-900 font-mono text-[11px] uppercase text-slate-600">
+                1. Berechnete Kennwerte:
+              </div>
+              <div className="flex justify-between text-slate-700">
+                <span>Rechn. Gesamtpreis je kWp:</span>
+                <strong className="font-mono text-slate-950">{evaluation.rawPricePerKwp.toLocaleString('de-DE')} €/kWp</strong>
+              </div>
+              {currentStorageKwh > 0 && (
+                <div className="flex justify-between text-slate-700">
+                  <span>Speicher-zu-PV Verhältnis:</span>
+                  <strong className="font-mono text-slate-950">{evaluation.storageToPvRatio} kWh/kWp</strong>
+                </div>
+              )}
+              <div className="text-[10px] text-slate-500 pt-1 border-t border-slate-200 font-mono">
+                {evaluation.taxNote}
+              </div>
             </div>
-            <p className="text-xs leading-relaxed opacity-90">
-              {categoryDesc}
-            </p>
+
+            <div className="p-3 bg-emerald-50/70 rounded-xl border border-emerald-200 space-y-1 text-slate-800">
+              <div className="font-bold text-emerald-950 font-mono text-[11px] uppercase">
+                2. Plausibilisierter Ertragskorridor:
+              </div>
+              <p className="text-[11px] text-emerald-900">
+                Die Unified Math Engine errechnet für diese Generatorleistung eine typische Referenzerzeugung von ca. <strong>{evaluation.engineCalculatedAnnualYieldKwh.toLocaleString('de-DE')} kWh/Jahr</strong> ({evaluation.engineSpecificYieldKwhPerKwp} kWh/kWp).
+              </p>
+            </div>
+
+            <div className="p-3 bg-slate-100 rounded-xl border border-slate-200 text-[10px] text-slate-500 leading-relaxed">
+              <strong>3. Nicht bewertbar:</strong> Ob dieser Gesamtpreis für Ihre Region marktüblich ist, hängt von individuellen Gerüstkosten, Dachgegebenheiten und Zählerschrankarbeiten ab, die nur vor Ort seriös beurteilt werden können.
+            </div>
           </div>
 
           {/* Payback with Custom Price */}
           <div className="flex items-center justify-between p-3.5 bg-slate-100 rounded-xl font-mono text-xs">
-            <span className="text-slate-600">Amortisation mit Ihrem Angebot:</span>
+            <span className="text-slate-600">Amortisation mit diesem Preis:</span>
             <span className="font-black text-slate-950 text-sm">
               {customPaybackYears ? `ca. ${customPaybackYears} Jahre` : 'Über 25 Jahre'}
             </span>
@@ -132,14 +172,14 @@ export default function OfferBenchmarkModal({
             <button
               type="button"
               onClick={handleSave}
-              className="flex-1 bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 font-black text-xs sm:text-sm py-3 px-4 rounded-xl shadow-sm transition"
+              className="flex-1 bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 font-black text-xs sm:text-sm py-3 px-4 rounded-xl shadow-sm transition cursor-pointer"
             >
               {applied ? 'Übernommen!' : 'Diesen Preis im Rechner anwenden'}
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-bold text-xs sm:text-sm py-3 px-4 rounded-xl transition"
+              className="bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-bold text-xs sm:text-sm py-3 px-4 rounded-xl transition cursor-pointer"
             >
               Schließen
             </button>

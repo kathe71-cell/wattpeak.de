@@ -101,6 +101,13 @@ describe('Regulatory & Data Trust Verification (Audit Stand: Oktober 2026)', () 
       expect(passportMilestone?.status).toBe('UPCOMING');
       expect(BATTERY_PASSPORT_MANDATORY_FIELDS).toHaveLength(6);
     });
+
+    it('sollte die Lieferketten-Sorgfaltspflichten (Due Diligence) mit dem verschobenen Stichtag 18.08.2027 ausweisen', () => {
+      const dueDiligenceMilestone = BATTERY_REGULATION_MILESTONES.find(m => m.effectiveDate === '2027-08-18');
+      expect(dueDiligenceMilestone).toBeDefined();
+      expect(dueDiligenceMilestone?.status).toBe('UPCOMING');
+      expect(dueDiligenceMilestone?.legalArticle).toContain('2025/1561');
+    });
   });
 
   describe('5. Calculator Assumptions Transparency', () => {

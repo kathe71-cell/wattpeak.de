@@ -121,6 +121,8 @@ export default function SolarCalculator({ isEmbed = false }: CalculatorProps) {
 
   const [feedInTariff, setFeedInTariff] = useState<number>(() => {
     if (typeof initialFromUrl?.params.feedInTariff === 'number') return initialFromUrl.params.feedInTariff;
+    const initialSys = initialFromUrl?.params.systemType || navState?.systemType || 'rooftop';
+    if (initialSys === 'balcony') return 0.00;
     return getDefaultFeedInTariff(7.5, 'rooftop', 'eeg_partial'); // 7,70 ct / kWh (BNetzA Stand August–Dezember 2026)
   });
 
@@ -261,6 +263,7 @@ export default function SolarCalculator({ isEmbed = false }: CalculatorProps) {
                     if (storageKwh > 3.0) setStorageKwh(1.6);
                     setMountingType('facade_balcony');
                     setTilt(85);
+                    setFeedInTariff(0.00);
                   }}
                   className={`py-2 px-2 text-xs font-extrabold rounded-xl transition cursor-pointer ${
                     systemType === 'balcony' 
@@ -278,6 +281,7 @@ export default function SolarCalculator({ isEmbed = false }: CalculatorProps) {
                     if (storageKwh < 4.0) setStorageKwh(7.5);
                     setMountingType('pitched');
                     setTilt(35);
+                    if (feedInTariff === 0.00) setFeedInTariff(getDefaultFeedInTariff(9.6, 'rooftop', 'eeg_partial'));
                   }}
                   className={`py-2 px-2 text-xs font-extrabold rounded-xl transition cursor-pointer ${
                     systemType === 'rooftop' 
@@ -293,6 +297,7 @@ export default function SolarCalculator({ isEmbed = false }: CalculatorProps) {
                     setSystemType('retrofit_storage');
                     if (kwp < 3.0) setKwp(8.0);
                     if (storageKwh === 0) setStorageKwh(7.5);
+                    if (feedInTariff === 0.00) setFeedInTariff(getDefaultFeedInTariff(8.0, 'rooftop', 'eeg_partial'));
                   }}
                   className={`py-2 px-2 text-xs font-extrabold rounded-xl transition cursor-pointer ${
                     systemType === 'retrofit_storage' 
@@ -606,12 +611,16 @@ export default function SolarCalculator({ isEmbed = false }: CalculatorProps) {
               </div>
 
               <div className="bg-amber-50/60 p-4 rounded-2xl border border-amber-200/80">
-                <span className="text-[11px] font-mono font-bold text-amber-900 uppercase">Wirtschaftl. Vorteil</span>
+                <span className="text-[11px] font-mono font-bold text-amber-900 uppercase">
+                  {systemType === 'retrofit_storage' ? 'Speicher-Mehrwert' : 'Wirtschaftl. Vorteil'}
+                </span>
                 <div className="text-2xl font-black text-amber-950 font-mono mt-0.5">
                   {result.economy.annualNetBenefitEur.toLocaleString('de-DE')} <span className="text-sm font-semibold">€/a</span>
                 </div>
                 <span className="text-[10px] text-amber-800 block mt-1">
-                  Ersparnis + Erlös abzgl. Kosten
+                  {systemType === 'retrofit_storage' 
+                    ? 'Zusatzersparnis ggü. PV ohne Speicher' 
+                    : 'Ersparnis + Erlös abzgl. Kosten'}
                 </span>
               </div>
             </div>
@@ -672,7 +681,7 @@ export default function SolarCalculator({ isEmbed = false }: CalculatorProps) {
                   <span className="text-slate-600">Netzeinspeisung:</span>
                   <strong className="text-slate-900">
                     {result.balance.feedInKwh.toLocaleString('de-DE')} kWh 
-                    {systemType === 'balcony' && ' (unentgeltlich)'}
+                    {feedInTariff === 0 ? ' (unentgeltlich)' : ` (${(feedInTariff * 100).toFixed(2).replace('.', ',')} ct/kWh)`}
                   </strong>
                 </div>
                 <div className="flex justify-between pt-1 border-t border-slate-200 text-slate-800">
@@ -710,7 +719,7 @@ export default function SolarCalculator({ isEmbed = false }: CalculatorProps) {
                   className="w-full bg-slate-800 hover:bg-slate-750 border border-slate-700 text-amber-300 font-bold text-xs py-2.5 px-3 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   <TrendingUp className="w-3.5 h-3.5" />
-                  <span>Eigenes Handwerker-Angebot vergleichen</span>
+                  <span>Eigenes Handwerker-Angebot im PV-Angebots-Check prüfen</span>
                 </button>
               )}
             </div>
@@ -740,8 +749,15 @@ export default function SolarCalculator({ isEmbed = false }: CalculatorProps) {
               </div>
             )}
 
-            <div className="text-[10px] text-slate-500 font-mono leading-relaxed">
-              * Modellrechnung nach DIN EN IEC 60904-3 und DWD-Globalstrahlung. Alle Ertragswerte sind unverbindliche Näherungswerte. Keine Rechts- oder Steuerberatung.
+            {/* Factual Disclaimer with explicit separation of assumptions vs forecasts */}
+            <div className="bg-slate-50 p-3.5 rounded-2xl border border-slate-200 text-[10px] text-slate-600 font-mono leading-relaxed space-y-1">
+              <div className="font-bold text-slate-800 uppercase text-[9px] tracking-wider">
+                Methoden- &amp; Unsicherheitshinweis:
+              </div>
+              <p>
+                * Modellrechnung nach DIN EN IEC 60904-3 und langjährigen DWD-Globalstrahlungsdaten.
+                Ermittelte Erträge sind meteorologische Näherungswerte. Die tatsächliche Jahreserzeugung unterliegt natürlichen witterungsbedingten Schwankungen und individuellen Verschattungssituationen. Alle Angaben ohne Gewähr.
+              </p>
             </div>
 
           </div>
@@ -753,8 +769,8 @@ export default function SolarCalculator({ isEmbed = false }: CalculatorProps) {
       <div className="hidden print:block space-y-6 text-slate-900 font-sans">
         <div className="border-b-2 border-slate-900 pb-4">
           <h1 className="text-2xl font-black">WattPeak Solar-Ertragsberechnung &amp; Systemauslegung</h1>
-          <div className="text-xs font-mono text-slate-500 mt-1">
-            Projekt: {projectName} &middot; Erstellt am: {new Date().toLocaleDateString('de-DE')} &middot; Modell: WattPeak v2.5 (DIN EN IEC 60904-3 / DWD)
+          <div className="text-xs font-mono text-slate-500 mt-1" suppressHydrationWarning>
+            Projekt: {projectName} &middot; Modell: WattPeak v2.5 (DIN EN IEC 60904-3 / DWD)
           </div>
         </div>
 

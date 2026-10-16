@@ -133,6 +133,47 @@ describe('WattPeak Unified Solar Calculation Engine', () => {
       expect(res.balance.totalAnnualYieldKwh).toBeLessThan(800);
     });
 
+    it('sollte den Audit-Fall Balkonkraftwerk korrekt zwischen unentgeltlich (ca. 175 €) und EEG-vergütet (ca. 189 €) unterscheiden', () => {
+      // Live-Audit Fall: 486 kWh Direktverbrauch, 182 kWh Einspeisung, 0,36 €/kWh Strompreis
+      const baseBalconyParams: SolarParams = {
+        systemType: 'balcony',
+        kwp: 0.88,
+        inverterAcWatts: 800,
+        region: 'mitte',
+        mountingType: 'facade_balcony',
+        tilt: 85,
+        azimuth: 0,
+        cellType: 'topcon',
+        annualConsumption: 1800,
+        storageKwh: 0,
+        electricityPrice: 0.36
+      };
+
+      // Fall A: Unentgeltliche Einspeisung (§ 8 Abs. 5a EEG)
+      const resUncompensated = calculateSolarYield({
+        ...baseBalconyParams,
+        feedInTariff: 0.00
+      });
+
+      // Fall B: Einspeisung mit EEG-Vergütung (7,70 ct/kWh)
+      const resCompensated = calculateSolarYield({
+        ...baseBalconyParams,
+        feedInTariff: 0.077
+      });
+
+      // Beide haben denselben Direktverbrauch
+      expect(resUncompensated.balance.directConsumptionKwh).toBe(resCompensated.balance.directConsumptionKwh);
+      expect(resUncompensated.balance.feedInKwh).toBe(resCompensated.balance.feedInKwh);
+
+      // Unentgeltlich: Vorteil rein aus vermiedenem Netzbezug
+      expect(resUncompensated.economy.annualFeedInRevenueEur).toBe(0);
+      expect(resUncompensated.economy.annualGrossBenefitEur).toBe(resUncompensated.economy.annualSavingsAvoidedGridEur);
+
+      // Vergütet: Vorteil = Ersparnis + Einspeiseerlös (ca. 14 € mehr)
+      expect(resCompensated.economy.annualFeedInRevenueEur).toBeGreaterThan(10);
+      expect(resCompensated.economy.annualGrossBenefitEur).toBeGreaterThan(resUncompensated.economy.annualGrossBenefitEur);
+    });
+
     it('sollte für Dachanlagen die korrekten EEG-Vergütungsstufen anwenden', () => {
       // Bundesnetzagentur Vergütungssätze ab 01.08.2026: 7,70 ct/kWh (<=10 kWp) und 6,66 ct/kWh (10-40 kWp)
       expect(getDefaultFeedInTariff(8.0, 'rooftop', 'eeg_partial')).toBeCloseTo(0.0770, 4);
@@ -217,6 +258,57 @@ describe('WattPeak Unified Solar Calculation Engine', () => {
       expect(resStorage.balance.totalSelfUsedKwh).toBeGreaterThan(resBase.balance.totalSelfUsedKwh);
       expect(resStorage.storageDelta.additionalSelfUsedKwh).toBeGreaterThan(1000);
       expect(resStorage.storageDelta.additionalAnnualSavingsEur).toBeGreaterThan(300);
+    });
+
+    it('sollte den Audit-Fall Speichernachrüstung exakt gegen den Speicher-Mehrwert und nicht gegen das Basissystem amortisieren', () => {
+      // Live-Audit Fall:
+      // PV: 9.6 kWp, 4.200 kWh Verbrauch, 7.5 kWh Speicher, 0.36 €/kWh Strompreis, 0.077 €/kWh Vergütung
+      // Investition Speicher: 650 € Installation + 7.5 * 520 € = 4.550 €
+      const params: SolarParams = {
+        systemType: 'retrofit_storage',
+        kwp: 9.6,
+        region: 'mitte',
+        tilt: 35,
+        azimuth: 0,
+        cellType: 'topcon',
+        annualConsumption: 4200,
+        storageKwh: 7.5,
+        electricityPrice: 0.36,
+        feedInTariff: 0.077
+      };
+
+      const res = calculateSolarYield(params);
+
+      // Investition muss isoliert für den Speicher berechnet werden (~4.550 €)
+      expect(res.economy.estimatedInvestmentEur).toBe(4550);
+
+      // Der wirtschaftliche Jahresvorteil darf NICHT die gesamte PV-Ersparnis (~1.550 €) sein,
+      // sondern muss der isolierte Mehrwert des Speichers sein (~393 €)
+      expect(res.storageDelta.additionalAnnualSavingsEur).toBeGreaterThan(350);
+      expect(res.storageDelta.additionalAnnualSavingsEur).toBeLessThan(450);
+
+      // Amortisation: 4.550 € / 393 € = ca. 11.6 Jahre (nicht mehr fälschlicherweise 2.9 Jahre!)
+      expect(res.economy.estimatedPaybackYears).toBeGreaterThan(10.0);
+      expect(res.economy.estimatedPaybackYears).toBeLessThan(13.0);
+      expect(res.economy.estimatedPaybackYears).toBeCloseTo(11.6, 0);
+    });
+
+    it('sollte bei Speichernachrüstung mit 0 kWh Speicher saubere Werte ohne Fehler liefern', () => {
+      const params: SolarParams = {
+        systemType: 'retrofit_storage',
+        kwp: 9.6,
+        region: 'mitte',
+        tilt: 35,
+        azimuth: 0,
+        cellType: 'topcon',
+        annualConsumption: 4200,
+        storageKwh: 0,
+        electricityPrice: 0.36
+      };
+
+      const res = calculateSolarYield(params);
+      expect(res.economy.estimatedPaybackYears).toBeNull();
+      expect(res.economy.paybackStatusText).toContain('Kein Speicher konfiguriert');
     });
   });
 

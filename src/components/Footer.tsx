@@ -24,17 +24,41 @@ export default function Footer() {
                 }
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="inline-flex items-center gap-3 cursor-pointer"
+              className="inline-flex items-center gap-3 cursor-pointer group"
+              aria-label="Wattpeak.de Startseite"
             >
-              <div className="w-9 h-9 rounded-xl bg-amber-500 flex items-center justify-center text-slate-950 font-black">
-                <Zap className="w-5 h-5 fill-slate-950 stroke-slate-950" />
+              <div 
+                className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0 shadow-sm relative overflow-hidden transition-transform group-hover:scale-105"
+                aria-hidden="true"
+              >
+                <svg 
+                  viewBox="0 0 40 40" 
+                  fill="none" 
+                  className="w-6 h-6 text-amber-500"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line x1="8" y1="14" x2="32" y2="14" stroke="#334155" strokeWidth="1" strokeLinecap="round" opacity="0.7" />
+                  <line x1="8" y1="26" x2="32" y2="26" stroke="#334155" strokeWidth="1" strokeLinecap="round" opacity="0.7" />
+                  <path 
+                    d="M22 6L11 21h8l-3 13 13-17h-8l5-11z" 
+                    fill="#f59e0b" 
+                    stroke="#d97706" 
+                    strokeWidth="0.8" 
+                    strokeLinejoin="round" 
+                  />
+                </svg>
               </div>
-              <span className="text-2xl font-black tracking-tight text-white">
-                wattpeak<span className="text-amber-500">.de</span>
-              </span>
+              <div className="flex flex-col">
+                <span className="text-2xl font-black tracking-tight text-white font-sans leading-none">
+                  wattpeak<span className="text-amber-500">.de</span>
+                </span>
+                <span className="text-[11px] font-semibold text-slate-400 tracking-normal mt-0.5 font-sans">
+                  Photovoltaik unabhängig entscheiden
+                </span>
+              </div>
             </Link>
             <p className="text-slate-300 text-sm leading-relaxed max-w-md">
-              Das unabhängige Referenzportal für Photovoltaik-Dimensionierung, STC-Kennlinien nach DIN EN IEC 60904-3, 800W-Balkonsolar und europäische Speicherstandards.
+              Die unabhängige Entscheidungsplattform für Photovoltaik-Planung, STC-Kennlinien nach DIN EN IEC 60904-3, 800W-Stecker-Solar und objektive Angebotsprüfung.
             </p>
             <div className="flex flex-wrap items-center gap-2 pt-2">
               <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono text-emerald-400">
@@ -56,8 +80,13 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link to="/ertragsrechner" className="hover:text-amber-400 transition-colors">
+                <Link to="/ertragsrechner" className="hover:text-amber-400 transition-colors font-medium">
                   WattPeak Ertragsrechner
+                </Link>
+              </li>
+              <li>
+                <Link to="/#angebotscheck" className="hover:text-amber-400 transition-colors font-medium text-amber-300">
+                  PV-Angebots-Check
                 </Link>
               </li>
               <li>
@@ -157,16 +186,15 @@ export default function Footer() {
             <span>Zero-CDN</span>
           </div>
         </div>
-      </div>
-    
-            <div className="mt-8 p-4 rounded-xl bg-slate-900 border border-slate-800 text-sm text-slate-300">
-              <span className="font-bold text-white block mb-1">Projektübernahme</span>
-              <p className="mb-2">Interesse an der Übernahme von wattpeak.de inklusive Projekt?</p>
-              <a href="/projektuebernahme" className="text-blue-400 hover:text-blue-300 font-medium">
-                Mehr erfahren &rarr;
-              </a>
-            </div>
 
-</footer>
+        <div className="mt-8 p-4 rounded-xl bg-slate-900 border border-slate-800 text-sm text-slate-300">
+          <span className="font-bold text-white block mb-1">Projektübernahme</span>
+          <p className="mb-2">Interesse an der Übernahme von wattpeak.de inklusive Projekt?</p>
+          <a href="/projektuebernahme" className="text-amber-400 hover:text-amber-300 font-medium">
+            Mehr erfahren &rarr;
+          </a>
+        </div>
+      </div>
+    </footer>
   );
 }

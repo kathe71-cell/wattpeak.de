@@ -48,6 +48,16 @@
   ],
   "redirects": [
     {
+      "source": "/de",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/de/(.*)",
+      "destination": "/$1",
+      "permanent": true
+    },
+    {
       "source": "/anlagenvergleich",
       "destination": "/anlagen-vergleich",
       "permanent": true

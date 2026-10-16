@@ -119,8 +119,8 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       plugType: 'Schuko-Anschlusskabel beiliegend'
     },
     amazonSearchQuery: 'Balkonkraftwerk 800W Komplettset Hoymiles HMS-800W Trina',
-    asin: 'B0CJGKQXVL',
-    affiliateUrl: getAmazonDirectUrl('B0CJGKQXVL', 'Balkonkraftwerk 800W Komplettset Hoymiles HMS-800W Trina')
+    asin: undefined,
+    affiliateUrl: getAmazonDirectUrl(undefined, 'Balkonkraftwerk 800W Komplettset Hoymiles HMS-800W Trina')
   },
   {
     id: 'set-1760wp-4modul',
