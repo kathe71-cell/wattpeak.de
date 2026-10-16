@@ -157,8 +157,8 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       plugType: 'Schuko-Anschlusskabel'
     },
     amazonSearchQuery: 'Balkonkraftwerk 800W 4 Module Komplettset 1600W 1800W',
-    asin: 'B0CVYGJ86V',
-    affiliateUrl: getAmazonDirectUrl('B0CVYGJ86V', 'Balkonkraftwerk 800W 4 Module Komplettset 1600W 1800W')
+    asin: undefined,
+    affiliateUrl: getAmazonDirectUrl(undefined, 'Balkonkraftwerk 800W 4 Module Komplettset 1600W 1800W')
   },
   {
     id: 'set-840wp-deye',
@@ -454,8 +454,8 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       plugType: 'MC4-EVO2 Originalstecker'
     },
     amazonSearchQuery: 'Trina Solar Vertex S+ 440Wp 445Wp Bifazial Glas Glas',
-    asin: 'B0G1Z4LV6C',
-    affiliateUrl: getAmazonDirectUrl('B0G1Z4LV6C', 'Trina Solar Vertex S+ 440Wp 445Wp Bifazial Glas Glas')
+    asin: undefined,
+    affiliateUrl: getAmazonDirectUrl(undefined, 'Trina Solar Vertex S+ 440Wp 445Wp Bifazial Glas Glas')
   },
   {
     id: 'jinko-tiger-neo-440',
@@ -524,8 +524,8 @@ export const UNIFIED_PRODUCTS: UnifiedProduct[] = [
       plugType: 'Mechanische Befestigung'
     },
     amazonSearchQuery: 'Balkonkraftwerk Halterung Geländer verstellbar Edelstahl',
-    asin: 'B0CPQ7S9P6',
-    affiliateUrl: getAmazonDirectUrl('B0CPQ7S9P6', 'Balkonkraftwerk Halterung Geländer verstellbar Edelstahl')
+    asin: undefined,
+    affiliateUrl: getAmazonDirectUrl(undefined, 'Balkonkraftwerk Halterung Geländer verstellbar Edelstahl')
   },
   {
     id: 'shelly-pro-3em',

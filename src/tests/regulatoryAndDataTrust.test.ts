@@ -107,10 +107,16 @@ describe('Regulatory & Data Trust Verification (Audit Stand: Oktober 2026)', () 
       });
     });
 
-    it('sollte für Produkte mit direkter ASIN eine gültige 10-stellige Alphanumerik besitzen', () => {
+    it('sollte für Produkte mit direkter ASIN eine gültige 10-stellige Alphanumerik besitzen und bekannte nicht lieferbare ASINs ausschließen', () => {
+      const activeAsinProducts = UNIFIED_PRODUCTS.filter(p => p.asin !== undefined);
+      // Genau 11 Produkte haben eine geprüfte, lieferbare ASIN
+      expect(activeAsinProducts).toHaveLength(11);
+      
+      const knownUnavailableAsins = ['B0CVYGJ86V', 'B0G1Z4LV6C', 'B0CPQ7S9P6', 'B0FYDVSH2T', 'B0CNPMW5XR', 'B0C1WCP6J6'];
       UNIFIED_PRODUCTS.forEach(product => {
         if (product.asin) {
           expect(product.asin).toMatch(/^[A-Z0-9]{10}$/);
+          expect(knownUnavailableAsins).not.toContain(product.asin);
         }
       });
     });
@@ -118,6 +124,8 @@ describe('Regulatory & Data Trust Verification (Audit Stand: Oktober 2026)', () 
     it('sollte für jedes Produkt eine aussagekräftige Amazon-Suchabfrage als Fallback besitzen', () => {
       UNIFIED_PRODUCTS.forEach(product => {
         expect(product.amazonSearchQuery.length).toBeGreaterThan(10);
+        expect(product.amazonSearchQuery.toLowerCase()).not.toBe('solaranlage');
+        expect(product.amazonSearchQuery.toLowerCase()).not.toBe('speicher');
       });
     });
   });
